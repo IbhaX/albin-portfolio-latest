@@ -16,6 +16,13 @@
         html {
             scroll-behavior: smooth;
             font-family: var(--font-inter);
+            scroll-padding-top: 100px; /* Add padding to account for fixed header */
+        }
+        
+        @media (max-width: 768px) {
+            html {
+                scroll-padding-top: 80px; /* Slightly less padding on mobile */
+            }
         }
         
         /* Apply the dark theme background */
@@ -69,6 +76,11 @@
             overflow: hidden;
         }
 
+        /* Hide admin button */
+        .admin-button {
+            display: none !important;
+        }
+
         /* Styling for the list icons */
         .description-list li {
             list-style: none;
@@ -98,12 +110,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Add padding to main content to account for fixed header */
+        main {
+            padding-top: 80px; /* Slightly more than header height */
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100">
-
-
-
     <!-- DATA DEFINITIONS (Hidden Script) -->
     <script>
         const PORTFOLIO_DATA = {
@@ -271,29 +284,39 @@
             }
         });
     </script>
-    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300 bg-transparent py-4">
-        <div class="container mx-auto px-8 md:px-12 flex justify-between items-center space-x-6 overflow-x-auto whitespace-nowrap pb-1">
-            <div class="flex items-center gap-4">
-                <a href="#summary" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Summary</a>
-                <a href="#skills" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Skills</a>
-                <a href="#experience" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Log</a>
-                <a href="#projects" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Projects</a>
-                <a href="#workshops" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Workshops</a>
-                <a href="#education" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Training</a>
-                <a href="#languages" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Languages</a>
+    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800 h-16 flex items-center px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#" class="text-xl font-bold text-white whitespace-nowrap">ALBIN ANTHONY</a>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#summary" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About</a>
+                <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Skills</a>
+                <a href="#experience" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Experience</a>
+                <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects</a>
+                <a href="#contact" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap">
+                    Contact Me
+                </a>
+                
+                <div class="flex items-center space-x-4 ml-2">
+                    <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition" title="GitHub Profile">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    
+                    <a id="resume-btn" href="#" class="text-gray-300 hover:text-cyan-400 transition flex items-center gap-1" title="Download Resume">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span class="text-sm hidden lg:inline">Resume</span>
+                    </a>
+                    
+                    <a href="login.html" class="admin-button text-gray-500 hover:text-cyan-400 text-xs font-mono transition-colors group" title="Admin Access">
+                        <i data-lucide="lock" class="w-3.5 h-3.5 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
             </div>
-            <div class="flex items-center gap-4">
-                <a href="https://www.linkedin.com/in/albin-anthony-b00/" target="_blank" rel="noopener noreferrer">
-                    <i data-lucide="linkedin" class="w-6 h-6 text-gray-300 hover:text-gray-400 transition"></i>
-                </a>
-                <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer">
-                    <i data-lucide="github" class="w-6 h-6 text-gray-300 hover:text-gray-400 transition"></i>
-                </a>
-                <a id="resume-btn" href="#" class="flex items-center gap-2 text-gray-300 hover:text-gray-400 transition">
-                    <i data-lucide="download" class="w-4 h-4"></i>
-                    <span>Download Resume</span>
-                </a>
-            </div>
+            
+            <!-- Mobile menu button -->
+            <button class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
     </nav>
 
@@ -303,7 +326,7 @@
         <div class="container mx-auto px-8 md:px-12 text-center relative">
             <div class="scroll-animate" data-delay="0s">
                 <h1 class="text-6xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
-                    ALBIN ANTHONY
+                    ALBIN ANTH<a href="login.html" class="text-white hover:text-white" style="text-decoration: none; cursor: default;">O</a>NY
                 </h1>
             </div>
             <div class="scroll-animate" data-delay="0.2s">
@@ -347,10 +370,10 @@
         </div>
     </header>
 
-    <main>
+    <main class="pt-16">
         
         <!-- SUMMARY -->
-        <section id="summary" class="container mx-auto p-8 md:p-12 text-left">
+        <section id="summary" class="container mx-auto p-6 md:p-12 text-left scroll-mt-20">
             <div class="scroll-animate">
                 <div class="bg-gray-900 text-gray-100 p-8 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm shadow-inner shadow-cyan-900/50">
                     <h2 class="text-3xl font-bold mb-3 text-cyan-400 flex items-center justify-start">
@@ -363,7 +386,7 @@
         </section>
 
         <!-- SKILLS -->
-        <section id="skills" class="py-16 px-8 md:px-12 bg-gray-950 text-left">
+        <section id="skills" class="py-16 px-8 md:px-12 bg-gray-950 text-left scroll-mt-20">
             <div class="container mx-auto">
                 <div class="scroll-animate">
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
@@ -434,7 +457,7 @@
         </section>
 
         <!-- EDUCATION -->
-        <section id="education" class="bg-gray-950 py-16 px-8 md:px-12 text-gray-100 text-left">
+        <section id="education" class="bg-gray-950 py-16 px-8 md:px-12 text-gray-100 text-left scroll-mt-20">
             <div class="container mx-auto">
                 <div class="scroll-animate">
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
@@ -469,7 +492,7 @@
     </main>
 
     <!-- Contact Form Section -->
-    <section id="contact" class="py-16 px-4 md:px-8 bg-gray-900">
+    <section id="contact" class="py-16 px-4 md:px-8 bg-gray-900 scroll-mt-20">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
                 <span class="border-b-4 border-cyan-500 pb-2">Get In Touch</span>
@@ -607,6 +630,25 @@
         })();
     </script>
     <script>
+        // Check authentication status
+        function checkAuth() {
+            const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+            return !!token;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Check if Ctrl+0 is pressed
+            if (e.ctrlKey && e.key === '0') {
+                e.preventDefault();
+                if (checkAuth()) {
+                    window.location.href = 'update-profile.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+
         // --- Utility Functions ---
 
         // Helper function to remove a loading element
@@ -620,16 +662,32 @@
         // Function to render skills
         const renderSkills = () => {
             const techStackDetail = document.getElementById('tech-stack-detail');
+            if (!techStackDetail) return;
+            
+            // Clear existing content
+            techStackDetail.innerHTML = '';
+            
+            // Get data from localStorage
+            const savedData = localStorage.getItem('profile_data');
+            if (!savedData) return;
+            
+            const profileData = JSON.parse(savedData);
+            if (!profileData.skills?.categories) return;
+            
+            const iconMap = {
+                languages: 'code',
+                frontend: 'layout',
+                backend: 'server',
+                databases: 'database',
+                tools: 'tool',
+                other: 'plus'
+            };
+            
             let delay = 0;
-            Object.entries(PORTFOLIO_DATA.skills.categories).forEach(([key, skills]) => {
-                const iconMap = {
-                    languages: 'layout-list', frontend: 'feather', web_frameworks: 'rocket',
-                    databases: 'database', cloud_devops: 'cloud', ai_ml: 'brain',
-                    workflow_automation: 'git-branch', api_integration: 'plug-zap',
-                    realtime_systems: 'zap', web_scraping: 'spider', auth_security: 'shield-check'
-                };
-                const iconName = iconMap[key] || 'code';
-
+            
+            Object.entries(profileData.skills.categories).forEach(([key, skills]) => {
+                const iconName = iconMap[key.toLowerCase()] || 'code';
+                
                 const cardHtml = `
                     <div class="scroll-animate" data-delay="${delay.toFixed(1)}s">
                         <div class="bg-gray-800/70 p-4 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-l-4 border-cyan-800">
@@ -648,9 +706,13 @@
                         </div>
                     </div>
                 `;
+                
                 techStackDetail.insertAdjacentHTML('beforeend', cardHtml);
                 delay += 0.1;
             });
+            
+            // Re-initialize Lucide icons for the new elements
+            lucide.createIcons();
             removeLoading('skills-loading');
         };
 
@@ -812,18 +874,48 @@
             animateElements.forEach(el => observer.observe(el));
         }
 
+        // Function to load initial data
+        async function loadInitialData() {
+            try {
+                // Try to load from localStorage first
+                const savedData = localStorage.getItem('profile_data');
+                
+                if (!savedData) {
+                    // If no data in localStorage, load from profile.json
+                    const response = await fetch('profile.json');
+                    if (response.ok) {
+                        const jsonData = await response.json();
+                        // Save to localStorage
+                        localStorage.setItem('profile_data', JSON.stringify(jsonData));
+                        return jsonData;
+                    }
+                    throw new Error('Failed to load profile data');
+                }
+                
+                return JSON.parse(savedData);
+            } catch (error) {
+                console.error('Error loading profile data:', error);
+                return null;
+            }
+        }
+
         // --- Main Initialization Function ---
-        const initializePortfolio = () => {
-            // 1. Insert Professional Summary (to maintain bold formatting from data)
-            document.getElementById('summary-text').innerHTML = PORTFOLIO_DATA.summary;
+        const initializePortfolio = async () => {
+            // Load initial data
+            const profileData = await loadInitialData();
             
-            // 2. Render all dynamic content
-            renderSkills();
-            renderExperience();
-            renderProjects();
-            renderWorkshops();
-            renderEducation();
-            renderLanguages();
+            if (profileData) {
+                // Update the page with the loaded data
+                updateProfileFromStorage();
+                
+                // Render all dynamic content
+                renderSkills();
+                renderExperience();
+                renderProjects();
+                renderWorkshops();
+                renderEducation();
+                renderLanguages();
+            }
 
             // 3. Render Lucide Icons for all dynamic content
             // We use a small timeout to ensure Lucide's script has fully run
@@ -846,8 +938,99 @@
             });
         };
 
+        // Function to load and update profile data from localStorage
+        function updateProfileFromStorage() {
+            try {
+                const savedData = localStorage.getItem('profile_data');
+                if (!savedData) return;
+                
+                const profileData = JSON.parse(savedData);
+                
+                // Update name and title if they exist in the DOM
+                if (profileData.name) {
+                    // Update all instances of the name in the page
+                    const nameElements = document.querySelectorAll('.profile-name, #profile-name, .text-xl.font-bold.text-white, .navbar-name');
+                    nameElements.forEach(el => {
+                        el.textContent = profileData.name;
+                    });
+                    
+                    // Also update the page title
+                    document.title = `${profileData.name} | ${profileData.title || 'Portfolio'}`;
+                    
+                    // Update the resume download filename
+                    const resumeLink = document.querySelector('a[download]');
+                    if (resumeLink) {
+                        resumeLink.download = `${profileData.name.replace(/\s+/g, '_')}-Resume.pdf`;
+                    }
+                    
+                    // Update the name in the navigation bar
+                    const navName = document.querySelector('.text-xl.font-bold.text-white');
+                    if (navName) {
+                        navName.textContent = profileData.name;
+                    }
+                }
+                
+                if (profileData.title) {
+                    const titleElement = document.querySelector('.profile-title, #profile-title');
+                    if (titleElement) titleElement.textContent = profileData.title;
+                }
+                
+                if (profileData.summary) {
+                    const summaryElement = document.querySelector('.profile-summary, #summary-text');
+                    if (summaryElement) summaryElement.textContent = profileData.summary;
+                }
+                
+                // Update contact information if it exists
+                if (profileData.contact) {
+                    const { email, phone, linkedin, github, location } = profileData.contact;
+                    
+                    if (email) {
+                        const emailElement = document.querySelector('a[href^="mailto:"]');
+                        if (emailElement) {
+                            emailElement.href = `mailto:${email}`;
+                            const emailText = emailElement.querySelector('span');
+                            if (emailText) emailText.textContent = email;
+                        }
+                    }
+                    
+                    if (phone) {
+                        const phoneElement = document.querySelector('a[href^="tel:"]');
+                        if (phoneElement) {
+                            phoneElement.href = `tel:${phone}`;
+                            const phoneText = phoneElement.querySelector('span');
+                            if (phoneText) phoneText.textContent = phone;
+                        }
+                    }
+                    
+                    if (linkedin) {
+                        const linkedinElement = document.querySelector('a[href*="linkedin.com"]');
+                        if (linkedinElement) {
+                            linkedinElement.href = linkedin.startsWith('http') ? linkedin : `https://${linkedin}`;
+                        }
+                    }
+                    
+                    if (github) {
+                        const githubElement = document.querySelector('a[href*="github.com"]');
+                        if (githubElement) {
+                            githubElement.href = github.startsWith('http') ? github : `https://${github}`;
+                        }
+                    }
+                    
+                    if (location) {
+                        const locationElement = document.querySelector('.location, #location');
+                        if (locationElement) locationElement.textContent = location;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating profile from storage:', error);
+            }
+        }
+
         // Run the initialization function when the document is fully loaded
-        document.addEventListener('DOMContentLoaded', initializePortfolio);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePortfolio();
+            updateProfileFromStorage();
+        });
 
         // Contact form submission handler
         document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
