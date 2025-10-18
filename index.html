@@ -282,22 +282,81 @@
                     document.body.removeChild(link);
                 });
             }
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('hidden');
+                    
+                    // Toggle between menu and close icons
+                    const menuIcon = mobileMenuButton.querySelector('.menu-icon');
+                    const closeIcon = mobileMenuButton.querySelector('.close-icon');
+                    if (isExpanded) {
+                        menuIcon.classList.remove('hidden');
+                        closeIcon.classList.add('hidden');
+                    } else {
+                        menuIcon.classList.add('hidden');
+                        closeIcon.classList.remove('hidden');
+                    }
+                });
+            }
+            
+            // Close mobile menu when clicking on a nav link
+            const navLinks = document.querySelectorAll('#mobile-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenuButton.querySelector('.menu-icon').classList.remove('hidden');
+                    mobileMenuButton.querySelector('.close-icon').classList.add('hidden');
+                });
+            });
         });
     </script>
     <nav id="navbar" class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800 h-16 flex items-center px-4 sm:px-6 lg:px-8">
         <div class="w-full max-w-7xl mx-auto flex items-center justify-between">
             <a href="#" class="text-xl font-bold text-white whitespace-nowrap">ALBIN ANTHONY</a>
             
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="#summary" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About</a>
-                <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Skills</a>
-                <a href="#experience" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Experience</a>
-                <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects</a>
+                <a href="#summary" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">About</a>
+                <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Skills</a>
+                <a href="#experience" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Experience</a>
+                <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Projects</a>
                 <a href="#contact" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap">
                     Contact Me
                 </a>
                 
                 <div class="flex items-center space-x-4 ml-2">
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <!-- Menu icon (shown by default) -->
+                    <i class="menu-icon w-6 h-6" data-lucide="menu"></i>
+                    <!-- Close icon (hidden by default) -->
+                    <i class="close-icon hidden w-6 h-6" data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile menu, hidden by default -->
+            <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800 z-40">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#summary" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="#skills" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                    <a href="#experience" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                    <a href="#projects" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                    <a href="#contact" class="bg-cyan-600 hover:bg-cyan-700 text-white block px-3 py-2 rounded-md text-base font-medium text-center mt-2">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
                     <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition" title="GitHub Profile">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
