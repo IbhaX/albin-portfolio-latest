@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albin Anthony | AI Agent Architect & Senior Python Developer</title>
+    <!-- Load Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for the modern look -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Configure Tailwind to use Inter font and smooth scrolling */
+        :root {
+            --font-inter: 'Inter', sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-inter);
+        }
+        
+        /* Apply the dark theme background */
+        body {
+            background-color: #111827; /* gray-900 */
+        }
+
+        /* Custom styles for the futuristic timeline markers */
+        .timeline-marker {
+            position: absolute;
+            left: 1.5rem; /* left-6 */
+            top: 0;
+            width: 1.5rem; /* w-6 */
+            height: 1.5rem; /* h-6 */
+            background-color: #06b6d4; /* cyan-500 */
+            border-radius: 9999px; /* rounded-full */
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.7); /* Custom neon glow */
+            border: 2px solid #1f2937; /* gray-800 */
+        }
+        
+        /* Custom timeline line */
+        .timeline-line {
+            position: absolute;
+            left: 1.75rem; /* left-7 */
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #374151; /* gray-700 */
+        }
+
+        /* Animation class definitions */
+        .scroll-animate {
+            transition: all 1s ease-out;
+            opacity: 0;
+            transform: translateY(3rem); /* translate-y-12 */
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Styling the header background pattern */
+        .header-bg {
+            background: linear-gradient(180deg, rgba(17, 24, 39, 1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Styling for the list icons */
+        .description-list li {
+            list-style: none;
+            display: flex;
+            align-items: flex-start;
+            padding-left: 0;
+        }
+        .description-list .icon {
+            flex-shrink: 0;
+            margin-right: 0.5rem;
+            margin-top: 0.35rem; /* Adjust alignment for text */
+            color: #06b6d4; /* cyan-500 */
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #06b6d4;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+
+
+    <!-- DATA DEFINITIONS (Hidden Script) -->
+    <script>
+        const PORTFOLIO_DATA = {
+            name: "ALBIN ANTHONY",
+            title: "Senior Python Developer, Backend Specialist, API Integration Expert",
+            summary: "Senior Python Engineer with extensive experience in developing scalable applications, specializing in **Django, AI Agent Development**, and cloud infrastructure. Proven expertise in building high-performance systems using Django, FastAPI, and modern cloud platforms. Adept at designing intelligent solutions with **AI Agent Frameworks** and implementing robust **CI/CD pipelines**. Strong background in web scraping, data analysis, and distributed systems. Committed to delivering efficient, maintainable solutions that drive business growth through technical innovation.",
+            contact: {
+                email: "albin.anthony.dev@gmail.com",
+                phone: "+91 6379056811",
+                location: "Wayanad, Kerala 670721, India",
+                linkedin: "linkedin.com/in/albin-antony-435b1b236",
+                github: "github.com/ibhax",
+            },
+            skills: {
+                categories: {
+                    languages: ["Python", "JavaScript", "Shell/Bash"],
+                    frontend: ["HTML", "CSS", "Tailwind CSS", "React", "JavaScript"],
+                    web_frameworks: ["Django", "Flask", "FastAPI", "HTMX", "Hyperscript"],
+                    databases: ["PostgreSQL", "SQLite", "MongoDB", "Redis", "Vector Databases"],
+                    cloud_devops: ["AWS (EC2, S3, Lambda, SES, RDS, DynamoDB, SQS, SNS, EventBridge, API Gateway)", "GCP", "Docker", "Kubernetes", "CI/CD"],
+                    ai_ml: ["LangChain", "LangGraph", "Pydantic-AI", "RAG", "AI Agent Orchestration", "LLM Integration", "Scikit-learn", "Huggingface", "Transformers"],
+                    workflow_automation: ["Celery", "Airflow", "Custom Orchestration Engines", "Task Queues"],
+                    api_integration: ["REST APIs", "GraphQL", "Third-party API Integration", "Error Handling", "Rate Limit Management"],
+                    realtime_systems: ["Webhook Systems", "Event-driven Architecture", "Data Synchronization", "WebSockets"],
+                    web_scraping: ["Scrapy", "Selenium", "BeautifulSoup", "Playwright", "Distributed Systems", "Proxy Management"],
+                    auth_security: ["OAuth 2.0", "JWT", "Custom Authentication Systems"],
+                }
+            },
+            experience: [
+                {
+                    icon: 'cpu',
+                    title: "Senior Python Agent Developer",
+                    company: "Turing",
+                    duration: "05/2025 - 09/2025",
+                    description: [
+                        "Designed and maintained advanced orchestration systems for evaluating function-calling and reasoning capabilities of LLMs including OpenAI (GPT-4.1), Anthropic (Claude Sonnet 3.5, 3.7, Opus), and Google (Gemma 2.5).",
+                        "Developed Python-based agentic frameworks that simulate real-world automation scenarios (email processing, file handling, Slack integration) to measure LLM planning and execution accuracy.",
+                        "Architected evaluation pipelines comparing AI-generated action sequences against human references, assessing step-level correctness and outcome validity with success classification.",
+                        "Built scalable orchestration systems using **FastAPI, AsyncIO, and Pydantic** for parallel evaluation across multiple AI models.",
+                        "Designed data schemas and dashboards to track and visualize key metrics including step counts, alignment ratios, execution times, and success classifications.",
+                        "Established automated benchmarking frameworks that guide model selection, reliability scoring, and function-calling optimization across LLM providers."
+                    ],
+                    tech: ["Python", "FastAPI", "AsyncIO", "LangChain", "LLMs", "Pydantic"]
+                },
+                {
+                    icon: 'lock',
+                    title: "AI Automation Consultant",
+                    company: "AaveTech",
+                    duration: "Consultant",
+                    description: [
+                        "Developed backend services and automation tools using Python and related technologies.",
+                        "Worked on API integrations with various security tools and platforms.",
+                        "Implemented data processing pipelines and automation scripts.",
+                        "Contributed to system architecture and database design decisions.",
+                        "Optimized existing codebase for better performance and maintainability.",
+                        "Developed AI automation tools to automate manual processes and analyze data."
+                    ],
+                    tech: ["Python", "Backend Services", "API Integration", "Data Processing", "AI Automation"]
+                },
+                {
+                    icon: 'zap',
+                    title: "Senior Data Analyst (Autonomous AI Architecture Phase)",
+                    company: "Aimleap",
+                    duration: "07/2024 - 06/2025",
+                    description: [
+                        "Architected enterprise-scale autonomous AI systems using **multi-agent LLM frameworks**, improving decision-making speed by 40%.",
+                        "Designed alignment strategies and hybrid symbolic-deep-learning architectures for real-time cognitive computing.",
+                        "Led R&D in reinforcement learning and explainability, drafting ethical AI governance adopted company-wide.",
+                        "Mentored a team of 5+ engineers in best practices for secure data handling and cloud deployments.",
+                    ],
+                    tech: ["Multi-Agent Frameworks", "LLMs", "Reinforcement Learning", "Ethical AI", "Secure Data Processing"]
+                },
+                {
+                    icon: 'briefcase',
+                    title: "Software Developer",
+                    company: "OneData Software Solutions",
+                    duration: "04/2023 - 05/2024",
+                    description: [
+                        "Led and managed Nishub Project, RPM v2, and TopStopStore initiatives.",
+                        "Implemented **ETL processes** for employee data, **Lambda Integration, SES & S3**, and transferred cleaned datasets to FTP server.",
+                        "Fixed bugs, managed deployments, updated features, and **integrated payment systems**.",
+                        "Automated YouTrack, streamlined email notifications, and generated reports.",
+                        "Built a **Git API wrapper** for AP-360 project.",
+                        "Mentored junior developers and conducted Django/Python training sessions."
+                    ],
+                    tech: ["Python", "Django", "ETL", "AWS S3/Lambda/SES", "Git API", "YouTrack"]
+                },
+                {
+                    icon: 'dollar-sign',
+                    title: "Freelance Full Stack Developer",
+                    company: "Self-Employed",
+                    duration: "03/2017 - 04/2023",
+                    description: [
+                        "Developed web applications using **Django, Flask, FastAPI**, and modern frontend technologies.",
+                        "Deployed applications to production using **AWS and Azure** cloud services.",
+                        "Optimized codebase for better performance and scalability.",
+                        "Integrated third-party APIs and implemented automated deployment scripts.",
+                        "Conducted **web scraping** using Scrapy, BeautifulSoup, and Selenium.",
+                        "Designed efficient database schemas and implemented caching strategies."
+                    ],
+                    tech: ["Django", "Flask", "FastAPI", "Scrapy", "AWS", "Azure", "Selenium"]
+                },
+            ],
+            projects: [
+                {
+                    name: "LLM Orchestration Framework for Multi-Provider Function Calling",
+                    description: "Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers (OpenAI GPT-4.1, Anthropic Claude, Google Gemma 2.5). Designed and implemented an **automated testing pipeline** that compares AI-generated execution plans against human-created references, evaluating logical step correctness, output accuracy, and redundancy. Built a scalable system using **FastAPI and AsyncIO** for parallel evaluation. **Result:** Improved workflow automation accuracy by 40%.",
+                    tech: "Python, FastAPI, OpenAI API, Anthropic Claude, Google Gemma, LangChain, Vector Databases",
+                    link: "https://github.com/IbhaX/eval_orchestrator"
+                },
+                {
+                    name: "OneCare Health App Migration and API Design",
+                    description: "Health Application for managing patient data and booking appointments. Migrated the application from **Flask to Django**, reducing downtime by 50%. Designed **RESTful APIs** for patient data management and implemented **CI/CD pipelines** using GitLab for automated deployments. **Result:** Reduced server downtime by 50% and improved overall performance by 20%.",
+                    tech: "Python, Django, PostgreSQL, Docker, AWS (CI/CD)",
+                    link: "https://onecarehealth.com/"
+                },
+                {
+                    name: "TopStopStores ETL Pipeline",
+                    description: "Architected and implemented a robust Python-based ETL workflow to handle large employee datasets. Managed data storage solutions on **AWS S3** and automated post-ETL storage to an **FTP server**. Optimized ETL processes for efficiency and reliability. **Result:** Enhanced data processing efficiency by 30% and ensured reliable data storage solutions.",
+                    tech: "Python, ETL, AWS S3, FTP",
+                    link: ""
+                },
+                {
+                    name: "AP-360 YouTrack & Git API Automation",
+                    description: "Automated **YouTrack workflows**, optimized email notification systems, generated comprehensive reports, and developed a custom **Git API wrapper** for AP-360 project. Streamlined YouTrack processes and developed project analysis reports.",
+                    tech: "Python, YouTrack, Git API",
+                    link: ""
+                },
+            ],
+            workshops: [
+                "Git Workflows for Internal Team: Presented on effective Git workflows, including branching strategies and collaboration techniques.",
+                "REST API Design Patterns and Workflow: Developed guidelines for Django REST API design patterns and introduced streamlined development workflows.",
+                "Hadoop and Big Data Workshop: Conducted a 2-week workshop at Avinashilingam Institute.",
+                "Emerging Trends in AI Workshop: Led a 2-day workshop at Kumaraguru College of Technology.",
+                "Full Stack Development with Python: Conducted a 1-day seminar at Dhanalakshmi College of Engineering."
+            ],
+            education: [
+                { name: "Bachelor of Science in Psychology", institution: "Annamalai University", year: "2021" },
+                { name: "Data Science Certification", institution: "Teachnook", year: "2022" },
+                { name: "Self-Taught Education", institution: "Ongoing learning in React, FlutterFlow, and emerging technologies", year: "Ongoing" }
+            ],
+            languages: [
+                { name: "Malayalam", proficiency: "Native" },
+                { name: "English", proficiency: "Professional Working Proficiency (B2)" },
+                { name: "Tamil", proficiency: "Proficient (C2)" }
+            ]
+        };
+    </script>
+
+    <!-- NAVIGATION (Sticky) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resumeBtn = document.getElementById('resume-btn');
+            if (resumeBtn) {
+                resumeBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const resumeUrl = './Albin Anthony - Senior-Python-Developer.pdf';
+                    const link = document.createElement('a');
+                    link.href = resumeUrl;
+                    link.download = 'Albin_Anthony-Senior-Python-Developer.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+        });
+    </script>
+    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="container mx-auto px-8 md:px-12 flex justify-between items-center space-x-6 overflow-x-auto whitespace-nowrap pb-1">
+            <div class="flex items-center gap-4">
+                <a href="#summary" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Summary</a>
+                <a href="#skills" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Skills</a>
+                <a href="#experience" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Log</a>
+                <a href="#projects" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Projects</a>
+                <a href="#workshops" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Workshops</a>
+                <a href="#education" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Training</a>
+                <a href="#languages" class="text-lg font-medium text-gray-300 hover:text-cyan-400 transition flex-shrink-0">Languages</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://www.linkedin.com/in/albin-anthony-b00/" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="linkedin" class="w-6 h-6 text-gray-300 hover:text-gray-400 transition"></i>
+                </a>
+                <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="github" class="w-6 h-6 text-gray-300 hover:text-gray-400 transition"></i>
+                </a>
+                <a id="resume-btn" href="#" class="flex items-center gap-2 text-gray-300 hover:text-gray-400 transition">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>Download Resume</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="header-bg text-white pt-16 pb-20 shadow-2xl rounded-b-[40px] relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-color-cyan-900),_transparent_90%)]"></div>
+        <div class="container mx-auto px-8 md:px-12 text-center relative">
+            <div class="scroll-animate" data-delay="0s">
+                <h1 class="text-6xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
+                    ALBIN ANTHONY
+                </h1>
+            </div>
+            <div class="scroll-animate" data-delay="0.2s">
+                <p class="text-2xl font-light text-cyan-400 mb-8 max-w-4xl mx-auto">
+                    Senior Python Developer, Backend Specialist, API Integration Expert
+                </p>
+            </div>
+            
+            <div class="flex justify-center flex-wrap gap-x-6 gap-y-3 text-lg mt-8 text-left">
+                <div class="scroll-animate" data-delay="0.4s">
+                    <div class="flex items-center text-gray-300 hover:text-cyan-400 transition flex-row">
+                        <i data-lucide="mail" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                        <a href="mailto:albin.anthony.dev@gmail.com">albin.anthony.dev@gmail.com</a>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.6s">
+                    <div class="flex items-center text-gray-300 flex-row">
+                        <i data-lucide="phone" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                        <span>+91 6379056811</span>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.8s">
+                    <div class="flex items-center text-gray-300 flex-row">
+                        <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                        <span>Wayanad, Kerala 670721, India</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-6 pt-6">
+                <div class="scroll-animate" data-delay="1.0s">
+                    <a href="https://linkedin.com/in/albin-antony-435b1b236" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition flex items-center text-xl">
+                        <i data-lucide="linkedin" class="w-6 h-6 mr-2"></i>
+                    </a>
+                </div>
+                <div class="scroll-animate" data-delay="1.2s">
+                    <a href="https://github.com/ibhax" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition flex items-center text-xl">
+                        <i data-lucide="github" class="w-6 h-6 mr-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- SUMMARY -->
+        <section id="summary" class="container mx-auto p-8 md:p-12 text-left">
+            <div class="scroll-animate">
+                <div class="bg-gray-900 text-gray-100 p-8 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm shadow-inner shadow-cyan-900/50">
+                    <h2 class="text-3xl font-bold mb-3 text-cyan-400 flex items-center justify-start">
+                        <i data-lucide="book-open" class="w-6 h-6 mr-2 text-cyan-400"></i> Professional Summary
+                    </h2>
+                    <!-- Summary content is hardcoded here, as it contains formatting (bolding) -->
+                    <p id="summary-text" class="leading-relaxed text-lg"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="py-16 px-8 md:px-12 bg-gray-950 text-left">
+            <div class="container mx-auto">
+                <div class="scroll-animate">
+                    <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                        <i data-lucide="code" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Technical Schematic
+                    </h2>
+                </div>
+                <!-- Tech Stack Detail Grid - Populated by JS -->
+                <div id="tech-stack-detail" class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div id="skills-loading" class="col-span-full flex justify-center items-center py-8">
+                        <div class="loader mr-3"></div>
+                        <p class="text-gray-400">Loading Technical Details...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+            <div class="scroll-animate">
+                <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                    <i data-lucide="briefcase" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Agent Deployment Log
+                </h2>
+            </div>
+            
+            <div id="experience-log" class="relative pl-8 md:pl-12">
+                <!-- Main Timeline Line -->
+                <div class="timeline-line"></div>
+                <div id="experience-loading" class="col-span-full flex justify-center items-center py-8">
+                    <div class="loader mr-3"></div>
+                    <p class="text-gray-400">Compiling Experience Timeline...</p>
+                </div>
+                <!-- Job entries generated by JS -->
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="bg-gray-950 py-16 px-8 md:px-12 text-white text-left">
+            <div class="container mx-auto">
+                <div class="scroll-animate">
+                    <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                        <i data-lucide="server" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Completed Project Files
+                    </h2>
+                </div>
+                <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div id="projects-loading" class="col-span-full flex justify-center items-center py-8">
+                        <div class="loader mr-3"></div>
+                        <p class="text-gray-400">Accessing Project Database...</p>
+                    </div>
+                    <!-- Project cards generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKSHOPS & TRAINING -->
+        <section id="workshops" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+            <div class="scroll-animate">
+                <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                    <i data-lucide="cpu" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Workshops & Specialized Training
+                </h2>
+            </div>
+            <div id="workshops-list" class="space-y-4">
+                <div id="workshops-loading" class="col-span-full flex justify-center items-center py-8">
+                    <div class="loader mr-3"></div>
+                    <p class="text-gray-400">Retrieving Workshop Data...</p>
+                </div>
+                <!-- Workshops generated by JS -->
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section id="education" class="bg-gray-950 py-16 px-8 md:px-12 text-gray-100 text-left">
+            <div class="container mx-auto">
+                <div class="scroll-animate">
+                    <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Training and Education Log
+                    </h2>
+                </div>
+                <div id="education-grid" class="grid md:grid-cols-3 gap-8">
+                    <div id="education-loading" class="col-span-full flex justify-center items-center py-8">
+                        <div class="loader mr-3"></div>
+                        <p class="text-gray-400">Fetching Education Records...</p>
+                    </div>
+                    <!-- Education cards generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- LANGUAGES -->
+        <section id="languages" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+            <div class="scroll-animate">
+                <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                    <i data-lucide="globe" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Multilingual Proficiency
+                </h2>
+            </div>
+            <div id="languages-grid" class="grid md:grid-cols-4 gap-6">
+                <div id="languages-loading" class="col-span-full flex justify-center items-center py-8">
+                    <div class="loader mr-3"></div>
+                    <p class="text-gray-400">Retrieving Language Data...</p>
+                </div>
+                <!-- Language cards generated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 text-white p-8 md:p-10 text-center border-t border-cyan-900">
+        <p class="text-sm text-gray-400 text-center">Developed with Tailwind CSS and JavaScript. ALBIN ANTHONY © 2024</p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="mailto:albin.anthony.dev@gmail.com" class="text-cyan-400 hover:text-cyan-300 transition">Contact</a>
+            <span class="text-gray-600">|</span>
+            <a href="https://linkedin.com/in/albin-antony-435b1b236" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 transition">LinkedIn</a>
+            <span class="text-gray-600">|</span>
+            <a href="https://github.com/ibhax" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 transition">GitHub</a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR DYNAMIC CONTENT AND ANIMATIONS -->
+    <script>
+        // --- Utility Functions ---
+
+        // Helper function to remove a loading element
+        const removeLoading = (elementId) => {
+            const loadingElement = document.getElementById(elementId);
+            if (loadingElement) {
+                loadingElement.remove();
+            }
+        };
+
+        // Function to render skills
+        const renderSkills = () => {
+            const techStackDetail = document.getElementById('tech-stack-detail');
+            let delay = 0;
+            Object.entries(PORTFOLIO_DATA.skills.categories).forEach(([key, skills]) => {
+                const iconMap = {
+                    languages: 'layout-list', frontend: 'feather', web_frameworks: 'rocket',
+                    databases: 'database', cloud_devops: 'cloud', ai_ml: 'brain',
+                    workflow_automation: 'git-branch', api_integration: 'plug-zap',
+                    realtime_systems: 'zap', web_scraping: 'spider', auth_security: 'shield-check'
+                };
+                const iconName = iconMap[key] || 'code';
+
+                const cardHtml = `
+                    <div class="scroll-animate" data-delay="${delay.toFixed(1)}s">
+                        <div class="bg-gray-800/70 p-4 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-l-4 border-cyan-800">
+                            <h4 class="text-lg font-semibold capitalize mb-3 text-cyan-400 flex items-center">
+                                <i data-lucide="${iconName}" class="w-5 h-5 mr-2"></i>
+                                ${key.replace('_', ' ')}
+                            </h4>
+                            <ul class="text-sm space-y-2">
+                                ${skills.map(skill => `
+                                    <li class="flex items-center text-gray-300 justify-start">
+                                        <div class="w-1 h-1 bg-cyan-400 rounded-full mr-2 flex-shrink-0"></div>
+                                        ${skill}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                techStackDetail.insertAdjacentHTML('beforeend', cardHtml);
+                delay += 0.1;
+            });
+            removeLoading('skills-loading');
+        };
+
+        // Function to render experience
+        const renderExperience = () => {
+            const logContainer = document.getElementById('experience-log');
+            PORTFOLIO_DATA.experience.forEach((job, index) => {
+                const delay = (0.2 * index).toFixed(1);
+                const techPills = job.tech.map(t => `
+                    <span class="inline-block bg-gray-700 text-gray-300 text-xs px-3 py-1 rounded-lg ml-0 mr-2 mb-2 font-medium border border-gray-600">${t}</span>
+                `).join('');
+
+                const descriptionList = job.description.map(desc => `
+                    <li class="flex items-start">
+                        <i data-lucide="corner-down-right" class="icon w-4 h-4 mt-1"></i>
+                        <span class="flex-1">${desc}</span>
+                    </li>
+                `).join('');
+
+                const logEntry = `
+                    <div class="mb-12 relative">
+                        <!-- Icon Circle -->
+                        <div class="scroll-animate timeline-marker" data-delay="${delay}s">
+                            <i data-lucide="${job.icon}" class="w-3 h-3 text-gray-900"></i>
+                        </div>
+                        
+                        <!-- Job Card -->
+                        <div class="ml-5 md:ml-0 pl-7 md:pl-16">
+                            <div class="scroll-animate" data-delay="${(0.2 * index + 0.1).toFixed(1)}s">
+                                <div class="bg-gray-800/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm ring-2 ring-cyan-800/50 hover:ring-cyan-500">
+                                    <p class="text-sm text-gray-500 mb-1 font-mono">${job.duration}</p>
+                                    <h3 class="text-2xl font-bold text-cyan-400 mb-1">${job.title}</h3>
+                                    <p class="text-gray-300 font-semibold mb-3">${job.company}</p>
+                                    
+                                    <ul class="description-list space-y-2 text-gray-300 mb-4 pl-0">
+                                        ${descriptionList}
+                                    </ul>
+
+                                    <div class="mt-4 border-t border-gray-700 pt-3">
+                                        <p class="font-semibold text-sm mb-2 text-gray-200">Key Technologies:</p>
+                                        <div class="flex flex-wrap gap-2 justify-start">
+                                            ${techPills}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                logContainer.insertAdjacentHTML('beforeend', logEntry);
+            });
+            removeLoading('experience-loading');
+        };
+
+        // Function to render projects
+        const renderProjects = () => {
+            const projectsGrid = document.getElementById('projects-grid');
+            PORTFOLIO_DATA.projects.forEach((project, index) => {
+                const delay = (0.2 * index).toFixed(1);
+                const techPills = project.tech.split(', ').map(t => `
+                    <span class="bg-cyan-900 text-cyan-300 text-xs font-medium px-3 py-1 rounded-full">${t}</span>
+                `).join('');
+                
+                const projectCard = `
+                    <div class="scroll-animate" data-delay="${delay}s">
+                        <div class="bg-gray-900/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-b-4 border-cyan-500 hover:scale-[1.02]">
+                            <h3 class="text-2xl font-bold text-cyan-400 mb-2">${project.name}</h3>
+                            <p class="text-gray-300 mb-4 text-base">${project.description}</p>
+                            <div class="border-t border-gray-700 pt-3">
+                                <p class="font-semibold text-sm mb-2 text-gray-200">Tech Stack:</p>
+                                <div class="flex flex-wrap gap-2 justify-start">
+                                    ${techPills}
+                                </div>
+                            </div>
+                            <a href="${project.link || '#'}" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-cyan-400 hover:text-cyan-300 font-medium transition text-sm border-b border-cyan-400 flex items-center justify-start">
+                                ${project.link ? '' : 'Internal'}
+                                ${project.link ? 'View Details / Source' : ''}
+                                <i data-lucide="${project.link ? 'arrow-right' : 'lock'}" class="w-4 h-4 ml-1 mr-0"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.insertAdjacentHTML('beforeend', projectCard);
+            });
+            removeLoading('projects-loading');
+        };
+
+        // Function to render workshops
+        const renderWorkshops = () => {
+            const workshopsList = document.getElementById('workshops-list');
+            PORTFOLIO_DATA.workshops.forEach((workshop, index) => {
+                const delay = (0.2 * index).toFixed(1);
+                const workshopItem = `
+                    <div class="scroll-animate" data-delay="${delay}s">
+                        <div class="bg-gray-800/70 p-4 rounded-xl shadow-lg border border-gray-700 hover:border-cyan-500 transition duration-300 flex items-start">
+                            <i data-lucide="award" class="w-5 h-5 mr-3 mt-1 text-cyan-400 flex-shrink-0"></i>
+                            <p class="text-gray-200">${workshop}</p>
+                        </div>
+                    </div>
+                `;
+                workshopsList.insertAdjacentHTML('beforeend', workshopItem);
+            });
+            removeLoading('workshops-loading');
+        };
+
+
+        // Function to render education
+        const renderEducation = () => {
+            const educationGrid = document.getElementById('education-grid');
+            PORTFOLIO_DATA.education.forEach((item, index) => {
+                const delay = (0.2 * index).toFixed(1);
+                const educationCard = `
+                    <div class="scroll-animate" data-delay="${delay}s">
+                        <div class="bg-gray-800/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-l-4 border-cyan-500 border-r-0">
+                            <h3 class="text-xl font-bold text-gray-100 mb-1">${item.name}</h3>
+                            <p class="text-cyan-400 font-medium mb-1">${item.institution}</p>
+                            <p class="text-sm text-gray-500">Year: ${item.year}</p>
+                        </div>
+                    </div>
+                `;
+                educationGrid.insertAdjacentHTML('beforeend', educationCard);
+            });
+            removeLoading('education-loading');
+        };
+
+        // Function to render languages
+        const renderLanguages = () => {
+            const languagesGrid = document.getElementById('languages-grid');
+            PORTFOLIO_DATA.languages.forEach((lang, index) => {
+                const delay = (0.2 * index).toFixed(1);
+                const languageCard = `
+                    <div class="scroll-animate" data-delay="${delay}s">
+                        <div class="bg-gray-800/70 p-4 rounded-xl shadow-lg border border-gray-700 hover:border-cyan-500 transition duration-300 h-full border-b-2 border-cyan-800">
+                            <h4 class="text-xl font-bold text-gray-100 mb-1">${lang.name}</h4>
+                            <p class="text-sm text-cyan-400">${lang.proficiency}</p>
+                        </div>
+                    </div>
+                `;
+                languagesGrid.insertAdjacentHTML('beforeend', languageCard);
+            });
+            removeLoading('languages-loading');
+        };
+
+        // --- Scroll Animation Logic ---
+        const setupAnimations = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const delay = target.getAttribute('data-delay') || '0s';
+                        target.style.transitionDelay = delay;
+                        target.classList.add('visible');
+                        observer.unobserve(target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const animateElements = document.querySelectorAll('.scroll-animate');
+            animateElements.forEach(el => observer.observe(el));
+        }
+
+        // --- Main Initialization Function ---
+        const initializePortfolio = () => {
+            // 1. Insert Professional Summary (to maintain bold formatting from data)
+            document.getElementById('summary-text').innerHTML = PORTFOLIO_DATA.summary;
+            
+            // 2. Render all dynamic content
+            renderSkills();
+            renderExperience();
+            renderProjects();
+            renderWorkshops();
+            renderEducation();
+            renderLanguages();
+
+            // 3. Render Lucide Icons for all dynamic content
+            // We use a small timeout to ensure Lucide's script has fully run
+            setTimeout(() => {
+                lucide.createIcons();
+                // 4. Set up Scroll Animations *after* all content is in the DOM
+                setupAnimations();
+            }, 100); 
+
+            // --- Sticky Navbar Logic ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.remove('bg-transparent', 'py-4');
+                    navbar.classList.add('bg-gray-950/95', 'backdrop-blur-sm', 'shadow-xl', 'py-3');
+                } else {
+                    navbar.classList.remove('bg-gray-950/95', 'backdrop-blur-sm', 'shadow-xl', 'py-3');
+                    navbar.classList.add('bg-transparent', 'py-4');
+                }
+            });
+        };
+
+        // Run the initialization function when the document is fully loaded
+        document.addEventListener('DOMContentLoaded', initializePortfolio);
+
+    </script>
+</body>
+</html>
