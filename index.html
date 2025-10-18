@@ -266,8 +266,9 @@
     </script>
 
     <!-- NAVIGATION (Sticky) -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800 h-16 flex items-center px-4 sm:px-6 lg:px-8">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800 h-16 flex items-center px-4 sm:px-6 lg:px-8" style="-webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);">
         <div class="w-full max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
             <a href="#" class="text-xl font-bold text-white whitespace-nowrap">ALBIN ANTHONY</a>
             
             <!-- Desktop Navigation -->
@@ -280,37 +281,38 @@
                     Contact Me
                 </a>
                 
+                <!-- Social Links -->
                 <div class="flex items-center space-x-4 ml-2">
                     <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition" title="GitHub Profile">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    
                     <a id="resume-btn" href="#" class="text-gray-300 hover:text-cyan-400 transition flex items-center gap-1" title="Download Resume">
                         <i data-lucide="download" class="w-4 h-4"></i>
                         <span class="text-sm hidden lg:inline">Resume</span>
                     </a>
-                    
                     <a href="login.html" class="admin-button text-gray-500 hover:text-cyan-400 text-xs font-mono transition-colors group" title="Admin Access">
                         <i data-lucide="lock" class="w-3.5 h-3.5 group-hover:scale-110 transition-transform"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Mobile menu button -->
+            <!-- Mobile Menu Button -->
             <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500" aria-controls="mobile-menu" aria-expanded="false">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500">
                     <span class="sr-only">Open main menu</span>
-                    <!-- Menu icon (shown by default) -->
-                    <i class="menu-icon w-6 h-6" data-lucide="menu"></i>
-                    <!-- Close icon (hidden by default) -->
-                    <i class="close-icon hidden w-6 h-6" data-lucide="x"></i>
+                    <svg id="menu-icon" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg id="close-icon" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
         </div>
-            
-        <!-- Mobile menu, hidden by default -->
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 mt-16 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800 z-50 overflow-y-auto" style="-webkit-overflow-scrolling: touch;">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-40 overflow-y-auto bg-gray-900/95 backdrop-blur-sm transition-all duration-300 ease-in-out">
+            <div class="pt-16 px-4 pb-3 space-y-1">
                 <a href="#summary" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
                 <a href="#skills" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
                 <a href="#experience" class="text-gray-300 hover:bg-gray-800 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Experience</a>
@@ -318,7 +320,7 @@
                 <a href="#contact" class="bg-cyan-600 hover:bg-cyan-700 text-white block px-3 py-2 rounded-md text-base font-medium text-center mt-2">
                     Contact Me
                 </a>
-                <div class="flex items-center justify-center space-x-4 pt-2 pb-4">
+                <div class="flex items-center justify-center space-x-4 pt-4 pb-2">
                     <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition" title="GitHub Profile">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
@@ -333,8 +335,11 @@
         </div>
     </nav>
 
+    <!-- Add padding top to the first section to account for fixed header -->
+    <div id="header-spacer" class="h-16"></div>
+    
     <!-- HEADER -->
-    <header class="header-bg text-white pt-16 pb-20 shadow-2xl rounded-b-[40px] relative overflow-hidden">
+    <header class="header-bg text-white pt-8 pb-20 shadow-2xl rounded-b-[40px] relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-color-cyan-900),_transparent_90%)]"></div>
         <div class="container mx-auto px-8 md:px-12 text-center relative">
             <div class="scroll-animate" data-delay="0s">
@@ -1088,88 +1093,89 @@
     </script>
     
     <script>
-        // Mobile Menu Functionality - Self-executing function to avoid conflicts
-        (function() {
-            // Wait for DOM to be fully loaded
-            document.addEventListener('DOMContentLoaded', function() {
-                // Initialize Lucide icons first
-                lucide.createIcons();
+        // Mobile Menu Functionality - Simplified and Reliable
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Get elements
+            const menuButton = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            // Check if elements exist
+            if (!menuButton || !menu || !menuIcon || !closeIcon) {
+                console.error('Mobile menu elements not found');
+                return;
+            }
+            
+            // Toggle menu function
+            function toggleMenu(e) {
+                if (e) e.preventDefault();
                 
-                // Get menu elements
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
+                // Toggle menu visibility
+                const isOpen = menu.classList.toggle('hidden');
                 
-                // Check if elements exist
-                if (!mobileMenuButton || !mobileMenu) {
-                    console.error('Mobile menu elements not found');
-                    return;
+                // Toggle icons
+                if (isOpen) {
+                    menuIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    menuIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    document.body.style.overflow = '';
                 }
                 
-                // Initialize menu state
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-                
-                // Toggle menu function
-                const toggleMenu = (e) => {
-                    if (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                    }
-                    
-                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    const newState = !isExpanded;
-                    mobileMenuButton.setAttribute('aria-expanded', newState);
-                    mobileMenu.classList.toggle('hidden');
-                    
-                    // Toggle between menu and close icons
-                    const menuIcon = mobileMenuButton.querySelector('.menu-icon');
-                    const closeIcon = mobileMenuButton.querySelector('.close-icon');
-                    
-                    if (newState) {
-                        // Opening menu
-                        menuIcon.classList.add('hidden');
-                        closeIcon.classList.remove('hidden');
-                        document.body.style.overflow = 'hidden';
-                        document.body.style.position = 'fixed';
-                    } else {
-                        // Closing menu
-                        menuIcon.classList.remove('hidden');
-                        closeIcon.classList.add('hidden');
-                        document.body.style.overflow = 'auto';
-                        document.body.style.position = 'static';
-                    }
-                };
-                
-                // Add click event to the menu button
-                mobileMenuButton.addEventListener('click', toggleMenu);
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (mobileMenuButton.contains(e.target)) return; // Click was on the button itself
-                    if (mobileMenu.contains(e.target)) return; // Click was inside the menu
-                    
-                    // Click was outside both button and menu
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        toggleMenu();
-                    }
-                });
-                
-                // Close mobile menu when clicking on a nav link
-                const navLinks = mobileMenu.querySelectorAll('a:not(#mobile-resume-btn)');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', toggleMenu);
-                });
-                
-                // Close menu when pressing Escape key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-                        toggleMenu();
-                    }
-                });
-                
-                // Log that menu is initialized
-                console.log('Mobile menu initialized');
+                // Update aria-expanded
+                menuButton.setAttribute('aria-expanded', isOpen);
+            }
+            
+            // Event delegation for menu button
+            menuButton.addEventListener('click', function(e) {
+                // Only handle direct clicks on the button or its SVG paths
+                if (e.target === menuButton || 
+                    e.target === menuIcon || 
+                    e.target === closeIcon ||
+                    e.target.closest('svg') === menuIcon ||
+                    e.target.closest('svg') === closeIcon) {
+                    toggleMenu(e);
+                }
             });
-        })();
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+                    if (!menu.classList.contains('hidden')) {
+                        toggleMenu();
+                    }
+                }
+            });
+            
+            // Close menu when clicking on navigation links
+            const navLinks = menu.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+            
+            // Close menu with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+            
+            // Close menu on window resize to desktop
+            function handleResize() {
+                if (window.innerWidth >= 768 && !menu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            }
+            
+            // Add resize event listener
+            window.addEventListener('resize', handleResize);
+        });
         
         // Initialize portfolio when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
