@@ -1,5 +1,6 @@
 {% extends "admin/base.html" %}
 {% load static %}
+{% load admin_extras %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -8,7 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.tiny.cloud/1/{{ TINYMCE_API_KEY }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+{% get_tinymce_api_key as TINYMCE_KEY %}
+<script src="https://cdn.tiny.cloud/1/{{ TINYMCE_KEY }}/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize TinyMCE
