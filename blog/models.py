@@ -50,7 +50,9 @@ class Post(models.Model):
     
     STATUS_CHOICES = [
         ('draft', 'Draft'),
+        ('pending', 'Pending Approval'),
         ('published', 'Published'),
+        ('rejected', 'Rejected'),
     ]
     
     title = models.CharField(max_length=250)
@@ -102,3 +104,27 @@ class Post(models.Model):
     @property
     def comment_count(self):
         return self.comments.filter(is_approved=True).count()
+
+    @property
+    def is_pending(self):
+        return self.status == 'pending'
+
+    @property
+    def is_published(self):
+        return self.status == 'published'
+
+    def can_edit(self, user):
+        """Check if user can edit this post."""
+        if not user.is_authenticated:
+            return False
+        if user.is_superuser or user.is_staff:
+            return True
+        return self.author == user and self.status in ['draft', 'pending', 'rejected']
+
+    def can_delete(self, user):
+        """Check if user can delete this post."""
+        if not user.is_authenticated:
+            return False
+        if user.is_superuser or user.is_staff:
+            return True
+        return self.author == user and self.status != 'published'

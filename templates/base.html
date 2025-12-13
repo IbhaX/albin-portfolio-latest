@@ -126,7 +126,64 @@
             }, { threshold: 0.1 });
 
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+            
+            // Load notifications dropdown content
+            const notifList = document.getElementById('notif-list');
+            if (notifList) {
+                loadNotifications();
+            }
         });
+        
+        function loadNotifications() {
+            fetch('/notifications/dropdown/')
+                .then(r => r.json())
+                .then(data => {
+                    const notifList = document.getElementById('notif-list');
+                    if (!notifList) return;
+                    
+                    if (data.notifications.length === 0) {
+                        notifList.innerHTML = '<div class="p-4 text-center text-gray-400 text-sm">No notifications</div>';
+                        return;
+                    }
+                    
+                    let html = '';
+                    data.notifications.forEach(n => {
+                        const iconClass = {
+                            'post_published': 'text-green-400',
+                            'post_rejected': 'text-red-400',
+                            'new_comment': 'text-blue-400',
+                            'comment_reply': 'text-purple-400'
+                        }[n.type] || 'text-gray-400';
+                        
+                        const icon = {
+                            'post_published': 'check-circle',
+                            'post_rejected': 'x-circle',
+                            'new_comment': 'message-circle',
+                            'comment_reply': 'reply'
+                        }[n.type] || 'bell';
+                        
+                        html += `
+                            <a href="${n.url}" class="block p-3 hover:bg-gray-700/50 border-b border-gray-700 last:border-0 ${!n.is_read ? 'bg-cyan-900/10' : ''}">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="${icon}" class="w-4 h-4 ${iconClass} flex-shrink-0 mt-1"></i>
+                                    <div class="flex-grow min-w-0">
+                                        <p class="text-sm text-white font-medium truncate">${n.title}</p>
+                                        <p class="text-xs text-gray-400 truncate">${n.message}</p>
+                                        <p class="text-xs text-gray-500 mt-1">${n.created_at}</p>
+                                    </div>
+                                    ${!n.is_read ? '<span class="w-2 h-2 bg-cyan-500 rounded-full flex-shrink-0"></span>' : ''}
+                                </div>
+                            </a>
+                        `;
+                    });
+                    notifList.innerHTML = html;
+                    lucide.createIcons();
+                })
+                .catch(() => {
+                    const notifList = document.getElementById('notif-list');
+                    if (notifList) notifList.innerHTML = '<div class="p-4 text-center text-gray-400 text-sm">Failed to load</div>';
+                });
+        }
         
         document.body.addEventListener('htmx:afterSwap', function() {
             lucide.createIcons();

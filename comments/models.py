@@ -73,11 +73,18 @@ class Comment(MPTTModel):
             return False
         return True
 
-    def soft_delete(self):
-        """Soft delete the comment, preserving thread structure."""
+    def soft_delete(self, delete_children=True):
+        """Soft delete the comment and optionally all its children."""
         self.is_deleted = True
         self.content = ''
         self.save()
+        
+        if delete_children:
+            # Delete all descendant comments
+            for child in self.get_descendants():
+                child.is_deleted = True
+                child.content = ''
+                child.save()
 
     def get_reply_count(self):
         """Get count of all replies in this thread."""

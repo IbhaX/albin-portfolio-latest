@@ -20,7 +20,7 @@ from accounts.models import User
 def create_admin():
     username = 'admin'
     email = 'albin.anthony.dev@gmail.com'
-    password = 'admin123'  # Change this in production!
+    password = 'Qwert@12345.ibhax'  # Change this in production!
     
     if User.objects.filter(username=username).exists():
         print(f"User '{username}' already exists")
@@ -44,4 +44,7 @@ def create_admin():
     print(f"\n[WARNING] CHANGE THE PASSWORD IN PRODUCTION!")
 
 if __name__ == '__main__':
+    create_admin()
+else:
+    # Called via exec() from setup script
     create_admin()

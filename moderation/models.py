@@ -9,6 +9,8 @@ class ModerationLog(models.Model):
         ('approve_comment', 'Approved Comment'),
         ('hide_comment', 'Hid Comment'),
         ('delete_comment', 'Deleted Comment'),
+        ('approve_post', 'Approved Post'),
+        ('reject_post', 'Rejected Post'),
         ('ban_user', 'Banned User'),
         ('unban_user', 'Unbanned User'),
         ('lock_thread', 'Locked Thread'),

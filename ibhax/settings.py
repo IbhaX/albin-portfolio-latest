@@ -4,16 +4,22 @@ Django settings for ibhax project.
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-change-this-in-production-ibhax-2024'
+# Load environment variables from .env file
+load_dotenv(BASE_DIR / '.env')
 
-DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production-ibhax-2024')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ibhax.com', 'www.ibhax.com']
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 'yes')
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,ibhax.com,www.ibhax.com').split(',')
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third party
+    'channels',
     'mptt',
     # Local apps
     'accounts',
@@ -29,6 +36,7 @@ INSTALLED_APPS = [
     'comments',
     'portfolio',
     'moderation',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -61,13 +69,30 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ibhax.wsgi.application'
+ASGI_APPLICATION = 'ibhax.asgi.application'
 
-DATABASES = {
+# Channels configuration
+CHANNEL_LAYERS = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
     }
 }
+
+# Database configuration
+# Use DATABASE_URL for PostgreSQL, fallback to SQLite for local dev
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -88,7 +113,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
+
+# Security settings for production
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 # TinyMCE API Key (get from environment variable or use default)
 TINYMCE_API_KEY = os.environ.get('TINYMCE_API_KEY', 'no-api-key')

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-white mb-2">Notifications</h1>
+            <p class="text-gray-400">
+                {% if unread_count %}{{ unread_count }} unread{% else %}All caught up!{% endif %}
+            </p>
+        </div>
+        {% if notifications %}
+        <form action="{% url 'notifications:mark_all_read' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm">
+                Mark all as read
+            </button>
+        </form>
+        {% endif %}
+    </div>
+    
+    {% if notifications %}
+    <div class="space-y-3">
+        {% for notification in notifications %}
+        <div class="bg-gray-800/70 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition-colors {% if not notification.is_read %}border-l-4 border-l-cyan-500{% endif %}">
+            <div class="flex items-start justify-between gap-4">
+                <a href="{{ notification.get_url }}" class="flex-grow group">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0
+                            {% if notification.notification_type == 'post_published' %}bg-green-600/20 text-green-400
+                            {% elif notification.notification_type == 'post_rejected' %}bg-red-600/20 text-red-400
+                            {% elif notification.notification_type == 'new_comment' %}bg-blue-600/20 text-blue-400
+                            {% elif notification.notification_type == 'comment_reply' %}bg-purple-600/20 text-purple-400
+                            {% else %}bg-gray-600/20 text-gray-400{% endif %}">
+                            {% if notification.notification_type == 'post_published' %}
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            {% elif notification.notification_type == 'post_rejected' %}
+                            <i data-lucide="x-circle" class="w-5 h-5"></i>
+                            {% elif notification.notification_type == 'new_comment' %}
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            {% elif notification.notification_type == 'comment_reply' %}
+                            <i data-lucide="reply" class="w-5 h-5"></i>
+                            {% else %}
+                            <i data-lucide="bell" class="w-5 h-5"></i>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-white group-hover:text-cyan-400 transition-colors">
+                                {{ notification.title }}
+                            </h3>
+                            <p class="text-gray-400 text-sm">{{ notification.message }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs text-gray-500 ml-13">
+                        <span>{{ notification.created_at|timesince }} ago</span>
+                        {% if not notification.is_read %}
+                        <span class="px-2 py-0.5 bg-cyan-600/20 text-cyan-400 rounded">New</span>
+                        {% endif %}
+                    </div>
+                </a>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    {% if not notification.is_read %}
+                    <form action="{% url 'notifications:mark_read' notification.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 bg-gray-700 hover:bg-gray-600 text-gray-400 rounded-lg transition-colors" title="Mark as read">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                    <form action="{% url 'notifications:delete' notification.id %}" method="post" onsubmit="return confirm('Delete this notification?')">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 bg-gray-700 hover:bg-red-600 text-gray-400 hover:text-white rounded-lg transition-colors" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16 bg-gray-800/50 rounded-xl border border-gray-700">
+        <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="bell-off" class="w-8 h-8 text-gray-500"></i>
+        </div>
+        <h2 class="text-xl font-bold text-white mb-2">No notifications</h2>
+        <p class="text-gray-400">You're all caught up!</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

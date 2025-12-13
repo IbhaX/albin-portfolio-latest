@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import (
@@ -90,3 +91,9 @@ def contact_submit(request):
         form.save()
         return render(request, 'pages/partials/contact_success.html')
     return render(request, 'pages/partials/contact_form.html', {'form': form})
+
+
+@staff_member_required
+def admin_logs(request):
+    """Real-time logs page for admin users."""
+    return render(request, 'pages/admin_logs.html')

@@ -13,6 +13,7 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     path('portfolio/', include('portfolio.urls')),
     path('moderation/', include('moderation.urls')),
+    path('notifications/', include('notifications.urls')),
     path('', include('pages.urls')),
 ]
 

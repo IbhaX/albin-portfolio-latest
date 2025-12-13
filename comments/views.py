@@ -5,6 +5,7 @@ from django.http import HttpResponseForbidden, JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from blog.models import Post
+from notifications.models import Notification
 from .models import Comment
 from .forms import CommentForm
 
@@ -36,6 +37,15 @@ def add_comment(request, post_slug):
             comment.parent = parent
         
         comment.save()
+        
+        # Create notifications
+        if comment.parent:
+            # Reply to a comment - notify parent comment author
+            Notification.create_comment_reply(comment)
+        else:
+            # New comment on post - notify post author
+            Notification.create_new_comment(comment)
+        
         messages.success(request, 'Comment posted successfully.')
     else:
         messages.error(request, 'Error posting comment.')

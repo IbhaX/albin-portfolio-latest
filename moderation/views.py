@@ -7,6 +7,7 @@ from django.utils import timezone
 from comments.models import Comment
 from blog.models import Post
 from accounts.models import User
+from notifications.models import Notification
 from .models import ModerationLog, UserRestriction
 
 
@@ -26,11 +27,13 @@ def moderator_required(view_func):
 def moderation_dashboard(request):
     """Moderation dashboard showing pending items."""
     pending_comments = Comment.objects.filter(is_approved=False, is_deleted=False)[:20]
+    pending_posts = Post.objects.filter(status='pending').select_related('author')[:20]
     recent_logs = ModerationLog.objects.select_related('moderator', 'target_user')[:20]
     active_restrictions = UserRestriction.objects.filter(is_active=True)[:10]
     
     context = {
         'pending_comments': pending_comments,
+        'pending_posts': pending_posts,
         'recent_logs': recent_logs,
         'active_restrictions': active_restrictions,
     }
@@ -184,3 +187,53 @@ def unban_user(request, user_id):
     
     messages.success(request, f'User {target_user.username} has been unbanned.')
     return redirect('moderation:dashboard')
+
+
+@login_required
+@moderator_required
+@require_POST
+def approve_post(request, post_id):
+    """Approve a pending blog post."""
+    post = get_object_or_404(Post, id=post_id)
+    post.status = 'published'
+    post.published_at = timezone.now()
+    post.save()
+    
+    ModerationLog.objects.create(
+        moderator=request.user,
+        action='approve_post',
+        target_user=post.author,
+        target_post=post
+    )
+    
+    # Notify the author
+    Notification.create_post_published(post)
+    
+    messages.success(request, f'Post "{post.title}" has been approved and published.')
+    return redirect(request.META.get('HTTP_REFERER', 'moderation:dashboard'))
+
+
+@login_required
+@moderator_required
+@require_POST
+def reject_post(request, post_id):
+    """Reject a pending blog post."""
+    post = get_object_or_404(Post, id=post_id)
+    post.status = 'rejected'
+    post.save()
+    
+    reason = request.POST.get('reason', '')
+    
+    ModerationLog.objects.create(
+        moderator=request.user,
+        action='reject_post',
+        target_user=post.author,
+        target_post=post,
+        reason=reason
+    )
+    
+    # Notify the author
+    Notification.create_post_rejected(post, reason)
+    
+    messages.success(request, f'Post "{post.title}" has been rejected.')
+    return redirect(request.META.get('HTTP_REFERER', 'moderation:dashboard'))

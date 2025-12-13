@@ -23,10 +23,10 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ['status', 'category', 'allow_comments', 'comments_locked', 'created_at', 'published_at']
     search_fields = ['title', 'content', 'excerpt']
     prepopulated_fields = {'slug': ('title',)}
-    raw_id_fields = ['author']
     filter_horizontal = ['tags']
     date_hierarchy = 'published_at'
     list_editable = ['status', 'allow_comments', 'comments_locked']
+    readonly_fields = ['author']
     
     fieldsets = (
         (None, {
@@ -43,6 +43,23 @@ class PostAdmin(admin.ModelAdmin):
             'fields': ('status', 'published_at', 'allow_comments', 'comments_locked')
         }),
     )
+    
+    def get_fieldsets(self, request, obj=None):
+        """Hide author field when creating new post (will be set automatically)."""
+        fieldsets = super().get_fieldsets(request, obj)
+        if obj is None:  # Creating new post
+            # Remove author from fieldsets for new posts
+            fieldsets = list(fieldsets)
+            fieldsets[0] = (None, {
+                'fields': ('title', 'slug', 'category', 'tags')
+            })
+        return fieldsets
+    
+    def save_model(self, request, obj, form, change):
+        """Set author to current user when creating new post."""
+        if not change:  # Creating new post
+            obj.author = request.user
+        super().save_model(request, obj, form, change)
     
     class Media:
         js = (

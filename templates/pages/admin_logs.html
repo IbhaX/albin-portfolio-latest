@@ -1,0 +1,440 @@
+{% extends 'base.html' %}
+
+{% block title %}System Logs - {{ site_settings.site_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=SF+Mono:wght@400;500&family=Menlo&display=swap');
+    
+    .terminal-window {
+        font-family: 'Menlo', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+        background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    
+    .terminal-header {
+        background: linear-gradient(180deg, #3d3d3d 0%, #323232 100%);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #1a1a1a;
+    }
+    
+    .terminal-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .terminal-btn.close { background: #ff5f56; }
+    .terminal-btn.close:hover { background: #ff3b30; }
+    .terminal-btn.minimize { background: #ffbd2e; }
+    .terminal-btn.minimize:hover { background: #ff9500; }
+    .terminal-btn.maximize { background: #27ca40; }
+    .terminal-btn.maximize:hover { background: #28cd41; }
+    
+    .terminal-title {
+        flex-grow: 1;
+        text-align: center;
+        color: #999;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+    }
+    
+    .terminal-body {
+        background: #1a1a1a;
+        min-height: 500px;
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 16px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    
+    .terminal-body::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .terminal-body::-webkit-scrollbar-track {
+        background: #1a1a1a;
+    }
+    
+    .terminal-body::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 4px;
+    }
+    
+    .terminal-body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    .log-line {
+        display: flex;
+        gap: 12px;
+        padding: 2px 0;
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .log-timestamp {
+        color: #666;
+        flex-shrink: 0;
+        font-size: 11px;
+    }
+    
+    .log-level {
+        flex-shrink: 0;
+        padding: 0 6px;
+        border-radius: 3px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .log-level.debug { background: #374151; color: #9ca3af; }
+    .log-level.info { background: #1e3a5f; color: #60a5fa; }
+    .log-level.warning { background: #78350f; color: #fbbf24; }
+    .log-level.error { background: #7f1d1d; color: #f87171; }
+    .log-level.critical { background: #831843; color: #f472b6; }
+    
+    .log-message {
+        color: #e5e5e5;
+        word-break: break-word;
+    }
+    
+    .log-message.system {
+        color: #22c55e;
+        font-style: italic;
+    }
+    
+    .cursor-blink {
+        display: inline-block;
+        width: 8px;
+        height: 16px;
+        background: #22c55e;
+        animation: blink 1s step-end infinite;
+        vertical-align: middle;
+        margin-left: 4px;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+    
+    .status-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    .status-indicator.connected {
+        background: rgba(34, 197, 94, 0.2);
+        color: #22c55e;
+    }
+    
+    .status-indicator.disconnected {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+    
+    .status-indicator.connecting {
+        background: rgba(251, 191, 36, 0.2);
+        color: #fbbf24;
+    }
+    
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+    
+    .status-indicator.connected .status-dot {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    .terminal-footer {
+        background: #252525;
+        padding: 8px 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #333;
+        font-size: 12px;
+        color: #888;
+    }
+    
+    .terminal-input {
+        background: transparent;
+        border: none;
+        color: #22c55e;
+        font-family: inherit;
+        font-size: 13px;
+        outline: none;
+        flex-grow: 1;
+    }
+    
+    .terminal-input::placeholder {
+        color: #555;
+    }
+    
+    .prompt {
+        color: #22c55e;
+        margin-right: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-white mb-1">System Logs</h1>
+            <p class="text-gray-400 text-sm">Real-time server log stream</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <div id="connection-status" class="status-indicator connecting">
+                <span class="status-dot"></span>
+                <span>Connecting...</span>
+            </div>
+            <button onclick="clearLogs()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm flex items-center gap-2">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Clear
+            </button>
+            <a href="{% url 'admin:index' %}" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm flex items-center gap-2">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Back to Admin
+            </a>
+        </div>
+    </div>
+    
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-btn close" onclick="window.close()"></div>
+            <div class="terminal-btn minimize"></div>
+            <div class="terminal-btn maximize" onclick="toggleFullscreen()"></div>
+            <div class="terminal-title">ibhax@server — logs — bash</div>
+            <div style="width: 52px;"></div>
+        </div>
+        
+        <div id="terminal-body" class="terminal-body">
+            <div class="log-line">
+                <span class="log-message system">Initializing log stream...</span>
+            </div>
+        </div>
+        
+        <div class="terminal-footer">
+            <div class="flex items-center flex-grow">
+                <span class="prompt">$</span>
+                <input type="text" id="terminal-input" class="terminal-input" placeholder="Type 'help' for commands..." onkeypress="handleCommand(event)">
+            </div>
+            <div id="log-count">0 logs</div>
+        </div>
+    </div>
+    
+    <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+            <div class="text-2xl font-bold text-blue-400" id="info-count">0</div>
+            <div class="text-gray-400 text-sm">Info</div>
+        </div>
+        <div class="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+            <div class="text-2xl font-bold text-yellow-400" id="warning-count">0</div>
+            <div class="text-gray-400 text-sm">Warnings</div>
+        </div>
+        <div class="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+            <div class="text-2xl font-bold text-red-400" id="error-count">0</div>
+            <div class="text-gray-400 text-sm">Errors</div>
+        </div>
+        <div class="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+            <div class="text-2xl font-bold text-gray-400" id="debug-count">0</div>
+            <div class="text-gray-400 text-sm">Debug</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let socket = null;
+    let logCount = 0;
+    let counts = { info: 0, warning: 0, error: 0, debug: 0 };
+    let autoScroll = true;
+    
+    function connect() {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        socket = new WebSocket(`${protocol}//${window.location.host}/ws/logs/`);
+        
+        socket.onopen = function(e) {
+            updateStatus('connected', 'Connected');
+            addSystemLog('WebSocket connection established');
+        };
+        
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            
+            if (data.type === 'log') {
+                addLog(data);
+            } else if (data.type === 'system') {
+                addSystemLog(data.message);
+            } else if (data.type === 'clear') {
+                clearLogsDisplay();
+            } else if (data.type === 'pong') {
+                addSystemLog('pong');
+            }
+        };
+        
+        socket.onclose = function(e) {
+            updateStatus('disconnected', 'Disconnected');
+            addSystemLog('Connection closed. Reconnecting in 3s...');
+            setTimeout(connect, 3000);
+        };
+        
+        socket.onerror = function(e) {
+            updateStatus('disconnected', 'Error');
+            addSystemLog('WebSocket error occurred');
+        };
+    }
+    
+    function updateStatus(status, text) {
+        const el = document.getElementById('connection-status');
+        el.className = `status-indicator ${status}`;
+        el.innerHTML = `<span class="status-dot"></span><span>${text}</span>`;
+    }
+    
+    function addLog(data) {
+        const terminal = document.getElementById('terminal-body');
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        
+        const level = data.level || 'info';
+        counts[level] = (counts[level] || 0) + 1;
+        logCount++;
+        
+        line.innerHTML = `
+            <span class="log-timestamp">${data.timestamp || new Date().toLocaleTimeString()}</span>
+            <span class="log-level ${level}">${level}</span>
+            <span class="log-message">${escapeHtml(data.message)}</span>
+        `;
+        
+        terminal.appendChild(line);
+        updateCounts();
+        
+        if (autoScroll) {
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+    }
+    
+    function addSystemLog(message) {
+        const terminal = document.getElementById('terminal-body');
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.innerHTML = `
+            <span class="log-timestamp">${new Date().toLocaleTimeString()}</span>
+            <span class="log-message system">» ${escapeHtml(message)}</span>
+        `;
+        terminal.appendChild(line);
+        
+        if (autoScroll) {
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+    }
+    
+    function updateCounts() {
+        document.getElementById('log-count').textContent = `${logCount} logs`;
+        document.getElementById('info-count').textContent = counts.info || 0;
+        document.getElementById('warning-count').textContent = counts.warning || 0;
+        document.getElementById('error-count').textContent = counts.error || 0;
+        document.getElementById('debug-count').textContent = counts.debug || 0;
+    }
+    
+    function clearLogs() {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ command: 'clear' }));
+        }
+        clearLogsDisplay();
+    }
+    
+    function clearLogsDisplay() {
+        const terminal = document.getElementById('terminal-body');
+        terminal.innerHTML = '<div class="log-line"><span class="log-message system">» Logs cleared</span></div>';
+        logCount = 0;
+        counts = { info: 0, warning: 0, error: 0, debug: 0 };
+        updateCounts();
+    }
+    
+    function handleCommand(event) {
+        if (event.key === 'Enter') {
+            const input = document.getElementById('terminal-input');
+            const cmd = input.value.trim().toLowerCase();
+            input.value = '';
+            
+            addSystemLog(`$ ${cmd}`);
+            
+            switch (cmd) {
+                case 'help':
+                    addSystemLog('Available commands: help, clear, ping, scroll, stats');
+                    break;
+                case 'clear':
+                    clearLogs();
+                    break;
+                case 'ping':
+                    if (socket && socket.readyState === WebSocket.OPEN) {
+                        socket.send(JSON.stringify({ command: 'ping' }));
+                    }
+                    break;
+                case 'scroll':
+                    autoScroll = !autoScroll;
+                    addSystemLog(`Auto-scroll: ${autoScroll ? 'enabled' : 'disabled'}`);
+                    break;
+                case 'stats':
+                    addSystemLog(`Total: ${logCount} | Info: ${counts.info} | Warnings: ${counts.warning} | Errors: ${counts.error}`);
+                    break;
+                default:
+                    addSystemLog(`Unknown command: ${cmd}. Type 'help' for available commands.`);
+            }
+        }
+    }
+    
+    function toggleFullscreen() {
+        const terminal = document.querySelector('.terminal-window');
+        if (!document.fullscreenElement) {
+            terminal.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        connect();
+        lucide.createIcons();
+    });
+</script>
+{% endblock %}

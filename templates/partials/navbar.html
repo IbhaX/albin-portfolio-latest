@@ -39,6 +39,32 @@
                 </a>
                 {% endif %}
                 {% if user.is_authenticated %}
+                <!-- Notifications Dropdown -->
+                <div class="relative" x-data="{ notifOpen: false, unreadCount: {{ user.notifications.filter.is_read|yesno:'0,'|default:'0' }} }" x-init="
+                    fetch('{% url 'notifications:dropdown' %}')
+                        .then(r => r.json())
+                        .then(d => unreadCount = d.unread_count)
+                ">
+                    <button @click="notifOpen = !notifOpen" class="relative text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="Notifications">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span x-show="unreadCount > 0" x-cloak class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center" x-text="unreadCount > 9 ? '9+' : unreadCount"></span>
+                    </button>
+                    
+                    <div x-show="notifOpen" x-cloak @click.away="notifOpen = false" x-transition
+                        class="absolute right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden">
+                        <div class="p-3 border-b border-gray-700 flex items-center justify-between">
+                            <h3 class="font-semibold text-white">Notifications</h3>
+                            <a href="{% url 'notifications:list' %}" class="text-cyan-400 hover:text-cyan-300 text-sm">View all</a>
+                        </div>
+                        <div id="notif-list" class="max-h-80 overflow-y-auto">
+                            <div class="p-4 text-center text-gray-400 text-sm">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="{% url 'blog:my_posts' %}" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="My Posts">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                </a>
                 <a href="{% url 'accounts:profile' %}" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="Profile">
                     <i data-lucide="user" class="w-5 h-5"></i>
                 </a>
@@ -48,6 +74,9 @@
                 </a>
                 {% endif %}
                 {% if user.is_staff %}
+                <a href="{% url 'pages:admin_logs' %}" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="System Logs">
+                    <i data-lucide="terminal" class="w-5 h-5"></i>
+                </a>
                 <a href="{% url 'admin:index' %}" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="Admin">
                     <i data-lucide="settings" class="w-5 h-5"></i>
                 </a>
@@ -80,6 +109,11 @@
             <a href="{% url 'pages:home' %}#contact" @click="mobileOpen = false" class="block px-4 py-3 text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg">Start Project</a>
             <div class="border-t border-gray-700 pt-4 mt-4">
                 {% if user.is_authenticated %}
+                <a href="{% url 'notifications:list' %}" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg flex items-center justify-between">
+                    <span>Notifications</span>
+                    <span class="notification-badge-mobile"></span>
+                </a>
+                <a href="{% url 'blog:my_posts' %}" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg">My Posts</a>
                 <a href="{% url 'accounts:profile' %}" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg">Profile</a>
                 <a href="{% url 'accounts:logout' %}" class="block px-4 py-3 text-red-400 hover:text-red-300 hover:bg-gray-800 rounded-lg">Logout</a>
                 {% else %}

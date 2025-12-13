@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: ibhax-web
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist SQLite database
+      - ./data:/app/data
+      # Persist media uploads
+      - ./media:/app/media
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-your-production-secret-key-change-this}
+      - ALLOWED_HOSTS=localhost,127.0.0.1,ibhax.com,www.ibhax.com
+      - TINYMCE_API_KEY=${TINYMCE_API_KEY:-no-api-key}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  data:
+  media:

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: ibhax-web
+    ports:
+      - "80:8000"
+    volumes:
+      # Persist SQLite database
+      - ibhax-data:/app/data
+      # Persist media uploads
+      - ibhax-media:/app/media
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-ibhax.com,www.ibhax.com}
+      - TINYMCE_API_KEY=${TINYMCE_API_KEY}
+      - DB_PATH=/app/data/db.sqlite3
+      - MEDIA_ROOT=/app/media
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  ibhax-data:
+  ibhax-media:

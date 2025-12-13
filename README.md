@@ -1,83 +1,99 @@
-# 1000064977 - Favicon Package
+# IBHAX - Portfolio & Blog Platform
 
-This package contains all the favicon files and configuration needed for complete browser and platform support.
+A modern Django-based portfolio and blog platform with real-time features, built for freelance developers and agencies.
 
-## 📁 Files Included
+## Features
 
-### Standard Favicons
-- `favicon.ico` - Traditional favicon (16x16, 32x32, 48x48)
-- `favicon-16x16.png` - Small favicon for browsers
-- `favicon-32x32.png` - Standard favicon for browsers
+- **Portfolio Showcase** - Personal and company project galleries
+- **Blog System** - SEO-friendly URLs, threaded comments, moderation workflow
+- **User Management** - Role-based permissions (Admin, Moderator, Member)
+- **Real-time Logs** - WebSocket-powered admin log viewer (Mac terminal style)
+- **Notifications** - Real-time notifications for posts, comments, and replies
+- **Modern UI** - Tailwind CSS with dark theme, responsive design
+- **WYSIWYG Editor** - TinyMCE integration for rich content editing
 
-### Apple Touch Icons
-- `apple-touch-icon-180x180.png` - iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8 Plus, iPhone X, iPhone XS, iPhone XS Max, iPhone 11 Pro Max
-- `apple-touch-icon-152x152.png` - iPad, iPad mini
-- `apple-touch-icon-120x120.png` - iPhone 6, iPhone 6s, iPhone 7, iPhone 8, iPhone SE
-- `apple-touch-icon-76x76.png` - iPad (iOS 7+)
-- `apple-touch-icon-60x60.png` - iPhone (iOS 7+)
+## Quick Start
 
-### Android & PWA Icons
-- `android-chrome-192x192.png` - Android homescreen icon
-- `android-chrome-512x512.png` - Android splash screen icon
-- `site.webmanifest` - PWA manifest file
+### Local Development
 
-### Microsoft Tiles
-- `mstile-150x150.png` - Windows 8+ tiles
-- `browserconfig.xml` - Microsoft browser configuration
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ibhax.git
+cd ibhax
 
-### Additional Files
-- `favicon-meta-tags.html` - Complete HTML meta tags
-- `README.md` - This file
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
+# Install dependencies
+pip install -r requirements.txt
 
+# Copy environment file
+cp .env.example .env
+# Edit .env with your settings
 
-## 🚀 Installation
+# Run setup script
+./setup.sh
 
-1. **Upload all files** to your website's root directory
-2. **Copy the HTML meta tags** from `favicon-meta-tags.html` into your website's `<head>` section
-3. **Test your favicons** using online favicon checkers
+# Start development server
+python manage.py runserver
+```
 
-## 💡 Usage Tips
+### Docker Deployment
 
-- Place all files in your website's root directory (e.g., `https://yoursite.com/favicon.ico`)
-- The HTML meta tags should be placed in the `<head>` section of every page
-- Test on different devices and browsers to ensure proper display
-- Consider using a CDN for better performance
+```bash
+# Development
+docker-compose up --build
 
-## 🔧 Advanced Configuration
+# Production
+docker-compose -f docker-compose.prod.yml up -d --build
+```
 
-### PWA (Progressive Web App)
-Your `site.webmanifest` file enables PWA features:
-- Add to homescreen functionality
-- Splash screen customization
-- App-like experience on mobile
+## Environment Variables
 
-### Microsoft Integration
-The `browserconfig.xml` file configures:
-- Windows 8+ tile colors
-- Tile icon selection
-- Browser-specific settings
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `SECRET_KEY` | Django secret key | (insecure default) |
+| `DEBUG` | Debug mode | `True` |
+| `ALLOWED_HOSTS` | Comma-separated hosts | `localhost,127.0.0.1` |
+| `TINYMCE_API_KEY` | TinyMCE editor API key | `no-api-key` |
+| `DB_PATH` | SQLite database path | `db.sqlite3` |
 
-## 🌟 Features
+## Project Structure
 
-- ✅ Complete browser support (Chrome, Firefox, Safari, Edge, IE)
-- ✅ All device support (Desktop, Mobile, Tablet)
-- ✅ Platform integration (iOS, Android, Windows)
-- ✅ PWA ready with manifest.json
-- ✅ Optimized file sizes
+```
+ibhax/
+├── accounts/       # User authentication & profiles
+├── blog/           # Blog posts, categories, tags
+├── comments/       # Threaded comments (MPTT)
+├── moderation/     # Content moderation tools
+├── notifications/  # Real-time notifications
+├── pages/          # Static pages, contact form
+├── portfolio/      # Personal & company projects
+├── templates/      # HTML templates
+├── static/         # Static assets
+└── ibhax/          # Project settings
+```
 
-## 📱 Supported Platforms
+## Admin Access
 
-- **Web Browsers**: Chrome, Firefox, Safari, Edge, Opera
-- **Mobile**: iOS Safari, Android Chrome, Samsung Internet
-- **Desktop**: Windows, macOS, Linux
-- **Tablets**: iPad, Android tablets
-- **PWA**: Progressive Web App support
+After running setup:
+- **URL**: http://localhost:8000/admin/
+- **Username**: `admin`
+- **Password**: `admin123` (change in production!)
 
-## 🛠️ Generated with
+## Tech Stack
 
-This favicon package was generated using [Favicon AI](https://favicon-ai.com) - the free favicon generator with AI-powered optimization.
+- **Backend**: Django 4.2, Django Channels (WebSocket)
+- **Database**: SQLite (PostgreSQL ready)
+- **Frontend**: Tailwind CSS, Alpine.js, HTMX
+- **Server**: Daphne (ASGI)
+- **Editor**: TinyMCE
+
+## License
+
+MIT License - See LICENSE file for details.
 
 ---
 
-Need help? Visit [Favicon AI](https://favicon-ai.com) for more favicon tools and resources.
+Built with ❤️ by [IBHAX](https://ibhax.com)
