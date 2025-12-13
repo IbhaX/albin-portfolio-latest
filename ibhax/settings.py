@@ -124,8 +124,12 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
+    # Only enable secure cookies if using HTTPS
+    if os.environ.get('RENDER'):
+        CSRF_TRUSTED_ORIGINS = ['https://ibhax-com.onrender.com', 'https://ibhax.com', 'https://www.ibhax.com']
+        CSRF_COOKIE_SECURE = True
+        SESSION_COOKIE_SECURE = True
+        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # TinyMCE API Key (get from environment variable or use default)
 TINYMCE_API_KEY = os.environ.get('TINYMCE_API_KEY', 'no-api-key')
