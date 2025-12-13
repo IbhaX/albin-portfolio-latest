@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} - Blog - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <p class="text-cyan-400 mb-2">Category</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ category.name }}</h1>
+        {% if category.description %}
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">{{ category.description }}</p>
+        {% endif %}
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for post in posts %}
+        <article class="bg-gray-800/70 rounded-xl overflow-hidden border border-gray-700 hover:border-cyan-500 transition-all duration-300">
+            {% if post.featured_image %}
+            <a href="{{ post.get_absolute_url }}">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+            </a>
+            {% endif %}
+            <div class="p-6">
+                <span class="text-gray-400 text-sm">{{ post.published_at|date:"M d, Y" }}</span>
+                <h2 class="text-xl font-bold text-white mt-2 mb-3 hover:text-cyan-400 transition-colors">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h2>
+                <p class="text-gray-300 text-sm mb-4">{{ post.excerpt|truncatewords:20 }}</p>
+                <a href="{{ post.get_absolute_url }}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium">
+                    Read more →
+                </a>
+            </div>
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-12">
+            <p class="text-gray-400">No posts in this category yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if posts.has_other_pages %}
+    <div class="mt-8 flex justify-center gap-2">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700">Previous</a>
+        {% endif %}
+        <span class="px-4 py-2 bg-cyan-600 text-white rounded-lg">{{ posts.number }}</span>
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <div class="mt-8 text-center">
+        <a href="{% url 'blog:post_list' %}" class="text-cyan-400 hover:text-cyan-300">← Back to all posts</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,379 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ settings.owner_name|default:"Albin Anthony" }} | {{ settings.site_tagline|default:"Python & AI Engineer" }} | IBHAX{% endblock %}
+
+{% block extra_css %}
+<style>
+    .description-list li {
+        list-style: none;
+        display: flex;
+        align-items: flex-start;
+        padding-left: 0;
+    }
+    .description-list .icon {
+        flex-shrink: 0;
+        margin-right: 0.5rem;
+        margin-top: 0.35rem;
+        color: #06b6d4;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Background Audio (optional) -->
+{% if settings.background_audio %}
+<audio id="bgm" src="{{ settings.background_audio.url }}" loop autoplay muted></audio>
+<button id="toggleBgm" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg z-50">
+    🔇 Sound Off
+</button>
+{% endif %}
+
+<!-- HEADER -->
+<header class="header-bg text-white pt-8 pb-20 shadow-2xl rounded-b-[40px] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-color-cyan-900),_transparent_90%)]"></div>
+    <div class="container mx-auto px-8 md:px-12 text-center relative">
+        <div class="scroll-animate" data-delay="0s">
+            <h1 class="text-6xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
+                {{ settings.owner_name|default:"ALBIN ANTHONY"|upper }}
+            </h1>
+        </div>
+        <div class="scroll-animate" data-delay="0.2s">
+            <p class="text-2xl font-light text-cyan-400 mb-8 max-w-4xl mx-auto">
+                {{ settings.owner_title|default:"Senior Python Engineer, Backend Specialist, AI/ML API Integration Expert" }}
+            </p>
+        </div>
+        
+        <div class="flex justify-center flex-wrap gap-x-6 gap-y-3 text-lg mt-8 text-left">
+            <div class="scroll-animate" data-delay="0.4s">
+                <div class="flex items-center text-gray-300 hover:text-cyan-400 transition flex-row">
+                    <i data-lucide="mail" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                    <a href="mailto:{{ settings.owner_email|default:"albin.anthony.dev@gmail.com" }}">{{ settings.owner_email|default:"albin.anthony.dev@gmail.com" }}</a>
+                </div>
+            </div>
+            {% if settings.owner_phone %}
+            <div class="scroll-animate" data-delay="0.6s">
+                <div class="flex items-center text-gray-300 flex-row">
+                    <i data-lucide="phone" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                    <span>{{ settings.owner_phone }}</span>
+                </div>
+            </div>
+            {% endif %}
+            {% if settings.owner_location %}
+            <div class="scroll-animate" data-delay="0.8s">
+                <div class="flex items-center text-gray-300 flex-row">
+                    <i data-lucide="map-pin" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                    <span>{{ settings.owner_location }}</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="flex justify-center space-x-6 pt-6">
+            {% if settings.linkedin_url %}
+            <div class="scroll-animate" data-delay="1.0s">
+                <a href="{{ settings.linkedin_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition flex items-center text-xl">
+                    <i data-lucide="linkedin" class="w-6 h-6 mr-2"></i>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.github_url %}
+            <div class="scroll-animate" data-delay="1.2s">
+                <a href="{{ settings.github_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition flex items-center text-xl">
+                    <i data-lucide="github" class="w-6 h-6 mr-2"></i>
+                </a>
+            </div>
+            {% endif %}
+            {% if settings.resume_file %}
+            <div class="scroll-animate" data-delay="1.4s">
+                <a href="{{ settings.resume_file.url }}" download class="text-gray-300 hover:text-cyan-400 transition flex items-center text-xl">
+                    <i data-lucide="download" class="w-6 h-6 mr-2"></i>
+                    <span class="text-sm">Resume</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- SUMMARY -->
+<section id="summary" class="container mx-auto p-6 md:p-12 text-left scroll-mt-20">
+    <div class="scroll-animate">
+        <div class="bg-gray-900 text-gray-100 p-8 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm shadow-inner shadow-cyan-900/50">
+            <h2 class="text-3xl font-bold mb-3 text-cyan-400 flex items-center justify-start">
+                <i data-lucide="book-open" class="w-6 h-6 mr-2 text-cyan-400"></i> Professional Summary
+            </h2>
+            <p class="leading-relaxed text-lg">{{ settings.owner_summary|default:"Senior Python Engineer with extensive experience in developing scalable applications, specializing in Django, AI Agent Development, and cloud infrastructure."|safe }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-16 px-8 md:px-12 bg-gray-950 text-left scroll-mt-20">
+    <div class="container mx-auto">
+        <div class="scroll-animate">
+            <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                <i data-lucide="code" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Technical Schematic
+            </h2>
+        </div>
+        <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for category, skill_list in skills.items %}
+            <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+                <div class="bg-gray-800/70 p-4 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-l-4 border-cyan-800">
+                    <h4 class="text-lg font-semibold capitalize mb-3 text-cyan-400 flex items-center">
+                        <i data-lucide="code" class="w-5 h-5 mr-2"></i>
+                        {{ category|title }}
+                    </h4>
+                    <ul class="text-sm space-y-2">
+                        {% for skill in skill_list %}
+                        <li class="flex items-center text-gray-300 justify-start">
+                            <div class="w-1 h-1 bg-cyan-400 rounded-full mr-2 flex-shrink-0"></div>
+                            {{ skill }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-400 col-span-full">No skills added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+    <div class="scroll-animate">
+        <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+            <i data-lucide="briefcase" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Agent Deployment Log
+        </h2>
+    </div>
+    
+    <div class="relative pl-8 md:pl-12">
+        <div class="timeline-line"></div>
+        {% for exp in experiences %}
+        <div class="mb-12 relative">
+            <div class="scroll-animate timeline-marker" data-delay="0.{{ forloop.counter0 }}s">
+                <i data-lucide="{{ exp.icon|default:'briefcase' }}" class="w-3 h-3 text-gray-900"></i>
+            </div>
+            
+            <div class="ml-5 md:ml-0 pl-7 md:pl-16">
+                <div class="scroll-animate" data-delay="0.{{ forloop.counter }}s">
+                    <div class="bg-gray-800/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm ring-2 ring-cyan-800/50 hover:ring-cyan-500">
+                        <p class="text-sm text-gray-500 mb-1 font-mono">{{ exp.duration }}</p>
+                        <h3 class="text-2xl font-bold text-cyan-400 mb-1">{{ exp.title }}</h3>
+                        <p class="text-gray-300 font-semibold mb-3">{{ exp.company }}</p>
+                        
+                        <ul class="description-list space-y-2 text-gray-300 mb-4 pl-0">
+                            {% for point in exp.get_description_list %}
+                            <li class="flex items-start">
+                                <i data-lucide="corner-down-right" class="icon w-4 h-4 mt-1 mr-2 text-cyan-500 flex-shrink-0"></i>
+                                <span class="flex-1">{{ point }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        {% if exp.technologies %}
+                        <div class="mt-4 border-t border-gray-700 pt-3">
+                            <p class="font-semibold text-sm mb-2 text-gray-200">Key Technologies:</p>
+                            <div class="flex flex-wrap gap-2 justify-start">
+                                {% for tech in exp.get_tech_list %}
+                                <span class="inline-block bg-gray-700 text-gray-300 text-xs px-3 py-1 rounded-lg font-medium border border-gray-600">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400">No experience entries yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="bg-gray-950 py-16 px-8 md:px-12 text-white text-left">
+    <div class="container mx-auto">
+        <div class="scroll-animate">
+            <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                <i data-lucide="server" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Completed Project Files
+            </h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects %}
+            <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+                <div class="bg-gray-900/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-b-4 border-cyan-500 hover:scale-[1.02]">
+                    {% if project.featured_image %}
+                    <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-40 object-cover rounded-lg mb-4">
+                    {% endif %}
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-300 mb-4 text-base">{{ project.short_description|default:project.description|truncatewords:30 }}</p>
+                    <div class="border-t border-gray-700 pt-3">
+                        <p class="font-semibold text-sm mb-2 text-gray-200">Tech Stack:</p>
+                        <div class="flex flex-wrap gap-2 justify-start">
+                            {% for tech in project.get_tech_list %}
+                            <span class="bg-cyan-900 text-cyan-300 text-xs font-medium px-3 py-1 rounded-full">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center gap-4">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-medium transition text-sm flex items-center">
+                            <i data-lucide="github" class="w-4 h-4 mr-1"></i> Code
+                        </a>
+                        {% endif %}
+                        {% if project.demo_url %}
+                        <a href="{{ project.demo_url }}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-medium transition text-sm flex items-center">
+                            <i data-lucide="external-link" class="w-4 h-4 mr-1"></i> Demo
+                        </a>
+                        {% endif %}
+                        {% if project.project_url %}
+                        <a href="{{ project.project_url }}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-medium transition text-sm flex items-center">
+                            <i data-lucide="arrow-right" class="w-4 h-4 mr-1"></i> View
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-400 col-span-full">No projects added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- WORKSHOPS & TRAINING -->
+<section id="workshops" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+    <div class="scroll-animate">
+        <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+            <i data-lucide="cpu" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Workshops & Specialized Training
+        </h2>
+    </div>
+    <div class="space-y-4">
+        {% for workshop in workshops %}
+        <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+            <div class="bg-gray-800/70 p-4 rounded-xl shadow-lg border border-gray-700 hover:border-cyan-500 transition duration-300 flex items-start">
+                <i data-lucide="award" class="w-5 h-5 mr-3 mt-1 text-cyan-400 flex-shrink-0"></i>
+                <p class="text-gray-200">{{ workshop.title }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400">No workshops yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="bg-gray-950 py-16 px-8 md:px-12 text-gray-100 text-left scroll-mt-20">
+    <div class="container mx-auto">
+        <div class="scroll-animate">
+            <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+                <i data-lucide="graduation-cap" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Training and Education Log
+            </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for edu in education %}
+            <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+                <div class="bg-gray-800/80 p-6 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm h-full border-l-4 border-cyan-500 border-r-0">
+                    <h3 class="text-xl font-bold text-gray-100 mb-1">{{ edu.name }}</h3>
+                    <p class="text-cyan-400 font-medium mb-1">{{ edu.institution }}</p>
+                    <p class="text-sm text-gray-500">Year: {{ edu.year }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-400 col-span-full">No education entries yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages" class="container mx-auto py-16 px-8 md:px-12 text-gray-100 text-left">
+    <div class="scroll-animate">
+        <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
+            <i data-lucide="globe" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Multilingual Proficiency
+        </h2>
+    </div>
+    <div class="grid md:grid-cols-4 gap-6">
+        {% for lang in languages %}
+        <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+            <div class="bg-gray-800/70 p-4 rounded-xl shadow-lg border border-gray-700 hover:border-cyan-500 transition duration-300 h-full border-b-2 border-cyan-800">
+                <h4 class="text-xl font-bold text-gray-100 mb-1">{{ lang.name }}</h4>
+                <p class="text-sm text-cyan-400">{{ lang.proficiency }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-gray-400 col-span-full">No languages added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-16 px-4 md:px-8 bg-gray-900 scroll-mt-20">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+            <span class="border-b-4 border-cyan-500 pb-2">Get In Touch</span>
+        </h2>
+        
+        <div id="contact-form-container">
+            {% include 'pages/partials/contact_form.html' %}
+        </div>
+        
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition-colors">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="mail" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Email Me</h3>
+                <a href="mailto:{{ settings.owner_email|default:"albin.anthony.dev@gmail.com" }}" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    {{ settings.owner_email|default:"albin.anthony.dev@gmail.com" }}
+                </a>
+            </div>
+            
+            {% if settings.owner_phone %}
+            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition-colors">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="phone" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Call Me</h3>
+                <a href="tel:{{ settings.owner_phone }}" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    {{ settings.owner_phone }}
+                </a>
+            </div>
+            {% endif %}
+            
+            {% if settings.owner_location %}
+            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition-colors">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Location</h3>
+                <p class="text-gray-300">{{ settings.owner_location }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Background music toggle
+    const bgm = document.getElementById('bgm');
+    const btn = document.getElementById('toggleBgm');
+    
+    if (bgm && btn) {
+        document.addEventListener('click', () => {
+            if (bgm.paused) {
+                bgm.play().catch(err => console.log('Autoplay blocked:', err));
+            }
+        }, { once: true });
+        
+        btn.addEventListener('click', () => {
+            bgm.muted = !bgm.muted;
+            btn.textContent = bgm.muted ? '🔇 Sound Off' : '🔊 Sound On';
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog - {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Blog</h1>
+        <p class="text-gray-400 text-lg">Thoughts, tutorials, and insights on Python, AI, and software development</p>
+    </div>
+    
+    {% if query %}
+    <div class="mb-8 p-4 bg-gray-800/50 rounded-lg">
+        <p class="text-gray-300">Search results for: <span class="text-cyan-400 font-medium">"{{ query }}"</span></p>
+    </div>
+    {% endif %}
+    
+    <div class="flex flex-col lg:flex-row gap-8">
+        <div class="lg:w-3/4">
+            <div class="space-y-8">
+                {% for post in posts %}
+                <article class="bg-gray-800/70 rounded-xl overflow-hidden border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+                    {% if post.featured_image %}
+                    <a href="{{ post.get_absolute_url }}">
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover">
+                    </a>
+                    {% endif %}
+                    <div class="p-6">
+                        <div class="flex items-center gap-4 mb-3 text-sm text-gray-400">
+                            {% if post.category %}
+                            <a href="{% url 'blog:category' post.category.slug %}" class="text-cyan-400 hover:text-cyan-300">{{ post.category.name }}</a>
+                            <span>•</span>
+                            {% endif %}
+                            <span>{{ post.published_at|date:"M d, Y" }}</span>
+                            <span>•</span>
+                            <span>{{ post.views }} views</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-3 hover:text-cyan-400 transition-colors">
+                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        </h2>
+                        <p class="text-gray-300 mb-4">{{ post.excerpt|truncatewords:30 }}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="user" class="w-4 h-4 text-gray-400"></i>
+                                <span class="text-gray-400 text-sm">{{ post.author.username }}</span>
+                            </div>
+                            <a href="{{ post.get_absolute_url }}" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium flex items-center gap-1">
+                                Read more <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="text-center py-12">
+                    <i data-lucide="file-text" class="w-16 h-16 text-gray-600 mx-auto mb-4"></i>
+                    <p class="text-gray-400 text-lg">No blog posts yet.</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            {% if posts.has_other_pages %}
+            <div class="mt-8 flex justify-center gap-2">
+                {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700">Previous</a>
+                {% endif %}
+                <span class="px-4 py-2 bg-cyan-600 text-white rounded-lg">{{ posts.number }}</span>
+                {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}{% if query %}&q={{ query }}{% endif %}" class="px-4 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700">Next</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <aside class="lg:w-1/4">
+            <div class="sticky top-24 space-y-6">
+                <div class="bg-gray-800/70 rounded-xl p-6 border border-gray-700">
+                    <h3 class="text-lg font-bold text-white mb-4">Search</h3>
+                    <form action="{% url 'blog:post_list' %}" method="get">
+                        <div class="relative">
+                            <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search posts..."
+                                   class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
+                            <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cyan-400">
+                                <i data-lucide="search" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                {% if categories %}
+                <div class="bg-gray-800/70 rounded-xl p-6 border border-gray-700">
+                    <h3 class="text-lg font-bold text-white mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        {% for cat in categories %}
+                        <li>
+                            <a href="{% url 'blog:category' cat.slug %}" class="text-gray-300 hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                <i data-lucide="folder" class="w-4 h-4"></i>
+                                {{ cat.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if tags %}
+                <div class="bg-gray-800/70 rounded-xl p-6 border border-gray-700">
+                    <h3 class="text-lg font-bold text-white mb-4">Tags</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {% for tag in tags %}
+                        <a href="{% url 'blog:tag' tag.slug %}" class="px-3 py-1 bg-gray-700 text-gray-300 text-sm rounded-full hover:bg-cyan-600 hover:text-white transition-colors">
+                            {{ tag.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </aside>
+    </div>
+</div>
+{% endblock %}

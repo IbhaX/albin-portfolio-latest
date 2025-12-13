@@ -1,0 +1,46 @@
+<form id="contactForm" 
+      hx-post="{% url 'pages:contact_submit' %}" 
+      hx-target="#contact-form-container" 
+      hx-swap="innerHTML"
+      class="space-y-6 max-w-2xl mx-auto">
+    {% csrf_token %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+            <label for="id_name" class="block text-sm font-medium text-gray-300">Your Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+            <p class="text-red-400 text-sm">{{ form.name.errors.0 }}</p>
+            {% endif %}
+        </div>
+        <div class="space-y-2">
+            <label for="id_email" class="block text-sm font-medium text-gray-300">Email Address</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <p class="text-red-400 text-sm">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="space-y-2">
+        <label for="id_subject" class="block text-sm font-medium text-gray-300">Subject</label>
+        {{ form.subject }}
+        {% if form.subject.errors %}
+        <p class="text-red-400 text-sm">{{ form.subject.errors.0 }}</p>
+        {% endif %}
+    </div>
+    
+    <div class="space-y-2">
+        <label for="id_message" class="block text-sm font-medium text-gray-300">Your Message</label>
+        {{ form.message }}
+        {% if form.message.errors %}
+        <p class="text-red-400 text-sm">{{ form.message.errors.0 }}</p>
+        {% endif %}
+    </div>
+    
+    <div class="pt-2">
+        <button type="submit" class="w-full md:w-auto px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2">
+            <i data-lucide="send" class="w-5 h-5"></i>
+            <span>Send Message</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}IBHAX | Software Development & Freelance Services{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<header class="header-bg text-white pt-16 pb-24 shadow-2xl rounded-b-[40px] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-color-cyan-900),_transparent_90%)]"></div>
+    <div class="container mx-auto px-8 md:px-12 text-center relative">
+        <div class="scroll-animate" data-delay="0s">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-4 leading-tight">
+                <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">IBHAX</span>
+            </h1>
+        </div>
+        <div class="scroll-animate" data-delay="0.2s">
+            <p class="text-2xl md:text-3xl font-light text-gray-300 mb-4 max-w-4xl mx-auto">
+                Software Development & Freelance Services
+            </p>
+            <p class="text-lg text-cyan-400 mb-8 max-w-3xl mx-auto">
+                Transforming ideas into powerful digital solutions. We build scalable web applications, AI integrations, and custom software for businesses worldwide.
+            </p>
+        </div>
+        
+        <div class="scroll-animate flex flex-wrap justify-center gap-4 mt-8" data-delay="0.4s">
+            <a href="#services" class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/30 flex items-center gap-2">
+                <i data-lucide="rocket" class="w-5 h-5"></i>
+                Our Services
+            </a>
+            <a href="#contact" class="px-8 py-4 bg-transparent border-2 border-cyan-500 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-500/10 transition-all duration-300 flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                Start a Project
+            </a>
+        </div>
+        
+        <div class="flex justify-center flex-wrap gap-x-8 gap-y-3 text-lg mt-12">
+            <div class="scroll-animate flex items-center text-gray-400" data-delay="0.6s">
+                <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-green-400"></i>
+                <span>100+ Projects Delivered</span>
+            </div>
+            <div class="scroll-animate flex items-center text-gray-400" data-delay="0.7s">
+                <i data-lucide="users" class="w-5 h-5 mr-2 text-blue-400"></i>
+                <span>Global Clients</span>
+            </div>
+            <div class="scroll-animate flex items-center text-gray-400" data-delay="0.8s">
+                <i data-lucide="clock" class="w-5 h-5 mr-2 text-purple-400"></i>
+                <span>5+ Years Experience</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- SERVICES SECTION -->
+<section id="services" class="py-20 px-8 md:px-12 bg-gray-950 scroll-mt-20">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <div class="scroll-animate">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Our <span class="text-cyan-400">Services</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    We offer end-to-end software development services tailored to your business needs
+                </p>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="scroll-animate" data-delay="0s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-cyan-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-cyan-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Web Development</h3>
+                    <p class="text-gray-400 mb-4">Custom web applications built with modern frameworks like Django, React, and Next.js. Responsive, fast, and scalable.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-cyan-400"></i>Full-stack Development</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-cyan-400"></i>E-commerce Solutions</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-cyan-400"></i>CMS & Portals</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="scroll-animate" data-delay="0.1s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-purple-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="bot" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">AI & Automation</h3>
+                    <p class="text-gray-400 mb-4">Intelligent solutions powered by AI/ML. Chatbots, automation workflows, and smart integrations.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-400"></i>AI Agent Development</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-400"></i>LLM Integrations</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-400"></i>Process Automation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="scroll-animate" data-delay="0.2s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-green-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-green-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="server" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">API Development</h3>
+                    <p class="text-gray-400 mb-4">RESTful and GraphQL APIs that power your applications. Secure, documented, and performant.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-400"></i>REST & GraphQL</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-400"></i>Third-party Integrations</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-400"></i>Microservices</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="scroll-animate" data-delay="0.3s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-orange-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-orange-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="smartphone" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Mobile Apps</h3>
+                    <p class="text-gray-400 mb-4">Cross-platform mobile applications that deliver native-like experiences on iOS and Android.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-400"></i>React Native</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-400"></i>Flutter Development</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-400"></i>PWA Solutions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="scroll-animate" data-delay="0.4s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-blue-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-blue-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cloud" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Cloud & DevOps</h3>
+                    <p class="text-gray-400 mb-4">Cloud infrastructure setup, CI/CD pipelines, and deployment automation for seamless operations.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-400"></i>AWS / GCP / Azure</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-400"></i>Docker & Kubernetes</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-400"></i>CI/CD Pipelines</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="scroll-animate" data-delay="0.5s">
+                <div class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 hover:border-yellow-500 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-yellow-500/10">
+                    <div class="w-14 h-14 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wrench" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Consulting</h3>
+                    <p class="text-gray-400 mb-4">Technical consulting and code reviews. We help you make the right architectural decisions.</p>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-400"></i>Architecture Design</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-400"></i>Code Reviews</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-400"></i>Tech Stack Selection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TECH STACK SECTION -->
+<section id="tech" class="py-20 px-8 md:px-12 bg-gray-900">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <div class="scroll-animate">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Tech <span class="text-cyan-400">Stack</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    We work with modern technologies to deliver robust solutions
+                </p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {% for category, skill_list in skills.items %}
+            <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+                <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700 hover:border-cyan-500 transition-all duration-300 text-center">
+                    <h4 class="text-sm font-semibold text-cyan-400 mb-3">{{ category|title }}</h4>
+                    <div class="flex flex-wrap justify-center gap-1">
+                        {% for skill in skill_list|slice:":4" %}
+                        <span class="text-xs text-gray-400 bg-gray-900 px-2 py-1 rounded">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- PORTFOLIO PREVIEW -->
+<section id="work" class="py-20 px-8 md:px-12 bg-gray-950">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <div class="scroll-animate">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Recent <span class="text-cyan-400">Work</span>
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    A glimpse of projects we've delivered for our clients
+                </p>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in company_projects %}
+            <div class="scroll-animate" data-delay="0.{{ forloop.counter0 }}s">
+                <div class="bg-gray-900/80 rounded-2xl overflow-hidden border border-gray-800 hover:border-cyan-500 transition-all duration-300 group">
+                    {% if project.featured_image %}
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    {% else %}
+                    <div class="h-48 bg-gradient-to-br from-cyan-900/30 to-purple-900/30 flex items-center justify-center">
+                        <i data-lucide="folder" class="w-16 h-16 text-gray-600"></i>
+                    </div>
+                    {% endif %}
+                    <div class="p-6">
+                        <p class="text-cyan-400 text-sm mb-2">{{ project.company_name }}</p>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">{{ project.title }}</h3>
+                        <p class="text-gray-400 text-sm mb-4">{{ project.short_description|truncatewords:15 }}</p>
+                        <div class="flex flex-wrap gap-2">
+                            {% for tech in project.get_tech_list|slice:":3" %}
+                            <span class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <i data-lucide="folder" class="w-16 h-16 text-gray-600 mx-auto mb-4"></i>
+                <p class="text-gray-400">Portfolio coming soon...</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'portfolio:home' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors">
+                View All Projects <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="py-20 px-8 md:px-12 bg-gray-900">
+    <div class="container mx-auto">
+        <div class="text-center mb-16">
+            <div class="scroll-animate">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Why <span class="text-cyan-400">Choose Us</span>
+                </h2>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="scroll-animate text-center" data-delay="0s">
+                <div class="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="zap" class="w-8 h-8 text-cyan-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Fast Delivery</h3>
+                <p class="text-gray-400">Quick turnaround without compromising quality</p>
+            </div>
+            
+            <div class="scroll-animate text-center" data-delay="0.1s">
+                <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-purple-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Quality Code</h3>
+                <p class="text-gray-400">Clean, maintainable, and well-documented code</p>
+            </div>
+            
+            <div class="scroll-animate text-center" data-delay="0.2s">
+                <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="headphones" class="w-8 h-8 text-green-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">24/7 Support</h3>
+                <p class="text-gray-400">Always available to address your concerns</p>
+            </div>
+            
+            <div class="scroll-animate text-center" data-delay="0.3s">
+                <div class="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="dollar-sign" class="w-8 h-8 text-orange-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Competitive Pricing</h3>
+                <p class="text-gray-400">Best value for your investment</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="py-20 px-4 md:px-8 bg-gray-950 scroll-mt-20">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <div class="scroll-animate">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Start Your <span class="text-cyan-400">Project</span>
+                </h2>
+                <p class="text-gray-400 text-lg">
+                    Ready to bring your idea to life? Let's discuss your project requirements.
+                </p>
+            </div>
+        </div>
+        
+        <div id="contact-form-container" class="scroll-animate">
+            {% include 'pages/partials/contact_form.html' %}
+        </div>
+        
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="scroll-animate p-6 bg-gray-900/50 rounded-xl border border-gray-800 hover:border-cyan-500 transition-colors" data-delay="0s">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="mail" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Email Us</h3>
+                <a href="mailto:{{ settings.owner_email|default:"albi@ibhax.com" }}" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    {{ settings.owner_email|default:"albi@ibhax.com" }}
+                </a>
+            </div>
+            
+            {% if settings.owner_phone %}
+            <div class="scroll-animate p-6 bg-gray-900/50 rounded-xl border border-gray-800 hover:border-cyan-500 transition-colors" data-delay="0.1s">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="phone" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Call Us</h3>
+                <a href="tel:{{ settings.owner_phone }}" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+                    {{ settings.owner_phone }}
+                </a>
+            </div>
+            {% endif %}
+            
+            <div class="scroll-animate p-6 bg-gray-900/50 rounded-xl border border-gray-800 hover:border-cyan-500 transition-colors" data-delay="0.2s">
+                <div class="w-12 h-12 bg-cyan-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="clock" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-white mb-1">Response Time</h3>
+                <p class="text-gray-400">Within 24 hours</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

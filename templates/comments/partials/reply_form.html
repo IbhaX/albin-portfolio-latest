@@ -1,0 +1,17 @@
+<form action="{% url 'comments:add' parent.post.slug %}" method="post" class="bg-gray-900/50 rounded-lg p-4 border border-gray-700">
+    {% csrf_token %}
+    <input type="hidden" name="parent_id" value="{{ parent.id }}">
+    <p class="text-sm text-gray-400 mb-2">Replying to {{ parent.author.username }}</p>
+    <textarea name="content" rows="3" required
+              class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white placeholder-gray-400"
+              placeholder="Write your reply..."></textarea>
+    <div class="flex gap-2 mt-2">
+        <button type="submit" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white text-sm rounded-lg transition-colors flex items-center gap-1">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            Reply
+        </button>
+        <button type="button" onclick="this.closest('form').remove()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 text-sm rounded-lg transition-colors">
+            Cancel
+        </button>
+    </div>
+</form>
