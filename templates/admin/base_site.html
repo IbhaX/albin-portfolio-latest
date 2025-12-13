@@ -790,6 +790,493 @@ document.addEventListener('DOMContentLoaded', function() {
         font-size: 0.6rem;
         float: right;
     }
+    
+    /* ========================================
+       RESPONSIVE STYLES - TABLET & MOBILE
+       ======================================== */
+    
+    /* Tablet Styles (768px - 1024px) */
+    @media screen and (max-width: 1024px) {
+        #header {
+            padding: 12px 15px !important;
+            flex-wrap: wrap;
+        }
+        
+        #branding h1 {
+            font-size: 1.4rem !important;
+            letter-spacing: 2px !important;
+        }
+        
+        #user-tools {
+            font-size: 0.75rem !important;
+            margin-top: 10px;
+            width: 100%;
+            text-align: right;
+        }
+        
+        #user-tools a {
+            padding: 6px 12px !important;
+        }
+        
+        #nav-sidebar {
+            width: 200px !important;
+        }
+        
+        #content {
+            padding: 15px !important;
+        }
+        
+        #content h1 {
+            font-size: 1.2rem !important;
+        }
+        
+        .module caption,
+        .module h2,
+        .module table caption {
+            font-size: 0.7rem !important;
+            padding: 12px 15px !important;
+        }
+        
+        .module table th,
+        .module table td {
+            padding: 10px 12px !important;
+            font-size: 0.85rem !important;
+        }
+        
+        .form-row {
+            padding: 12px 15px !important;
+        }
+        
+        input[type="submit"],
+        button,
+        .button {
+            padding: 10px 18px !important;
+            font-size: 0.7rem !important;
+        }
+        
+        .submit-row {
+            padding: 15px !important;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .submit-row input,
+        .submit-row a {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+    }
+    
+    /* Mobile Styles (max-width: 767px) */
+    @media screen and (max-width: 767px) {
+        /* Hide sidebar on mobile */
+        #nav-sidebar {
+            display: none !important;
+        }
+        
+        /* Toggle button for sidebar */
+        .toggle-nav-sidebar {
+            display: block !important;
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 1000 !important;
+            background: var(--neon-cyan) !important;
+            color: var(--bg-void) !important;
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 0 20px var(--neon-cyan) !important;
+        }
+        
+        #nav-sidebar.show-mobile {
+            display: block !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 280px !important;
+            height: 100vh !important;
+            z-index: 999 !important;
+            overflow-y: auto !important;
+        }
+        
+        /* Header mobile adjustments */
+        #header {
+            padding: 10px !important;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        #branding {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        #branding h1 {
+            font-size: 1.1rem !important;
+            letter-spacing: 1px !important;
+            text-align: center;
+        }
+        
+        #branding h1 span {
+            font-size: 0.5em !important;
+        }
+        
+        #user-tools {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.7rem !important;
+        }
+        
+        #user-tools a {
+            padding: 6px 10px !important;
+            font-size: 0.65rem !important;
+        }
+        
+        /* Content area */
+        #main {
+            padding: 0 !important;
+        }
+        
+        #content {
+            padding: 10px !important;
+            margin: 0 !important;
+        }
+        
+        #content h1 {
+            font-size: 1rem !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 15px !important;
+            text-align: center;
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            padding: 8px 12px !important;
+            font-size: 0.7rem !important;
+            margin-bottom: 15px !important;
+            clip-path: none !important;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        /* Modules */
+        .module {
+            margin-bottom: 15px !important;
+        }
+        
+        .module caption,
+        .module h2,
+        .module table caption {
+            font-size: 0.65rem !important;
+            padding: 10px 12px !important;
+            letter-spacing: 1px !important;
+        }
+        
+        .module > caption::before,
+        .module > h2::before,
+        .module > caption::after,
+        .module > h2::after {
+            display: none;
+        }
+        
+        /* Tables - make scrollable */
+        .module table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .module table thead,
+        .module table tbody,
+        .module table tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .module table th,
+        .module table td {
+            padding: 8px 10px !important;
+            font-size: 0.75rem !important;
+            min-width: 100px;
+        }
+        
+        /* Forms */
+        fieldset {
+            margin-bottom: 15px !important;
+        }
+        
+        fieldset h2 {
+            font-size: 0.65rem !important;
+            padding: 10px 12px !important;
+        }
+        
+        .form-row {
+            padding: 10px 12px !important;
+            flex-direction: column;
+        }
+        
+        .form-row > div {
+            width: 100% !important;
+        }
+        
+        label {
+            font-size: 0.7rem !important;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="url"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100% !important;
+            padding: 10px 12px !important;
+            font-size: 0.8rem !important;
+            box-sizing: border-box;
+        }
+        
+        .help {
+            font-size: 0.65rem !important;
+            margin-top: 5px;
+        }
+        
+        /* Buttons */
+        input[type="submit"],
+        button,
+        .button,
+        a.button {
+            padding: 10px 16px !important;
+            font-size: 0.65rem !important;
+            letter-spacing: 1px !important;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .submit-row {
+            padding: 12px !important;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .submit-row input,
+        .submit-row a,
+        .submit-row p {
+            width: 100% !important;
+            margin: 0 !important;
+            text-align: center;
+        }
+        
+        .submit-row .deletelink-box {
+            margin-top: 10px;
+        }
+        
+        /* Object tools */
+        .object-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .object-tools li {
+            margin: 0 !important;
+        }
+        
+        .object-tools a {
+            padding: 8px 12px !important;
+            font-size: 0.65rem !important;
+        }
+        
+        /* Actions bar */
+        .actions {
+            padding: 10px !important;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .actions select {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .actions button {
+            flex: 0 0 auto;
+        }
+        
+        /* Filters */
+        #changelist-filter {
+            position: fixed !important;
+            top: 0 !important;
+            right: -300px !important;
+            width: 280px !important;
+            height: 100vh !important;
+            z-index: 998 !important;
+            transition: right 0.3s ease !important;
+            overflow-y: auto !important;
+        }
+        
+        #changelist-filter.show-filter {
+            right: 0 !important;
+        }
+        
+        #changelist-filter h2 {
+            font-size: 0.65rem !important;
+            padding: 12px !important;
+        }
+        
+        #changelist-filter h3 {
+            font-size: 0.7rem !important;
+            padding: 10px 12px 5px !important;
+        }
+        
+        /* Pagination */
+        .paginator {
+            padding: 10px !important;
+            font-size: 0.75rem !important;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .paginator a {
+            padding: 6px 10px !important;
+        }
+        
+        /* Login page */
+        body.login #content {
+            padding: 25px !important;
+            margin: 10px !important;
+            width: calc(100% - 20px) !important;
+            max-width: 100% !important;
+        }
+        
+        body.login #content::before {
+            font-size: 0.6rem !important;
+            letter-spacing: 2px !important;
+            top: -25px;
+        }
+        
+        body.login #header {
+            padding: 15px !important;
+        }
+        
+        body.login #branding h1 {
+            font-size: 1rem !important;
+        }
+        
+        /* Messages */
+        .messagelist li {
+            padding: 10px 12px !important;
+            font-size: 0.75rem !important;
+        }
+        
+        /* Recent actions */
+        #recent-actions-module li {
+            padding: 10px 12px !important;
+            font-size: 0.8rem !important;
+        }
+        
+        /* Nav global */
+        #header > div[style*="display: flex"] {
+            width: 100%;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        #header > div[style*="display: flex"] a {
+            padding: 6px 12px !important;
+            font-size: 0.65rem !important;
+        }
+        
+        /* Inline related */
+        .inline-related {
+            margin-bottom: 15px !important;
+        }
+        
+        .inline-related h3 {
+            padding: 10px 12px !important;
+            font-size: 0.7rem !important;
+        }
+        
+        /* Calendar and date widgets */
+        .calendarbox,
+        .clockbox {
+            width: 100% !important;
+            max-width: 280px !important;
+        }
+        
+        /* Selector widget */
+        .selector {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .selector-available,
+        .selector-chosen {
+            width: 100% !important;
+            margin-bottom: 10px;
+        }
+        
+        .selector-chooser {
+            width: 100% !important;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        
+        .selector-chooser li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+    }
+    
+    /* Small mobile (max-width: 480px) */
+    @media screen and (max-width: 480px) {
+        #branding h1 {
+            font-size: 0.9rem !important;
+        }
+        
+        #user-tools a {
+            padding: 5px 8px !important;
+            font-size: 0.6rem !important;
+        }
+        
+        #content h1 {
+            font-size: 0.9rem !important;
+        }
+        
+        .module caption,
+        .module h2 {
+            font-size: 0.6rem !important;
+        }
+        
+        .module table th,
+        .module table td {
+            padding: 6px 8px !important;
+            font-size: 0.7rem !important;
+        }
+        
+        input[type="submit"],
+        button,
+        .button {
+            font-size: 0.6rem !important;
+            padding: 8px 12px !important;
+        }
+    }
 </style>
 {% endblock %}
 
