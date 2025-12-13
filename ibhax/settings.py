@@ -16,7 +16,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-produc
 
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,ibhax.com,www.ibhax.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,ibhax.com,www.ibhax.com,ibhax-com.onrender.com').split(',')
+
+# For Render deployment - also check for RENDER environment
+if os.environ.get('RENDER'):
+    ALLOWED_HOSTS.append('.onrender.com')
 
 INSTALLED_APPS = [
     'daphne',
