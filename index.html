@@ -321,6 +321,24 @@
                 },
             ],
             projects: [
+                 {
+                  "name": "Azure DevOps Project Admin Audit Tool",
+                  "description": "Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 500+ projects at enterprise scale. Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests. Result: 10–15x performance improvement, reducing execution to ~20 minutes.",
+                  "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2",
+                  "link": ""
+                },
+                {
+                  "name": "Azure DevOps Branch Policy Enforcement Tool",
+                  "description": "Built a high-performance Python automation system for PepsiCo to detect and remediate non-compliant branch protection policies across Azure DevOps organizations. Designed async architecture with batch processing (200 projects/batch) and retry logic to scale across 2000+ projects. Implemented compliance detection for reviewer policies, concurrent enforcement pipelines, Oracle DB persistence, and automated email reporting with Jinja2. Supported dry-run mode. Result: Reduced enforcement time to under 30 minutes.",
+                  "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Jinja2, SMTP",
+                  "link": ""
+                },
+                {
+                  "name": "Azure DevOps Security Permissions Audit & Remediation Tool",
+                  "description": "Built a high-throughput Python security audit system for PepsiCo to detect and revoke unauthorized bypass permissions across Azure DevOps Git repositories. Designed a four-phase async workflow for ACL scanning, violation extraction, batched identity resolution, and remediation across 2000+ projects. Reduced identity API calls by ~50x, integrated Azure Audit Logs for traceability, and persisted violations via bulk inserts. Delivered automated alerts and summaries. Result: Full audit + remediation in under 30 minutes.",
+                  "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Audit Log API, Jinja2, SMTP",
+                  "link": ""
+                },
                 {
                     name: "LLM Orchestration Framework for Multi-Provider Function Calling",
                     description: "Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers (OpenAI GPT-4.1, Anthropic Claude, Google Gemma 2.5). Designed and implemented an **automated testing pipeline** that compares AI-generated execution plans against human-created references, evaluating logical step correctness, output accuracy, and redundancy. Built a scalable system using **FastAPI and AsyncIO** for parallel evaluation. **Result:** Improved workflow automation accuracy by 40%.",
