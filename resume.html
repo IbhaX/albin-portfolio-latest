@@ -509,6 +509,30 @@
       <h2>Key Projects</h2>
 
       <div class="project">
+        <h3>Azure DevOps Project Admin Audit Tool</h3>
+        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2</p>
+        <p>Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 500+ projects at enterprise scale.</p>
+        <p><strong>Achievements:</strong> Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests.</p>
+        <p><strong>Results:</strong> Achieved 10–15x performance improvement over the legacy implementation, reducing enterprise-scale audit execution from hours to ~20 minutes across 500+ projects while ensuring full compliance visibility and automated remediation notifications.</p>
+      </div>
+
+      <div class="project">
+        <h3>Azure DevOps Branch Policy Enforcement Tool</h3>
+        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Jinja2, SMTP</p>
+        <p>Built a high-performance Python automation system for PepsiCo to detect and remediate non-compliant branch protection policies across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing (200 projects/batch), and automatic retry logic to audit and enforce policies at enterprise scale across 2000+ projects.</p>
+        <p><strong>Achievements:</strong> Implemented automated compliance detection for missing and tampered minimum-reviewer policies on protected branches (<code>main</code>, <code>master</code>, <code>develop</code>), with concurrent policy creation and update pipelines. Integrated Oracle database via SQLAlchemy ORM for violation audit trail persistence and an automated email notification pipeline using Jinja2 templates for both per-project alerts and executive summaries. Supported dry-run mode for safe pre-flight validation.</p>
+        <p><strong>Results:</strong> Achieved 10–15x performance improvement over the legacy implementation, reducing enterprise-scale policy enforcement from hours to under 30 minutes across 2000+ projects while ensuring full branch protection compliance and automated remediation notifications.</p>
+      </div>
+
+      <div class="project">
+        <h3>Azure DevOps Security Permissions Audit & Remediation Tool</h3>
+        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Audit Log API, Jinja2, SMTP</p>
+        <p>Built a high-throughput Python security audit system for PepsiCo to detect and revoke unauthorized bypass permissions across Azure DevOps Git repositories. Designed a four-phase async workflow — ACL fetching, violation extraction, batched identity resolution, and concurrent permission denial — to enforce least-privilege access at enterprise scale across 2000+ projects.</p>
+        <p><strong>Achievements:</strong> Implemented automated scanning of Access Control Lists (ACLs) for critical bypass-push and bypass-PR permission bits, with deduplication to prevent duplicate violations. Reduced identity-resolution API calls by ~50x using batched Graph/Identity API lookups (50 descriptors/call vs. 1 in legacy). Integrated Azure Audit Log enrichment to capture who originally granted each violation, including actor UPN, IP address, and timestamp. Persisted violation records to Oracle DB via bulk <code>executemany</code> inserts, with configurable project and service-account exemption lists. Delivered automated Jinja2-based email alerts per project and executive summary reports.</p>
+        <p><strong>Results:</strong> Achieved significant performance gains over the legacy implementation — processing 2000+ projects in under 30 minutes with 50 concurrent HTTP connections, full audit traceability, and zero-touch automated remediation of unauthorized repository bypass permissions.</p>
+      </div>
+
+      <div class="project">
         <h3>LLM Orchestration Framework for Multi-Provider Function Calling</h3>
         <p><strong>Tech Stack:</strong> Python, FastAPI, OpenAI API, Anthropic Claude, Google Gemma, LangChain, Vector Databases</p>
         <p>Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers including OpenAI (GPT-4.1), Anthropic (Claude Sonnet 3.5, 3.7, Opus), and Google Gemma 2.5.</p>
