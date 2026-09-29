@@ -1,8 +1,23 @@
 // Commits profile.json back to GitHub so the editor can publish changes.
-// Required Netlify env vars: EDIT_KEY, GITHUB_TOKEN (repo contents: write).
-// Optional: GITHUB_REPO (owner/name), GITHUB_BRANCH, PROFILE_PATH.
+// Required Netlify env vars: GITHUB_TOKEN (repo contents: write).
+// Optional: EDIT_KEY (static fallback key), EDIT_KEY_TZ, GITHUB_REPO (owner/name),
+// GITHUB_BRANCH, PROFILE_PATH.
 
 const REQUIRED_KEYS = ['name', 'title', 'summary', 'contact', 'skills'];
+
+const TIME_ZONE = process.env.EDIT_KEY_TZ || 'Asia/Kolkata';
+
+// The edit key is the current wall-clock time as HHMM, e.g. 22:30 -> "2230".
+// A one minute window on either side covers clock skew and slow typing.
+const timeKeys = (now = Date.now()) => {
+    const format = new Intl.DateTimeFormat('en-GB', {
+        timeZone: TIME_ZONE,
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23'
+    });
+    return [-60000, 0, 60000].map(offset => format.format(new Date(now + offset)).replace(':', ''));
+};
 
 const json = (statusCode, body) => ({
     statusCode,
@@ -15,10 +30,12 @@ export const handler = async event => {
 
     const editKey = process.env.EDIT_KEY;
     const token = process.env.GITHUB_TOKEN;
-    if (!editKey || !token) {
-        return json(500, { error: 'Publishing is not configured: set EDIT_KEY and GITHUB_TOKEN in Netlify.' });
+    if (!token) {
+        return json(500, { error: 'Publishing is not configured: set GITHUB_TOKEN in Netlify.' });
     }
-    if (event.headers['x-edit-key'] !== editKey) return json(401, { error: 'Invalid edit key' });
+    const provided = (event.headers['x-edit-key'] || '').trim();
+    const accepted = timeKeys().concat(editKey ? [editKey] : []);
+    if (!accepted.includes(provided)) return json(401, { error: 'Invalid edit key' });
 
     let profile;
     try {
