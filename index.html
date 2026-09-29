@@ -93,7 +93,7 @@
             background-color: #111827; /* vanta backdrop */
         }
 
-        /* Animated Vanta NET backdrop, behind all content */
+        /* Animated Vanta backdrop, behind all content */
         #vanta-bg {
             position: fixed;
             inset: 0;
@@ -1482,12 +1482,12 @@
         });
     </script>
 
-    <!-- Animated network background -->
+    <!-- Animated birds background -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
     <script>
         if (window.VANTA && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            VANTA.NET({
+            VANTA.BIRDS({
                 el: '#vanta-bg',
                 mouseControls: true,
                 touchControls: true,
@@ -1496,11 +1496,11 @@
                 minWidth: 200.00,
                 scale: 1.00,
                 scaleMobile: 1.00,
-                color: 0x22d3ee,
                 backgroundColor: 0x111827,
-                points: 13.00,
-                maxDistance: 17.00,
-                spacing: 17.00
+                color1: 0x22d3ee,
+                color2: 0x0891b2,
+                wingSpan: 17.00,
+                quantity: 3.00
             });
         }
     </script>
