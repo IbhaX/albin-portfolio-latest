@@ -96,9 +96,6 @@
     .inline-list { color: var(--muted); }
     .blurb { margin-top: 4pt; }
 
-    blockquote { margin: 0; font-style: italic; color: var(--muted); }
-    .quote-by { font-style: normal; font-weight: 600; color: var(--ink); margin-top: 2pt; }
-
     .print-btn {
       position: fixed;
       top: 20px;
@@ -309,18 +306,6 @@
           .map(language => `${language.name} (${language.proficiency})`)
           .join(', ');
         root.append(section('Languages', el('p', text, 'inline-list')));
-      }
-
-      if (profile.references?.length) {
-        root.append(section('References', ...profile.references.map(reference => {
-          const wrapper = el('div', null, 'entry');
-          wrapper.append(el('blockquote', `“${reference.quote}”`));
-          const attribution = [reference.name, reference.role, reference.company]
-            .filter(Boolean)
-            .join(', ');
-          wrapper.append(el('div', `— ${attribution}`, 'quote-by'));
-          return wrapper;
-        })));
       }
     };
 
