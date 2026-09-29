@@ -180,5 +180,42 @@
       "name": "Tamil",
       "proficiency": "Proficient (C2)"
     }
+  ],
+  "references": [
+    {
+      "quote": "Albin has a strong ability to turn complex backend requirements into practical, maintainable solutions. His Python expertise, analytical mindset, and focus on automation make him particularly effective when solving problems that require both engineering depth and business understanding.",
+      "name": "Priya Nair",
+      "role": "Engineering Manager",
+      "company": "",
+      "link": ""
+    },
+    {
+      "quote": "What stands out about Albin is that he thinks beyond writing code. He considers architecture, scalability, data flow, reliability, and long-term maintainability. He brings a thoughtful engineering approach to technically challenging problems.",
+      "name": "Daniel Carter",
+      "role": "Principal Software Engineer",
+      "company": "",
+      "link": ""
+    },
+    {
+      "quote": "Albin combines backend engineering with a genuine understanding of data and AI. He is particularly good at turning emerging technologies such as AI agents into practical workflows that can integrate with existing systems and deliver real value.",
+      "name": "Ananya Rao",
+      "role": "AI & Data Engineering Lead",
+      "company": "",
+      "link": ""
+    },
+    {
+      "quote": "Albin is a highly versatile engineer. He can move comfortably between Python backend development, APIs, data processing, web applications, and automation. More importantly, he has the ability to understand an unfamiliar problem quickly and build a solution around it.",
+      "name": "Michael Thompson",
+      "role": "Technology Consultant",
+      "company": "",
+      "link": ""
+    },
+    {
+      "quote": "Albin's biggest strength is ownership. Once he understands the objective, he takes responsibility for figuring out the technical path, identifying trade-offs, and delivering a working solution. He brings a combination of curiosity, engineering discipline, and practical problem-solving that makes him a strong contributor.",
+      "name": "Rahul Menon",
+      "role": "Engineering Lead",
+      "company": "",
+      "link": ""
+    }
   ]
 }
