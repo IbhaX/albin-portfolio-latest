@@ -1,340 +1,463 @@
-// Global variables
-let profileData = {
-    name: "",
-    title: "",
-    summary: "",
-    contact: {
-        email: "",
-        phone: "",
-        location: "",
-        linkedin: "",
-        github: ""
-    },
-    skills: {
-        categories: {}
-    },
-    experience: []
+// Profile editor: full add / update / delete over profile.json.
+// profile.json is the source of truth; the editor loads it, edits an in-memory
+// copy, and writes it back (download or publish through the Netlify function).
+
+const EMPTY_PROFILE = {
+    name: '',
+    title: '',
+    summary: '',
+    contact: { email: '', phone: '', location: '', linkedin: '', github: '' },
+    skills: { categories: {} },
+    experience: [],
+    projects: [],
+    workshops: [],
+    education: [],
+    languages: [],
+    references: []
 };
 
-// DOM Elements
-const profileForm = document.getElementById('profileForm');
-const skillsContainer = document.getElementById('skillsContainer');
-const experienceContainer = document.getElementById('experienceContainer');
+const SECTIONS = {
+    experience: {
+        singular: 'Experience',
+        title: item => item.title || 'New role',
+        blank: { icon: 'briefcase', title: '', company: '', duration: '', description: [], tech: [] },
+        fields: [
+            { key: 'title', label: 'Title' },
+            { key: 'company', label: 'Company' },
+            { key: 'duration', label: 'Duration', placeholder: 'e.g. 01/2020 - Present' },
+            { key: 'icon', label: 'Lucide icon name', placeholder: 'e.g. shield' },
+            { key: 'description', label: 'Description (one bullet per line)', type: 'lines', rows: 5, full: true },
+            { key: 'tech', label: 'Technologies (comma separated)', type: 'csv', full: true }
+        ]
+    },
+    projects: {
+        singular: 'Project',
+        title: item => item.name || 'New project',
+        blank: { name: '', description: '', tech: '', link: '' },
+        fields: [
+            { key: 'name', label: 'Name', full: true },
+            { key: 'description', label: 'Description', type: 'textarea', rows: 5, full: true },
+            { key: 'tech', label: 'Tech (comma separated text)', full: true },
+            { key: 'link', label: 'Link', placeholder: 'https://…', full: true }
+        ]
+    },
+    workshops: {
+        singular: 'Workshop / Talk',
+        itemType: 'string',
+        title: item => item || 'New entry',
+        blank: '',
+        fields: [{ key: '', label: 'Description', type: 'textarea', rows: 2, full: true }]
+    },
+    education: {
+        singular: 'Education',
+        title: item => item.name || 'New qualification',
+        blank: { name: '', institution: '', year: '' },
+        fields: [
+            { key: 'name', label: 'Qualification' },
+            { key: 'institution', label: 'Institution' },
+            { key: 'year', label: 'Year' }
+        ]
+    },
+    languages: {
+        singular: 'Language',
+        title: item => item.name || 'New language',
+        blank: { name: '', proficiency: '' },
+        fields: [
+            { key: 'name', label: 'Language' },
+            { key: 'proficiency', label: 'Proficiency' }
+        ]
+    },
+    references: {
+        singular: 'Reference',
+        title: item => item.name || 'New reference',
+        blank: { quote: '', name: '', role: '', company: '', link: '' },
+        fields: [
+            { key: 'quote', label: 'What they said about you', type: 'textarea', rows: 4, full: true },
+            { key: 'name', label: 'Reviewer name' },
+            { key: 'role', label: 'Reviewer title' },
+            { key: 'company', label: 'Company (optional)' },
+            { key: 'link', label: 'Profile link (optional)', placeholder: 'https://linkedin.com/in/…' }
+        ]
+    }
+};
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', () => {
-    loadProfile();
-    setupEventListeners();
-});
+const BASIC_FIELDS = ['name', 'title', 'summary'];
+const CONTACT_FIELDS = ['email', 'phone', 'location', 'linkedin', 'github'];
+const DRAFT_KEY = 'profile_draft';
 
-// Set up event listeners
-function setupEventListeners() {
-    profileForm.addEventListener('submit', handleFormSubmit);
+let profileData = structuredClone(EMPTY_PROFILE);
+let publishedData = structuredClone(EMPTY_PROFILE);
+
+// --- data helpers ---
+
+const isDirty = () => JSON.stringify(profileData) !== JSON.stringify(publishedData);
+
+function normalize(data) {
+    const merged = { ...structuredClone(EMPTY_PROFILE), ...data };
+    merged.contact = { ...EMPTY_PROFILE.contact, ...(data.contact || {}) };
+    merged.skills = { categories: { ...((data.skills || {}).categories || {}) } };
+    Object.keys(SECTIONS).forEach(key => {
+        if (!Array.isArray(merged[key])) merged[key] = [];
+    });
+    return merged;
 }
 
-// Load profile data from localStorage or default
-async function loadProfile() {
-    try {
-        const savedData = localStorage.getItem('profile_data');
-        if (savedData) {
-            profileData = JSON.parse(savedData);
-        } else {
-            // Try to load from profile.json if no saved data
-            try {
-                const response = await fetch('profile.json');
-                if (response.ok) {
-                    profileData = await response.json();
-                    // Save to localStorage for future use
-                    localStorage.setItem('profile_data', JSON.stringify(profileData));
-                }
-            } catch (error) {
-                console.log('Using default profile data');
+async function loadProfile({ keepDraft = true } = {}) {
+    const response = await fetch(`profile.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`profile.json returned ${response.status}`);
+    publishedData = normalize(await response.json());
+    profileData = structuredClone(publishedData);
+
+    const draft = keepDraft && localStorage.getItem(DRAFT_KEY);
+    if (draft) {
+        try {
+            const parsed = normalize(JSON.parse(draft));
+            if (JSON.stringify(parsed) !== JSON.stringify(publishedData) &&
+                confirm('You have unsaved changes from a previous session. Restore them?')) {
+                profileData = parsed;
+            } else {
+                localStorage.removeItem(DRAFT_KEY);
             }
+        } catch (error) {
+            localStorage.removeItem(DRAFT_KEY);
         }
-        populateForm();
-    } catch (error) {
-        console.error('Error loading profile:', error);
-        alert('Failed to load profile data. Using default values.');
     }
+    renderAll();
 }
 
-// Populate form with profile data
-function populateForm() {
-    // Basic Information
-    document.getElementById('name').value = profileData.name || '';
-    document.getElementById('title').value = profileData.title || '';
-    document.getElementById('summary').value = profileData.summary || '';
-    
-    // Contact Information
-    if (profileData.contact) {
-        document.getElementById('email').value = profileData.contact.email || '';
-        document.getElementById('phone').value = profileData.contact.phone || '';
-        document.getElementById('location').value = profileData.contact.location || '';
-        document.getElementById('linkedin').value = profileData.contact.linkedin ? 
-            profileData.contact.linkedin.replace('linkedin.com/in/', '') : '';
-        document.getElementById('github').value = profileData.contact.github ? 
-            profileData.contact.github.replace('github.com/', '') : '';
+function touch() {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(profileData));
+    const jsonView = document.getElementById('jsonView');
+    if (jsonView && document.activeElement !== jsonView) {
+        jsonView.value = JSON.stringify(profileData, null, 2);
     }
-    
-    // Skills
+    const indicator = document.getElementById('dirtyIndicator');
+    if (indicator) indicator.classList.toggle('hidden', !isDirty());
+}
+
+// --- generic field builders ---
+
+function labelled(labelText, control, full) {
+    const wrapper = document.createElement('div');
+    if (full) wrapper.className = 'md:col-span-2';
+    const label = document.createElement('label');
+    label.className = 'block text-sm font-medium text-gray-300 mb-1';
+    label.textContent = labelText;
+    wrapper.append(label, control);
+    return wrapper;
+}
+
+function makeControl(field, value, onChange) {
+    const control = document.createElement(field.type === 'textarea' || field.type === 'lines' ? 'textarea' : 'input');
+    control.className = 'w-full px-3 py-2 border border-gray-600 rounded-md';
+    if (control.tagName === 'TEXTAREA') control.rows = field.rows || 3;
+    if (field.placeholder) control.placeholder = field.placeholder;
+
+    if (field.type === 'lines') control.value = (value || []).join('\n');
+    else if (field.type === 'csv') control.value = (value || []).join(', ');
+    else control.value = value || '';
+
+    control.addEventListener('input', () => {
+        if (field.type === 'lines') {
+            onChange(control.value.split('\n').filter(line => line.trim().length));
+        } else if (field.type === 'csv') {
+            onChange(control.value.split(',').map(part => part.trim()).filter(Boolean));
+        } else {
+            onChange(control.value);
+        }
+    });
+    return control;
+}
+
+function itemCard(sectionKey, index, headingText) {
+    const card = document.createElement('div');
+    card.className = 'mb-5 p-4 rounded-lg border border-gray-700 bg-gray-900/40';
+
+    const header = document.createElement('div');
+    header.className = 'flex justify-between items-center mb-3 gap-2';
+
+    const heading = document.createElement('h3');
+    heading.className = 'font-medium text-gray-200 truncate';
+    heading.textContent = `${index + 1}. ${headingText}`;
+
+    const controls = document.createElement('div');
+    controls.className = 'flex items-center gap-2 shrink-0';
+    controls.append(
+        iconButton('↑', 'Move up', () => moveItem(sectionKey, index, -1), 'text-gray-400 hover:text-cyan-300'),
+        iconButton('↓', 'Move down', () => moveItem(sectionKey, index, 1), 'text-gray-400 hover:text-cyan-300'),
+        iconButton('Delete', 'Delete', () => deleteItem(sectionKey, index), 'text-red-400 hover:text-red-300 text-sm')
+    );
+
+    header.append(heading, controls);
+    card.append(header);
+    return card;
+}
+
+function iconButton(text, title, onClick, className) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.title = title;
+    button.textContent = text;
+    button.className = `px-2 py-1 rounded ${className}`;
+    button.addEventListener('click', onClick);
+    return button;
+}
+
+// --- section rendering ---
+
+function renderAll() {
+    BASIC_FIELDS.forEach(key => {
+        const input = document.getElementById(key);
+        if (input) input.value = profileData[key] || '';
+    });
+    CONTACT_FIELDS.forEach(key => {
+        const input = document.getElementById(key);
+        if (input) input.value = profileData.contact[key] || '';
+    });
     renderSkills();
-    
-    // Experience
-    renderExperience();
+    Object.keys(SECTIONS).forEach(renderSection);
+    touch();
+    if (window.lucide) lucide.createIcons();
 }
 
-// Handle form submission
-async function handleFormSubmit(e) {
-    e.preventDefault();
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.innerHTML;
-    
-    try {
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 mr-2 animate-spin"></i> Saving...';
-        
-        // Update profile data from form
-        updateProfileFromForm();
-        
-        // Save to localStorage
-        localStorage.setItem('profile_data', JSON.stringify(profileData));
-        
-        // Show success message
-        submitBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-2"></i> Saved!';
-        setTimeout(() => {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-        }, 2000);
-        
-    } catch (error) {
-        console.error('Error saving profile:', error);
-        alert('Failed to save profile. Please try again.');
-        submitBtn.innerHTML = originalBtnText;
-        submitBtn.disabled = false;
+function renderSection(sectionKey) {
+    const container = document.getElementById(`${sectionKey}Container`);
+    if (!container) return;
+    const config = SECTIONS[sectionKey];
+    container.innerHTML = '';
+
+    if (!profileData[sectionKey].length) {
+        const empty = document.createElement('p');
+        empty.className = 'text-gray-500 text-sm';
+        empty.textContent = 'Nothing here yet.';
+        container.append(empty);
     }
+
+    profileData[sectionKey].forEach((item, index) => {
+        const card = itemCard(sectionKey, index, config.title(item));
+        const grid = document.createElement('div');
+        grid.className = 'grid md:grid-cols-2 gap-4';
+
+        config.fields.forEach(field => {
+            const value = config.itemType === 'string' ? item : item[field.key];
+            const control = makeControl(field, value, newValue => {
+                if (config.itemType === 'string') profileData[sectionKey][index] = newValue;
+                else profileData[sectionKey][index][field.key] = newValue;
+                touch();
+            });
+            grid.append(labelled(field.label, control, field.full));
+        });
+
+        card.append(grid);
+        container.append(card);
+    });
 }
 
-// Update profile data from form inputs
-function updateProfileFromForm() {
-    // Basic Information
-    profileData.name = document.getElementById('name').value.trim();
-    profileData.title = document.getElementById('title').value.trim();
-    profileData.summary = document.getElementById('summary').value.trim();
-    
-    // Contact Information
-    profileData.contact = profileData.contact || {};
-    profileData.contact.email = document.getElementById('email').value.trim();
-    profileData.contact.phone = document.getElementById('phone').value.trim();
-    profileData.contact.location = document.getElementById('location').value.trim();
-    
-    const linkedin = document.getElementById('linkedin').value.trim();
-    profileData.contact.linkedin = linkedin ? 
-        (linkedin.startsWith('http') ? linkedin : `https://linkedin.com/in/${linkedin}`) : '';
-        
-    const github = document.getElementById('github').value.trim();
-    profileData.contact.github = github ? 
-        (github.startsWith('http') ? github : `https://github.com/${github}`) : '';
-    
-    // Note: Skills and Experience are updated in their respective render functions
+function addItem(sectionKey) {
+    const config = SECTIONS[sectionKey];
+    profileData[sectionKey].push(structuredClone(config.blank));
+    renderSection(sectionKey);
+    touch();
 }
 
-// Skills Management
+function deleteItem(sectionKey, index) {
+    if (!confirm(`Delete this ${SECTIONS[sectionKey].singular.toLowerCase()}?`)) return;
+    profileData[sectionKey].splice(index, 1);
+    renderSection(sectionKey);
+    touch();
+}
+
+function moveItem(sectionKey, index, offset) {
+    const target = index + offset;
+    const list = profileData[sectionKey];
+    if (target < 0 || target >= list.length) return;
+    [list[index], list[target]] = [list[target], list[index]];
+    renderSection(sectionKey);
+    touch();
+}
+
+// --- skills (object of category -> string[]) ---
+
 function renderSkills() {
-    skillsContainer.innerHTML = '';
-    
-    if (!profileData.skills || !profileData.skills.categories) {
-        profileData.skills = { categories: {} };
-        return;
+    const container = document.getElementById('skillsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const categories = Object.entries(profileData.skills.categories);
+    if (!categories.length) {
+        const empty = document.createElement('p');
+        empty.className = 'text-gray-500 text-sm';
+        empty.textContent = 'No skill categories yet.';
+        container.append(empty);
     }
-    
-    Object.entries(profileData.skills.categories).forEach(([category, skills], index) => {
-        const skillElement = document.createElement('div');
-        skillElement.className = 'mb-6 p-4 border rounded-lg';
-        skillElement.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="font-medium text-gray-700">${category.replace(/_/g, ' ').toUpperCase()}</h3>
-                <button type="button" onclick="removeSkillCategory(${index})" class="text-red-500 hover:text-red-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div>
-                <input type="text" id="skill-category-${index}" 
-                       value="${category}" 
-                       onchange="updateSkillCategory(${index}, this.value)"
-                       class="w-full p-2 border rounded mb-2">
-                <textarea id="skills-${index}" 
-                          class="w-full p-2 border rounded" 
-                          rows="3" 
-                          onchange="updateSkills(${index}, this.value)">${Array.isArray(skills) ? skills.join(', ') : skills}</textarea>
-            </div>
-        `;
-        skillsContainer.appendChild(skillElement);
+
+    categories.forEach(([category, skills], index) => {
+        const card = document.createElement('div');
+        card.className = 'mb-5 p-4 rounded-lg border border-gray-700 bg-gray-900/40';
+
+        const header = document.createElement('div');
+        header.className = 'flex justify-between items-center mb-3';
+        const heading = document.createElement('h3');
+        heading.className = 'font-medium text-gray-200';
+        heading.textContent = category.replace(/_/g, ' ').toUpperCase();
+        header.append(heading, iconButton('Delete', 'Delete category', () => {
+            if (!confirm(`Delete the "${category}" category?`)) return;
+            delete profileData.skills.categories[category];
+            renderSkills();
+            touch();
+        }, 'text-red-400 hover:text-red-300 text-sm'));
+        card.append(header);
+
+        const nameInput = document.createElement('input');
+        nameInput.className = 'w-full px-3 py-2 border border-gray-600 rounded-md mb-2';
+        nameInput.value = category;
+        nameInput.addEventListener('change', () => {
+            const newName = nameInput.value.trim();
+            if (!newName || newName === category) return;
+            const entries = Object.entries(profileData.skills.categories);
+            entries[index] = [newName, profileData.skills.categories[category]];
+            profileData.skills.categories = Object.fromEntries(entries);
+            renderSkills();
+            touch();
+        });
+
+        const skillsInput = document.createElement('textarea');
+        skillsInput.className = 'w-full px-3 py-2 border border-gray-600 rounded-md';
+        skillsInput.rows = 3;
+        skillsInput.value = (Array.isArray(skills) ? skills : [skills]).join(', ');
+        skillsInput.addEventListener('input', () => {
+            profileData.skills.categories[category] = skillsInput.value
+                .split(',').map(skill => skill.trim()).filter(Boolean);
+            touch();
+        });
+
+        card.append(labelled('Category key', nameInput), labelled('Skills (comma separated)', skillsInput));
+        container.append(card);
     });
 }
 
 function addSkillCategory() {
-    if (!profileData.skills.categories) {
-        profileData.skills.categories = {};
+    const name = (prompt('Category key (e.g. cloud_devops):') || '').trim();
+    if (!name) return;
+    if (profileData.skills.categories[name]) {
+        alert('That category already exists.');
+        return;
     }
-    
-    const newCategory = `new_category_${Object.keys(profileData.skills.categories).length + 1}`;
-    profileData.skills.categories[newCategory] = [];
+    profileData.skills.categories[name] = [];
     renderSkills();
+    touch();
 }
 
-function updateSkillCategory(index, newName) {
-    const categories = Object.entries(profileData.skills.categories);
-    if (index >= 0 && index < categories.length) {
-        const [oldName, skills] = categories[index];
-        if (newName && newName !== oldName) {
-            delete profileData.skills.categories[oldName];
-            profileData.skills.categories[newName] = skills;
-            renderSkills();
-        }
-    }
-}
+// --- basic / contact binding ---
 
-function updateSkills(index, skillsText) {
-    const categories = Object.entries(profileData.skills.categories);
-    if (index >= 0 && index < categories.length) {
-        const [category] = categories[index];
-        profileData.skills.categories[category] = skillsText
-            .split(',')
-            .map(skill => skill.trim())
-            .filter(skill => skill.length > 0);
-    }
-}
-
-function removeSkillCategory(index) {
-    const categories = Object.keys(profileData.skills.categories);
-    if (index >= 0 && index < categories.length) {
-        const categoryToRemove = categories[index];
-        delete profileData.skills.categories[categoryToRemove];
-        renderSkills();
-    }
-}
-
-// Experience Management
-function renderExperience() {
-    experienceContainer.innerHTML = '';
-    
-    if (!Array.isArray(profileData.experience)) {
-        profileData.experience = [];
-    }
-    
-    profileData.experience.forEach((exp, index) => {
-        const expElement = document.createElement('div');
-        expElement.className = 'mb-6 p-4 border rounded-lg';
-        expElement.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="font-medium text-gray-700">Experience #${index + 1}</h3>
-                <button type="button" onclick="removeExperience(${index})" class="text-red-500 hover:text-red-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" value="${exp.title || ''}" 
-                           onchange="updateExperienceField(${index}, 'title', this.value)"
-                           class="w-full p-2 border rounded">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
-                    <input type="text" value="${exp.company || ''}" 
-                           onchange="updateExperienceField(${index}, 'company', this.value)"
-                           class="w-full p-2 border rounded">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                    <input type="text" value="${exp.duration || ''}" 
-                           onchange="updateExperienceField(${index}, 'duration', this.value)"
-                           class="w-full p-2 border rounded"
-                           placeholder="e.g. 01/2020 - Present">
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description (one point per line)</label>
-                    <textarea onchange="updateExperienceDescription(${index}, this.value)" 
-                              class="w-full p-2 border rounded" 
-                              rows="4">${Array.isArray(exp.description) ? exp.description.join('\n') : ''}</textarea>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Technologies (comma separated)</label>
-                    <input type="text" value="${Array.isArray(exp.tech) ? exp.tech.join(', ') : ''}" 
-                           onchange="updateExperienceTech(${index}, this.value)"
-                           class="w-full p-2 border rounded"
-                           placeholder="e.g. Python, JavaScript, React">
-                </div>
-            </div>
-        `;
-        experienceContainer.appendChild(expElement);
+function bindSimpleFields() {
+    BASIC_FIELDS.forEach(key => {
+        const input = document.getElementById(key);
+        input?.addEventListener('input', () => {
+            profileData[key] = input.value;
+            touch();
+        });
+    });
+    CONTACT_FIELDS.forEach(key => {
+        const input = document.getElementById(key);
+        input?.addEventListener('input', () => {
+            profileData.contact[key] = input.value;
+            touch();
+        });
     });
 }
 
-function addExperience() {
-    if (!Array.isArray(profileData.experience)) {
-        profileData.experience = [];
+// --- output: raw JSON, preview, download, publish ---
+
+function applyJsonView() {
+    const jsonView = document.getElementById('jsonView');
+    try {
+        profileData = normalize(JSON.parse(jsonView.value));
+        renderAll();
+        setStatus('JSON applied to the form.', 'ok');
+    } catch (error) {
+        setStatus(`Invalid JSON: ${error.message}`, 'error');
     }
-    
-    profileData.experience.push({
-        title: '',
-        company: '',
-        duration: '',
-        description: [],
-        tech: []
+}
+
+function downloadJson() {
+    const blob = new Blob([JSON.stringify(profileData, null, 2) + '\n'], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'profile.json';
+    link.click();
+    URL.revokeObjectURL(link.href);
+    setStatus('profile.json downloaded — commit it to the repo to publish.', 'ok');
+}
+
+function previewSite() {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(profileData));
+    window.open('index.html?preview=1', '_blank');
+}
+
+async function publishChanges() {
+    const editKey = document.getElementById('editKey').value.trim();
+    if (!editKey) {
+        setStatus('Enter your edit key to publish.', 'error');
+        return;
+    }
+    const button = document.getElementById('publishBtn');
+    button.disabled = true;
+    setStatus('Publishing to GitHub…', 'info');
+
+    try {
+        const response = await fetch('/.netlify/functions/save-profile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-edit-key': editKey },
+            body: JSON.stringify({ profile: profileData })
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
+
+        publishedData = structuredClone(profileData);
+        localStorage.removeItem(DRAFT_KEY);
+        touch();
+        setStatus('Published. Netlify is redeploying — the site updates in about a minute.', 'ok');
+    } catch (error) {
+        setStatus(`Publish failed: ${error.message}. You can still download profile.json and commit it manually.`, 'error');
+    } finally {
+        button.disabled = false;
+    }
+}
+
+function setStatus(message, kind) {
+    const status = document.getElementById('statusMessage');
+    if (!status) return;
+    const colors = { ok: 'text-green-400', error: 'text-red-400', info: 'text-cyan-400' };
+    status.className = `text-sm ${colors[kind] || 'text-gray-300'}`;
+    status.textContent = message;
+}
+
+// --- init ---
+
+function setupEditor() {
+    bindSimpleFields();
+
+    Object.keys(SECTIONS).forEach(sectionKey => {
+        document.getElementById(`add-${sectionKey}`)?.addEventListener('click', () => addItem(sectionKey));
     });
-    
-    renderExperience();
+    document.getElementById('add-skills')?.addEventListener('click', addSkillCategory);
+    document.getElementById('applyJsonBtn')?.addEventListener('click', applyJsonView);
+    document.getElementById('downloadBtn')?.addEventListener('click', downloadJson);
+    document.getElementById('previewBtn')?.addEventListener('click', previewSite);
+    document.getElementById('publishBtn')?.addEventListener('click', publishChanges);
+    document.getElementById('reloadBtn')?.addEventListener('click', () => {
+        if (isDirty() && !confirm('Discard your unsaved changes and reload profile.json?')) return;
+        localStorage.removeItem(DRAFT_KEY);
+        loadProfile({ keepDraft: false }).catch(error => setStatus(error.message, 'error'));
+    });
+
+    window.addEventListener('beforeunload', event => {
+        if (isDirty()) event.preventDefault();
+    });
+
+    loadProfile().catch(error => setStatus(`Could not load profile.json: ${error.message}`, 'error'));
 }
 
-function updateExperienceField(index, field, value) {
-    if (profileData.experience[index]) {
-        profileData.experience[index][field] = value.trim();
-    }
-}
-
-function updateExperienceDescription(index, description) {
-    if (profileData.experience[index]) {
-        profileData.experience[index].description = description
-            .split('\n')
-            .filter(point => point.trim().length > 0);
-    }
-}
-
-function updateExperienceTech(index, techText) {
-    if (profileData.experience[index]) {
-        profileData.experience[index].tech = techText
-            .split(',')
-            .map(tech => tech.trim())
-            .filter(tech => tech.length > 0);
-    }
-}
-
-function removeExperience(index) {
-    if (confirm('Are you sure you want to remove this experience?')) {
-        profileData.experience.splice(index, 1);
-        renderExperience();
-    }
-}
-
-// Make functions available globally
-window.addSkillCategory = addSkillCategory;
-window.updateSkillCategory = updateSkillCategory;
-window.updateSkills = updateSkills;
-window.removeSkillCategory = removeSkillCategory;
-window.addExperience = addExperience;
-window.updateExperienceField = updateExperienceField;
-window.updateExperienceDescription = updateExperienceDescription;
-window.updateExperienceTech = updateExperienceTech;
-window.removeExperience = removeExperience;
-
-// Helper functions for form data extraction
-window.getSkillsData = function() {
-    return profileData.skills.categories || [];
-};
-
-window.getExperienceData = function() {
-    return profileData.experience || [];
-};
 window.loadProfile = loadProfile;
+window.setupEditor = setupEditor;

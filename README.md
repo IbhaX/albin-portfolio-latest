@@ -1,3 +1,30 @@
+# Albin Anthony — Portfolio
+
+`profile.json` is the source of truth for every section of the site (basic info, contact, skills,
+experience, projects, workshops, education, languages, references). `index.html` fetches it at load
+time; the data inlined in `index.html` is only a fallback if the fetch fails.
+
+## Editing content
+
+Open `/update-profile.html` (login: see `login.html`) to add, edit, reorder and delete entries in any
+section, or edit the raw JSON in the same page. Actions:
+
+- **Preview** — opens `index.html?preview=1`, which renders your unsaved draft from localStorage.
+- **Download JSON** — saves `profile.json`; commit it to the repo to publish.
+- **Publish** — posts to the `save-profile` Netlify function, which commits `profile.json` to GitHub
+  and triggers a Netlify deploy.
+
+Publishing needs these Netlify environment variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `EDIT_KEY` | Shared secret typed into the editor's "Edit key" box |
+| `GITHUB_TOKEN` | Fine-grained PAT for this repo with `contents: write` |
+| `GITHUB_REPO` | Optional, defaults to `IbhaX/albin-portfolio-latest` |
+| `GITHUB_BRANCH` | Optional, defaults to `main` |
+
+---
+
 # 1000064977 - Favicon Package
 
 This package contains all the favicon files and configuration needed for complete browser and platform support.
