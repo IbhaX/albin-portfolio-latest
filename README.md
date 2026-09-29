@@ -14,12 +14,16 @@ section, or edit the raw JSON in the same page. Actions:
 - **Publish** — posts to the `save-profile` Netlify function, which commits `profile.json` to GitHub
   and triggers a Netlify deploy.
 
+The edit key is the current date and time as `MMyyHHmm` (29 Sep 2026 22:30 -> `09262230`),
+in Asia/Kolkata, accepted within one minute either side.
+
 Publishing needs these Netlify environment variables:
 
 | Variable | Purpose |
 | --- | --- |
-| `EDIT_KEY` | Shared secret typed into the editor's "Edit key" box |
 | `GITHUB_TOKEN` | Fine-grained PAT for this repo with `contents: write` |
+| `EDIT_KEY` | Optional static key accepted alongside the time-based one |
+| `EDIT_KEY_TZ` | Optional, defaults to `Asia/Kolkata` |
 | `GITHUB_REPO` | Optional, defaults to `IbhaX/albin-portfolio-latest` |
 | `GITHUB_BRANCH` | Optional, defaults to `main` |
 
