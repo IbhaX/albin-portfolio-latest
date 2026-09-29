@@ -171,7 +171,7 @@ function makeControl(field, value, onChange) {
 
 function itemCard(sectionKey, index, headingText) {
     const card = document.createElement('div');
-    card.className = 'mb-5 p-4 rounded-lg border border-gray-700 bg-gray-900/40';
+    card.className = 'mb-5 p-3 sm:p-4 rounded-lg border border-gray-700 bg-gray-900/40';
 
     const header = document.createElement('div');
     header.className = 'flex justify-between items-center mb-3 gap-2';
@@ -293,7 +293,7 @@ function renderSkills() {
 
     categories.forEach(([category, skills], index) => {
         const card = document.createElement('div');
-        card.className = 'mb-5 p-4 rounded-lg border border-gray-700 bg-gray-900/40';
+        card.className = 'mb-5 p-3 sm:p-4 rounded-lg border border-gray-700 bg-gray-900/40';
 
         const header = document.createElement('div');
         header.className = 'flex justify-between items-center mb-3';

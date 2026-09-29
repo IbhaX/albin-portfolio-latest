@@ -45,7 +45,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
     </style>
 </head>
-<body class="min-h-screen p-6">
+<body class="min-h-screen p-3 sm:p-6">
     <!-- Loading overlay -->
     <div id="loadingOverlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
         <div class="text-center">
@@ -64,7 +64,7 @@
         </button>
     </nav>
 
-    <div class="max-w-5xl mx-auto card p-8 mb-24">
+    <div class="max-w-5xl mx-auto card p-4 sm:p-8 mb-28">
         <div class="text-center mb-8">
             <div class="flex justify-center mb-4">
                 <i data-lucide="user-cog" class="w-12 h-12 text-cyan-500"></i>
@@ -75,7 +75,7 @@
 
         <div class="space-y-8">
             <!-- Basic Information -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="user" class="w-5 h-5 mr-2"></i> Basic Information
                 </h2>
@@ -96,7 +96,7 @@
             </section>
 
             <!-- Contact Information -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="contact" class="w-5 h-5 mr-2"></i> Contact Information
                 </h2>
@@ -125,7 +125,7 @@
             </section>
 
             <!-- Skills -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="award" class="w-5 h-5 mr-2"></i> Skills
                 </h2>
@@ -136,7 +136,7 @@
             </section>
 
             <!-- Experience -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="briefcase" class="w-5 h-5 mr-2"></i> Work Experience
                 </h2>
@@ -147,7 +147,7 @@
             </section>
 
             <!-- Projects -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="folder-git-2" class="w-5 h-5 mr-2"></i> Projects
                 </h2>
@@ -158,7 +158,7 @@
             </section>
 
             <!-- Workshops -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="presentation" class="w-5 h-5 mr-2"></i> Workshops &amp; Talks
                 </h2>
@@ -169,7 +169,7 @@
             </section>
 
             <!-- Education -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="graduation-cap" class="w-5 h-5 mr-2"></i> Education
                 </h2>
@@ -180,7 +180,7 @@
             </section>
 
             <!-- Languages -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="languages" class="w-5 h-5 mr-2"></i> Languages
                 </h2>
@@ -191,7 +191,7 @@
             </section>
 
             <!-- References -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="quote" class="w-5 h-5 mr-2"></i> References
                 </h2>
@@ -202,7 +202,7 @@
             </section>
 
             <!-- Raw JSON -->
-            <section class="bg-gray-800/50 p-6 rounded-lg">
+            <section class="bg-gray-800/50 p-3 sm:p-6 rounded-lg">
                 <h2 class="text-xl font-semibold mb-4 text-cyan-400 flex items-center">
                     <i data-lucide="file-json" class="w-5 h-5 mr-2"></i> Raw profile.json
                 </h2>
@@ -216,10 +216,10 @@
 
     <!-- Sticky action bar -->
     <div class="fixed bottom-0 inset-x-0 bg-gray-950/95 border-t border-gray-800 backdrop-blur-sm p-4 z-40">
-        <div class="max-w-5xl mx-auto flex flex-wrap items-center gap-3">
+        <div class="max-w-5xl mx-auto flex flex-wrap items-center gap-2 sm:gap-3">
             <span id="dirtyIndicator" class="hidden text-amber-400 text-sm">Unsaved changes</span>
             <span id="statusMessage" class="text-sm text-gray-300 flex-1 min-w-[12rem]"></span>
-            <input type="password" id="editKey" placeholder="Edit key" class="px-3 py-2 border border-gray-600 rounded-md w-40">
+            <input type="password" id="editKey" placeholder="Edit key" class="px-3 py-2 border border-gray-600 rounded-md flex-1 min-w-[8rem] sm:flex-none sm:w-40">
             <button type="button" id="reloadBtn" class="px-4 py-2 border border-gray-600 rounded-md text-gray-200 hover:bg-gray-800">Reload</button>
             <button type="button" id="previewBtn" class="px-4 py-2 border border-cyan-700 text-cyan-300 rounded-md hover:bg-cyan-600/20">Preview</button>
             <button type="button" id="downloadBtn" class="px-4 py-2 border border-cyan-700 text-cyan-300 rounded-md hover:bg-cyan-600/20">Download JSON</button>
