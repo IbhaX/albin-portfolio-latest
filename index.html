@@ -478,8 +478,8 @@
                     <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="GitHub Profile">
                         <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    <a id="resume-btn" href="Albin Anthony - Senior-Python-Developer.pdf" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110 flex items-center gap-1 group" title="Download Resume">
-                        <i data-lucide="download" class="w-4 h-4 group-hover:animate-bounce"></i>
+                    <a id="resume-btn" href="resume.html" class="text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110 flex items-center gap-1 group" title="View Resume">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
                         <span class="text-sm hidden lg:inline">Resume</span>
                     </a>
                     <a href="resume-tailor.html" class="text-gray-400 hover:text-emerald-400 transition-transform hover:scale-110 flex items-center gap-1 group" title="Tailor Resume for a Job">
@@ -552,8 +552,8 @@
                     <a href="https://github.com/IbhaX" target="_blank" rel="noopener noreferrer" class="p-2 text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="GitHub Profile">
                         <i data-lucide="github" class="w-6 h-6"></i>
                     </a>
-                    <a id="mobile-resume-btn" href="Albin Anthony - Senior-Python-Developer.pdf" class="p-2 text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="Download Resume">
-                        <i data-lucide="download" class="w-6 h-6"></i>
+                    <a id="mobile-resume-btn" href="resume.html" class="p-2 text-gray-400 hover:text-cyan-400 transition-transform hover:scale-110" title="View Resume">
+                        <i data-lucide="file-text" class="w-6 h-6"></i>
                     </a>
                     <a href="resume-tailor.html" class="p-2 text-gray-400 hover:text-emerald-400 transition-transform hover:scale-110" title="Tailor Resume for a Job">
                         <i data-lucide="zap" class="w-6 h-6"></i>
@@ -1258,12 +1258,6 @@
                     
                     // Also update the page title
                     document.title = `${profileData.name} | ${profileData.title || 'Portfolio'}`;
-                    
-                    // Update the resume download filename
-                    const resumeLink = document.querySelector('a[download]');
-                    if (resumeLink) {
-                        resumeLink.download = `${profileData.name.replace(/\s+/g, '_')}-Resume.pdf`;
-                    }
                     
                     // Update the name in the navigation bar
                     const navName = document.querySelector('.text-xl.font-bold.text-white');

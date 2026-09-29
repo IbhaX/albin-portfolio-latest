@@ -3,618 +3,344 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Albin Anthony - Senior Python Developer</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Resume</title>
+  <meta name="description" content="ATS-friendly resume generated from profile.json.">
+  <link rel="icon" href="favicon-32x32.png" sizes="32x32">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --ink: #111827;
+      --muted: #4b5563;
+      --rule: #d1d5db;
+      --accent: #0e7490;
     }
 
-    body { 
-      background-color: #ffffff; 
-      font-family: 'Arial', 'Helvetica', sans-serif;
-      font-size: 11pt;
-      line-height: 1.4;
-      color: #000000;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f3f4f6;
+      color: var(--ink);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
     }
-    
-    .resume-container { 
-      max-width: 8.5in; 
-      margin: 20px auto; 
-      background: #ffffff; 
-      padding: 0.75in;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 4px;
+
+    .sheet {
+      max-width: 8.5in;
+      margin: 24px auto;
+      background: #fff;
+      padding: 0.7in 0.75in;
+      box-shadow: 0 6px 24px rgba(17, 24, 39, 0.12);
     }
-    
-    header h1 { 
-      font-size: 24pt; 
-      font-weight: bold; 
-      margin-bottom: 6pt;
-      color: #1a365d;
-      text-align: center;
-      letter-spacing: 1pt;
-    }
-    
-    .tagline {
-      font-size: 12pt;
-      color: #2c5282;
-      text-align: center;
-      margin-bottom: 8pt;
-      font-weight: 600;
-    }
-    
-    .contact { 
-      font-size: 10pt; 
-      margin-bottom: 16pt;
-      text-align: center;
-      line-height: 1.3;
-    }
-    
-    h2 { 
-      font-size: 14pt; 
-      font-weight: bold; 
-      margin-top: 16pt; 
-      margin-bottom: 8pt;
-      border-bottom: 2pt solid #2c5282; 
-      padding-bottom: 2pt;
-      color: #1a365d;
+
+    header { border-bottom: 1.5pt solid var(--ink); padding-bottom: 12pt; }
+
+    h1 {
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.5pt;
     }
-    
-    h3 { 
-      font-size: 12pt; 
-      font-weight: bold;
-      margin-top: 12pt; 
-      margin-bottom: 4pt;
-      color: #2c5282;
+
+    .tagline { color: var(--accent); font-size: 11pt; font-weight: 600; margin-top: 3pt; }
+
+    .contact {
+      margin-top: 8pt;
+      font-size: 9.5pt;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4pt 10pt;
     }
-    
-    .job-title {
+
+    .contact a { color: inherit; text-decoration: none; }
+    .contact span:not(:last-child)::after { content: " ·"; color: var(--rule); }
+
+    section { margin-top: 16pt; }
+
+    h2 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-bottom: 3pt;
+      border-bottom: 0.75pt solid var(--rule);
+      margin-bottom: 8pt;
+    }
+
+    .entry { margin-bottom: 11pt; page-break-inside: avoid; break-inside: avoid; }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      gap: 10pt;
       flex-wrap: wrap;
-      margin-bottom: 2pt;
-    }
-    
-    .dates {
-      font-size: 10pt;
-      font-weight: normal;
-      color: #4a5568;
-      white-space: nowrap;
-    }
-    
-    .company {
-      color: #2d3748;
-      font-weight: 600;
-    }
-    
-    ul { 
-      margin: 4pt 0 8pt 0; 
-      padding-left: 18pt;
-      list-style: none;
-    }
-    
-    ul li { 
-      margin-bottom: 4pt; 
-      line-height: 1.4;
-      position: relative;
-      padding-left: 0;
-    }
-    
-    ul li::before { 
-      content: "▸"; 
-      position: absolute; 
-      left: -12pt; 
-      color: #2c5282;
-      font-weight: bold;
-      font-size: 12pt;
-    }
-    
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12pt;
-    }
-    
-    .skill-category {
-      flex: 1 1 calc(50% - 20px);
-      min-width: 200px;
-      padding: 10px 12px;
-      background: #f7fafc;
-      border-left: 3px solid #2c5282;
-      border-radius: 4px;
-      margin-bottom: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    
-    .skill-category strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #1a365d;
-      font-size: 10.5pt;
-    }
-    
-    .skill-category span {
-      font-size: 10pt;
-      color: #4a5568;
-      line-height: 1.4;
-    }
-    
-    .project {
-      margin-bottom: 20px;
-    }
-    
-    .project h3 {
-      color: #2c5282;
-      margin-bottom: 4px;
-    }
-    
-    .project p {
-      margin-bottom: 4px;
     }
 
-    section {
-      page-break-inside: avoid;
-    }
+    .role { font-size: 11pt; font-weight: 700; }
+    .org { font-weight: 600; color: var(--muted); }
+    .dates { font-size: 9.5pt; color: var(--muted); white-space: nowrap; }
 
-    .job-entry {
-      page-break-inside: avoid;
-    }
+    ul { margin: 4pt 0 0 14pt; }
+    li { margin-bottom: 2.5pt; }
 
-    .project {
-      page-break-inside: avoid;
-    }
-    
-    @media print {
-      @page {
-        size: Letter;
-        margin: 0.5in 0.75in;
-      }
+    .tech { margin-top: 4pt; font-size: 9.5pt; color: var(--muted); }
 
-      body { 
-        background: white;
-        font-size: 12pt;
-        line-height: 1.35;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .resume-container { 
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        max-width: none;
-        border-radius: 0;
-      }
+    .skill-row { display: grid; grid-template-columns: 1.6in 1fr; gap: 4pt 10pt; margin-bottom: 4pt; }
+    .skill-row dt { font-weight: 700; }
+    .skill-row dd { color: var(--muted); }
 
-      header {
-        margin-bottom: 12pt;
-      }
+    .inline-list { color: var(--muted); }
+    .blurb { margin-top: 4pt; }
 
-      header h1 {
-        font-size: 22pt;
-        margin-bottom: 5pt;
-      }
+    blockquote { margin: 0; font-style: italic; color: var(--muted); }
+    .quote-by { font-style: normal; font-weight: 600; color: var(--ink); margin-top: 2pt; }
 
-      .tagline {
-        font-size: 11pt;
-        margin-bottom: 6pt;
-      }
-
-      .contact {
-        font-size: 9pt;
-        margin-bottom: 12pt;
-      }
-
-      h2 {
-        font-size: 13pt;
-        margin-top: 14pt;
-        margin-bottom: 7pt;
-        padding-bottom: 2pt;
-        page-break-after: avoid;
-      }
-
-      h3 {
-        font-size: 11pt;
-        margin-top: 10pt;
-        margin-bottom: 3pt;
-        page-break-after: avoid;
-      }
-
-      ul {
-        margin: 3pt 0 7pt 0;
-      }
-
-      ul li {
-        margin-bottom: 3pt;
-        line-height: 1.3;
-        page-break-inside: avoid;
-      }
-
-      .skills-grid {
-        gap: 6px;
-        margin-bottom: 10pt;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 12pt;
-      }
-
-      .skill-category {
-        padding: 8px 10px;
-        margin-bottom: 6px;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-
-      .skill-category strong {
-        font-size: 11.5pt;
-      }
-
-      .skill-category span {
-        font-size: 11pt;
-      }
-
-      .project {
-        margin-bottom: 16pt;
-        page-break-inside: avoid;
-      }
-
-      .project p {
-        margin-bottom: 3pt;
-      }
-
-      section {
-        page-break-inside: auto;
-      }
-
-      section.summary {
-        page-break-inside: avoid;
-      }
-
-      .job-entry {
-        page-break-inside: avoid;
-        margin-bottom: 14pt;
-      }
-
-      .job-title {
-        page-break-after: avoid;
-      }
-
-      .dates {
-        font-size: 9pt;
-      }
-
-      section:last-child {
-        page-break-inside: avoid;
-      }
-      
-      .download-btn {
-        display: none !important;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .resume-container { 
-        margin: 10px;
-        padding: 20px;
-      }
-      
-      header h1 { font-size: 26px; }
-      .tagline { font-size: 16px; }
-      h2 { font-size: 20px; }
-      h3 { font-size: 18px; }
-      
-      .skill-category {
-        flex: 1 1 100%;
-      }
-    }
-    
-    .download-btn {
+    .print-btn {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 4px 12px rgba(44, 82, 130, 0.3);
-      transition: all 0.3s ease;
-      z-index: 1000;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(14, 116, 144, 0.35);
     }
-    
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(44, 82, 130, 0.4);
-      background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
-      color: white;
+
+    .print-btn:hover { background: #155e75; }
+
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    @media (max-width: 820px) {
+      .sheet { margin: 64px 10px 24px; padding: 24px 20px; }
+      .skill-row { grid-template-columns: 1fr; gap: 0; }
+      .skill-row dd { margin-bottom: 6pt; }
+      .print-btn, .back-link { top: 12px; }
+      .print-btn { right: 12px; padding: 8px 14px; }
+      .back-link { left: 12px; }
+    }
+
+    @media print {
+      @page { size: Letter; margin: 0.5in 0.6in; }
+      body { background: #fff; font-size: 10pt; }
+      .sheet { margin: 0; padding: 0; box-shadow: none; max-width: none; }
+      .print-btn, .back-link { display: none !important; }
+      h2 { page-break-after: avoid; }
+      a { color: inherit; text-decoration: none; }
     }
   </style>
 </head>
 <body>
-  <a href="#" class="download-btn" onclick="window.print(); return false;">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-    </svg>
-    <span>Download PDF</span>
-  </a>
+  <a class="back-link" href="index.html">&larr; Portfolio</a>
+  <button type="button" class="print-btn" onclick="window.print()">Download PDF</button>
 
-  <div class="resume-container">
-    <div class="ats-keywords" style="display: none;">
-      Senior Python Developer, Backend Engineer, Django, Flask, FastAPI, REST API, Microservices, AWS, PostgreSQL, MongoDB, Redis, Celery, RabbitMQ, Docker, Kubernetes, CI/CD, API Development, Database Design, System Integration, Web Scraping, ETL Pipelines, Webhook Development, OAuth, Authentication, Rate Limiting, Caching, Performance Optimization
-    </div>
+  <main class="sheet" id="resume" aria-busy="true">
+    <p>Loading resume…</p>
+  </main>
 
-    <header class="text-center mb-4">
-      <h1>ALBIN ANTHONY</h1>
-      <div class="tagline">Senior Python Developer • Backend Specialist • API Integration Expert</div>
-      <div class="contact">
-        <div><strong>Email:</strong> <a href="mailto:albi@ibhax.com">albi@ibhax.com</a> | <strong>Phone:</strong> <a href="tel:+916379056811">+91 6379056811</a></div>
-        <div><strong>Location:</strong> Wayanad, Kerala 670721, India</div>
-        <div><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/albin-antony-435b1b236" target="_blank">linkedin.com/in/albin-antony-435b1b236</a> | <strong>GitHub:</strong> <a href="https://github.com/ibhax" target="_blank">github.com/ibhax</a></div>
-        <!-- <div><strong>Portfolio:</strong> <a href="#" onclick="window.print(); return false;">Download Resume</a></div> -->
-      </div>
-    </header>
+  <script>
+    const ACRONYMS = {
+      ai: 'AI', ml: 'ML', api: 'API', apis: 'APIs', devops: 'DevOps', ci: 'CI', cd: 'CD', ui: 'UI',
+      ai_ml: 'AI & ML', cloud_devops: 'Cloud & DevOps', auth_security: 'Auth & Security'
+    };
 
-    <section class="summary">
-      <h2>Professional Summary</h2>
-      <p>Senior Python Engineer with extensive experience in developing scalable applications, specializing in Django, AI Agent Development, and cloud infrastructure. Proven expertise in building high-performance systems using Django, FastAPI, and modern cloud platforms. Adept at designing intelligent solutions with AI Agent Frameworks and implementing robust CI/CD pipelines. Strong background in web scraping, data analysis, and distributed systems. Committed to delivering efficient, maintainable solutions that drive business growth through technical innovation.</p>
-    </section>
+    const label = key => (ACRONYMS[key.toLowerCase()] || key)
+      .split(/[_\s]+/)
+      .map(word => ACRONYMS[word.toLowerCase()] || word.replace(/^\w/, character => character.toUpperCase()))
+      .join(' ');
 
-    <section>
-      <h2>Technical Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <strong>Programming Languages</strong>
-          <span>Python, JavaScript, Shell/Bash</span>
-        </div>
-        <div class="skill-category">
-          <strong>Web Frameworks</strong>
-          <span>Django, Flask, FastAPI, HTMX, Hyperscript</span>
-        </div>
-        <div class="skill-category">
-          <strong>Frontend</strong>
-          <span>HTML, CSS, Tailwind CSS, React, JavaScript</span>
-        </div>
-        <div class="skill-category">
-          <strong>Databases</strong>
-          <span>PostgreSQL, SQLite, MongoDB, Redis, Vector Databases</span>
-        </div>
-        <div class="skill-category">
-          <strong>Cloud & DevOps</strong>
-          <span>AWS (EC2, S3, Lambda, SES, RDS, DynamoDB, SQS, SNS, EventBridge, API Gateway), GCP, Docker, Kubernetes, CI/CD</span>
-        </div>
-        <div class="skill-category">
-          <strong>AI & Machine Learning</strong>
-          <span>LangChain, LangGraph, Pydantic-AI, RAG, AI Agent Orchestration, LLM Integration, Scikit-learn, Huggingface, Transformers</span>
-        </div>
-        <div class="skill-category">
-          <strong>Workflow Automation</strong>
-          <span>Celery, Airflow, Custom Orchestration Engines, Task Queues</span>
-        </div>
-        <div class="skill-category">
-          <strong>Web Scraping</strong>
-          <span>Scrapy, Selenium, BeautifulSoup, Playwright, Distributed Systems, Proxy Management</span>
-        </div>
-        <div class="skill-category">
-          <strong>API Integration</strong>
-          <span>REST APIs, GraphQL, Third-party API Integration, Error Handling, Rate Limit Management</span>
-        </div>
-        <div class="skill-category">
-          <strong>Authentication & Security</strong>
-          <span>OAuth 2.0, JWT, Custom Authentication Systems</span>
-        </div>
-        <div class="skill-category">
-          <strong>Real-time Systems</strong>
-          <span>Webhook Systems, Event-driven Architecture, Data Synchronization, WebSockets</span>
-        </div>
-      </div>
-    </section>
+    // profile.json keeps **emphasis** markers from the portfolio copy.
+    const withEmphasis = (node, text) => {
+      text.split(/\*\*(.+?)\*\*/g).forEach((chunk, index) => {
+        if (!chunk) return;
+        node.append(index % 2 ? el('strong', chunk) : document.createTextNode(chunk));
+      });
+      return node;
+    };
 
-    <section>
-      <h2>Professional Experience</h2>
+    const el = (tag, text, className) => {
+      const node = document.createElement(tag);
+      if (text) node.textContent = text;
+      if (className) node.className = className;
+      return node;
+    };
 
-      <div class="job-entry">
-        <h3 class="job-title">
-          <span><strong>Senior Python Agent Developer</strong> • <span class="company">Turing</span></span>
-          <span class="dates">05/2025 – 09/2025</span>
-        </h3>
-        <ul>
-          <li>Designed and maintained advanced orchestration systems for evaluating function-calling and reasoning capabilities of LLMs including OpenAI (GPT-4.1), Anthropic (Claude Sonnet 3.5, 3.7, Opus), and Google (Gemma 2.5)</li>
-          <li>Developed Python-based agentic frameworks that simulate real-world automation scenarios (email processing, file handling, Slack integration) to measure LLM planning and execution accuracy</li>
-          <li>Architected evaluation pipelines comparing AI-generated action sequences against human references, assessing step-level correctness and outcome validity with success classification</li>
-          <li>Built scalable orchestration systems using FastAPI, AsyncIO, and Pydantic for parallel evaluation across multiple AI models</li>
-          <li>Designed data schemas and dashboards to track and visualize key metrics including step counts, alignment ratios, execution times, and success classifications</li>
-          <li>Collaborated with AI research and MLOps teams to refine evaluation criteria, design experiments, and analyze LLM behavioral patterns</li>
-          <li>Established automated benchmarking frameworks that guide model selection, reliability scoring, and function-calling optimization across LLM providers</li>
-        </ul>
-      </div>
+    const section = (heading, ...children) => {
+      const node = document.createElement('section');
+      node.append(el('h2', heading));
+      children.filter(Boolean).forEach(child => node.append(child));
+      return node;
+    };
 
-      <div class="job-entry">
-        <h3 class="job-title">
-          <span><strong>AI Automation Consultant</strong> • <span class="company">AaveTech</span></span>
-          <span class="dates">Consultant</span>
-        </h3>
-        <ul>
-          <li>Developed backend services and automation tools using Python and related technologies</li>
-          <li>Worked on API integrations with various security tools and platforms</li>
-          <li>Implemented data processing pipelines and automation scripts</li>
-          <li>Contributed to system architecture and database design decisions</li>
-          <li>Optimized existing codebase for better performance and maintainability</li>
-          <li>Developed AI automation tools to automate manual processes and analyze data</li>
-        </ul>
-      </div>      
-      
-      <div class="job-entry">
-        <h3 class="job-title">
-          <span><strong>Senior Data Analyst</strong> • <span class="company">Aimleap</span></span>
-          <span class="dates">07/2024 – 06/2025</span>
-        </h3>
-        <ul>
-          <li>Architected enterprise-scale autonomous AI systems using multi-agent LLM frameworks, improving decision-making speed by 40%.</li>
-          <li>Designed alignment strategies and hybrid symbolic–deep-learning architectures for real-time cognitive computing.</li>
-          <li>Led R&D in reinforcement learning and explainability, drafting ethical AI governance adopted company-wide.</li>
-          <li>Mentored a team of 5+ engineers in best practices for secure data handling and cloud deployments.</li>
-        </ul>
-      </div>
+    const asList = value => {
+      if (Array.isArray(value)) return value.filter(Boolean);
+      if (typeof value === 'string' && value.trim()) return [value.trim()];
+      return [];
+    };
 
+    const bulletList = items => {
+      const list = document.createElement('ul');
+      items.forEach(item => list.append(withEmphasis(document.createElement('li'), item)));
+      return list;
+    };
 
-      <div class="job-entry">
-        <h3 class="job-title">
-          <span><strong>Software Developer</strong> • <span class="company">OneData Software Solutions</span></span>
-          <span class="dates">04/2023 – 05/2024</span>
-        </h3>
-        <ul>
-          <li>Led and managed Nishub Project, RPM v2, and TopStopStore initiatives</li>
-          <li>Implemented ETL processes for employee data, Lambda Integration, SES & S3, and transferred cleaned datasets to FTP server</li>
-          <li>Fixed bugs, managed deployments, updated features, and integrated payment systems</li>
-          <li>Automated YouTrack, streamlined email notifications, and generated reports</li>
-          <li>Built a Git API wrapper for AP-360 project</li>
-          <li>Mentored junior developers and conducted Django/Python training sessions</li>
-        </ul>
-      </div>
+    const entry = ({ role, org, dates, bullets, paragraphs, tech, note }) => {
+      const wrapper = el('div', null, 'entry');
+      const head = el('div', null, 'entry-head');
+      const left = document.createElement('div');
+      left.append(el('span', role, 'role'));
+      if (org) {
+        left.append(document.createTextNode(' — '));
+        left.append(el('span', org, 'org'));
+      }
+      head.append(left);
+      if (dates) head.append(el('span', dates, 'dates'));
+      wrapper.append(head);
+      if (note) wrapper.append(el('div', note, 'tech'));
+      const points = asList(bullets);
+      if (points.length) wrapper.append(bulletList(points));
+      asList(paragraphs).forEach(text => wrapper.append(withEmphasis(el('p', null, 'blurb'), text)));
+      const stack = asList(tech);
+      if (stack.length) wrapper.append(el('div', `Tech: ${stack.join(', ')}`, 'tech'));
+      return wrapper;
+    };
 
-      <div class="job-entry">
-        <h3 class="job-title">
-          <span><strong>Freelance Full Stack Developer</strong> • <span class="company">Self-Employed</span></span>
-          <span class="dates">03/2017 – 04/2023</span>
-        </h3>
-        <ul>
-          <li>Developed web applications using Django, Flask, FastAPI, and modern frontend technologies</li>
-          <li>Deployed applications to production using AWS and Azure cloud services</li>
-          <li>Optimized codebase for better performance and scalability</li>
-          <li>Integrated third-party APIs and implemented automated deployment scripts</li>
-          <li>Conducted web scraping using Scrapy, BeautifulSoup, and Selenium</li>
-          <li>Designed efficient database schemas and implemented caching strategies</li>
-        </ul>
-      </div>
-    </section>
+    const contactLine = contact => {
+      const line = el('div', null, 'contact');
+      const parts = [
+        contact.email && { text: contact.email, href: `mailto:${contact.email}` },
+        contact.phone && { text: contact.phone, href: `tel:${contact.phone.replace(/\s+/g, '')}` },
+        contact.location && { text: contact.location },
+        contact.linkedin && { text: contact.linkedin, href: `https://${contact.linkedin.replace(/^https?:\/\//, '')}` },
+        contact.github && { text: contact.github, href: `https://${contact.github.replace(/^https?:\/\//, '')}` }
+      ].filter(Boolean);
 
-    <section>
-      <h2>Key Projects</h2>
+      parts.forEach(part => {
+        const holder = document.createElement('span');
+        if (part.href) {
+          const link = el('a', part.text);
+          link.href = part.href;
+          holder.append(link);
+        } else {
+          holder.textContent = part.text;
+        }
+        line.append(holder);
+      });
+      return line;
+    };
 
-      <div class="project">
-        <h3>Azure DevOps Project Admin Audit Tool</h3>
-        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2</p>
-        <p>Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 500+ projects at enterprise scale.</p>
-        <p><strong>Achievements:</strong> Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests.</p>
-        <p><strong>Results:</strong> Achieved 10–15x performance improvement over the legacy implementation, reducing enterprise-scale audit execution from hours to ~20 minutes across 500+ projects while ensuring full compliance visibility and automated remediation notifications.</p>
-      </div>
+    const render = profile => {
+      const root = document.getElementById('resume');
+      root.textContent = '';
+      root.removeAttribute('aria-busy');
+      document.title = `${profile.name} — Resume`;
 
-      <div class="project">
-        <h3>Azure DevOps Branch Policy Enforcement Tool</h3>
-        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Jinja2, SMTP</p>
-        <p>Built a high-performance Python automation system for PepsiCo to detect and remediate non-compliant branch protection policies across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing (200 projects/batch), and automatic retry logic to audit and enforce policies at enterprise scale across 2000+ projects.</p>
-        <p><strong>Achievements:</strong> Implemented automated compliance detection for missing and tampered minimum-reviewer policies on protected branches (<code>main</code>, <code>master</code>, <code>develop</code>), with concurrent policy creation and update pipelines. Integrated Oracle database via SQLAlchemy ORM for violation audit trail persistence and an automated email notification pipeline using Jinja2 templates for both per-project alerts and executive summaries. Supported dry-run mode for safe pre-flight validation.</p>
-        <p><strong>Results:</strong> Achieved 10–15x performance improvement over the legacy implementation, reducing enterprise-scale policy enforcement from hours to under 30 minutes across 2000+ projects while ensuring full branch protection compliance and automated remediation notifications.</p>
-      </div>
+      const header = document.createElement('header');
+      header.append(el('h1', profile.name));
+      if (profile.title) header.append(el('div', profile.title, 'tagline'));
+      if (profile.contact) header.append(contactLine(profile.contact));
+      root.append(header);
 
-      <div class="project">
-        <h3>Azure DevOps Security Permissions Audit & Remediation Tool</h3>
-        <p><strong>Tech Stack:</strong> Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Audit Log API, Jinja2, SMTP</p>
-        <p>Built a high-throughput Python security audit system for PepsiCo to detect and revoke unauthorized bypass permissions across Azure DevOps Git repositories. Designed a four-phase async workflow — ACL fetching, violation extraction, batched identity resolution, and concurrent permission denial — to enforce least-privilege access at enterprise scale across 2000+ projects.</p>
-        <p><strong>Achievements:</strong> Implemented automated scanning of Access Control Lists (ACLs) for critical bypass-push and bypass-PR permission bits, with deduplication to prevent duplicate violations. Reduced identity-resolution API calls by ~50x using batched Graph/Identity API lookups (50 descriptors/call vs. 1 in legacy). Integrated Azure Audit Log enrichment to capture who originally granted each violation, including actor UPN, IP address, and timestamp. Persisted violation records to Oracle DB via bulk <code>executemany</code> inserts, with configurable project and service-account exemption lists. Delivered automated Jinja2-based email alerts per project and executive summary reports.</p>
-        <p><strong>Results:</strong> Achieved significant performance gains over the legacy implementation — processing 2000+ projects in under 30 minutes with 50 concurrent HTTP connections, full audit traceability, and zero-touch automated remediation of unauthorized repository bypass permissions.</p>
-      </div>
+      if (profile.summary) root.append(section('Summary', withEmphasis(el('p'), profile.summary)));
 
-      <div class="project">
-        <h3>LLM Orchestration Framework for Multi-Provider Function Calling</h3>
-        <p><strong>Tech Stack:</strong> Python, FastAPI, OpenAI API, Anthropic Claude, Google Gemma, LangChain, Vector Databases</p>
-        <p>Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers including OpenAI (GPT-4.1), Anthropic (Claude Sonnet 3.5, 3.7, Opus), and Google Gemma 2.5.</p>
-        <p><strong>Achievements:</strong> Designed and implemented an automated testing pipeline that compares AI-generated execution plans against human-created references, evaluating logical step correctness, output accuracy, and redundancy. Built a scalable system using FastAPI and AsyncIO for parallel evaluation of multiple AI models.</p>
-        <p><strong>Results:</strong> Enabled data-driven model selection by providing comprehensive benchmarks of LLM performance in real-world automation scenarios, improving workflow automation accuracy by 40%.</p>
-      </div>
+      const categories = profile.skills?.categories || {};
+      if (Object.keys(categories).length) {
+        const list = document.createElement('dl');
+        Object.entries(categories).forEach(([key, values]) => {
+          const row = el('div', null, 'skill-row');
+          row.append(el('dt', label(key)));
+          row.append(el('dd', (values || []).join(', ')));
+          list.append(row);
+        });
+        root.append(section('Technical Skills', list));
+      }
 
-      <div class="project">
-        <h3>OneCare Health App</h3>
-        <p><strong>Tech Stack:</strong> Python, Django, PostgreSQL, Docker, AWS</p>
-        <p>Health Application for managing patient data and booking appointments.</p>
-        <p><strong>Achievements:</strong> Migrated application from Flask to Django, reducing downtime by 50%. Designed RESTful APIs to manage patient data. Implemented CI/CD pipelines using GitLab for automated deployments.</p>
-        <p><strong>Results:</strong> Reduced server downtime by 50% and improved overall performance by 20%.</p>
-      </div>
+      if (profile.experience?.length) {
+        root.append(section('Professional Experience', ...profile.experience.map(job => entry({
+          role: job.title,
+          org: job.company,
+          dates: job.duration,
+          bullets: job.description,
+          tech: job.tech
+        }))));
+      }
 
-      <div class="project">
-        <h3>TopStopStores</h3>
-        <p><strong>Tech Stack:</strong> Python, ETL, AWS S3, FTP</p>
-        <p>ETL process for employee datasets, storage on S3 and post-ETL storage on FTP server.</p>
-        <p><strong>Achievements:</strong> Designed and implemented ETL workflows to handle large datasets. Managed data storage solutions on AWS S3 and FTP servers. Optimized ETL processes for efficiency and reliability.</p>
-        <p><strong>Results:</strong> Enhanced data processing efficiency by 30% and ensured reliable data storage solutions.</p>
-      </div>
+      if (profile.projects?.length) {
+        root.append(section('Selected Projects', ...profile.projects.map(project => entry({
+          role: project.name,
+          paragraphs: project.description,
+          tech: project.tech
+        }))));
+      }
 
-      <div class="project">
-        <h3>AP-360</h3>
-        <p><strong>Tech Stack:</strong> Python, YouTrack, Git API</p>
-        <p>Automated YouTrack workflows, optimized email notification systems, generated comprehensive reports, and developed a custom Git API wrapper.</p>
-        <p><strong>Responsibilities:</strong> Automated YouTrack processes, streamlined email notifications, developed Git API wrapper, and generated project analysis reports.</p>
-      </div>
-    </section>
+      if (profile.education?.length) {
+        root.append(section('Education', ...profile.education.map(course => entry({
+          role: course.name,
+          org: course.institution,
+          dates: course.year
+        }))));
+      }
 
-    <section>
-      <h2>Workshops & Training</h2>
-      <ul>
-        <li><strong>Git Workflows for Internal Team:</strong> Presented on effective Git workflows, including branching strategies and collaboration techniques.</li>
-        <li><strong>REST API Design Patterns and Workflow:</strong> Developed guidelines for Django REST API design patterns and introduced streamlined development workflows.</li>
-        <li><strong>Hadoop and Big Data Workshop:</strong> Conducted a 2-week workshop at Avinashilingam Institute of Home Science and Higher Education.</li>
-        <li><strong>Emerging Trends in AI Workshop:</strong> Led a 2-day workshop at Kumaraguru College of Technology.</li>
-        <li><strong>Full Stack Development with Python:</strong> Conducted a 1-day seminar at Dhanalakshmi College of Engineering.</li>
-      </ul>
-    </section>
+      if (profile.workshops?.length) {
+        root.append(section('Talks & Workshops', bulletList(profile.workshops)));
+      }
 
-    <section>
-      <h2>Education & Certifications</h2>
-      <ul>
-        <li><strong>Bachelor of Science in Psychology</strong> - Annamalai University (2021)</li>
-        <li><strong>Data Science Certification</strong> - Teachnook (2022)</li>
-        <li><strong>Self-Taught Education</strong> - Ongoing learning in React, FlutterFlow, and emerging technologies</li>
-      </ul>
-    </section>
+      if (profile.languages?.length) {
+        const text = profile.languages
+          .map(language => `${language.name} (${language.proficiency})`)
+          .join(', ');
+        root.append(section('Languages', el('p', text, 'inline-list')));
+      }
 
-    <section>
-      <h2>Languages</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <strong>Malayalam</strong>
-          <span>Native</span>
-        </div>
-        <div class="skill-category">
-          <strong>Tamil</strong>
-          <span>Proficient (C2)</span>
-        </div>
-        <div class="skill-category">
-          <strong>English</strong>
-          <span>Professional Working Proficiency (B2)</span>
-        </div>
-        <div class="skill-category">
-          <strong>Hindi</strong>
-          <span>Limited Working Proficiency</span>
-        </div>
-      </div>
+      if (profile.references?.length) {
+        root.append(section('References', ...profile.references.map(reference => {
+          const wrapper = el('div', null, 'entry');
+          wrapper.append(el('blockquote', `“${reference.quote}”`));
+          const attribution = [reference.name, reference.role, reference.company]
+            .filter(Boolean)
+            .join(', ');
+          wrapper.append(el('div', `— ${attribution}`, 'quote-by'));
+          return wrapper;
+        })));
+      }
+    };
 
-      <section class="text-center mt-4">
-      <p class="text-muted" style="font-size: 9pt; line-height: 1.2;">
-        <em>References available upon request</em><br>
-        <span style="font-size: 8pt;">Last updated: October 2025</span>
-      </p>
-    </section>
+    const draft = new URLSearchParams(location.search).has('preview')
+      ? localStorage.getItem('profile_draft')
+      : null;
 
-    </section>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    if (draft) {
+      render(JSON.parse(draft));
+    } else {
+      fetch('profile.json', { cache: 'no-store' })
+        .then(response => {
+          if (!response.ok) throw new Error(`profile.json returned ${response.status}`);
+          return response.json();
+        })
+        .then(render)
+        .catch(error => {
+          document.getElementById('resume').textContent = `Could not load resume: ${error.message}`;
+        });
+    }
+  </script>
 </body>
 </html>
