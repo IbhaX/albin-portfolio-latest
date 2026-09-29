@@ -180,5 +180,14 @@
       "name": "Tamil",
       "proficiency": "Proficient (C2)"
     }
+  ],
+  "references": [
+    {
+      "quote": "PLACEHOLDER — replace with the reviewer's words about Albin.",
+      "name": "Reviewer Name",
+      "role": "Reviewer Title",
+      "company": "Company",
+      "link": ""
+    }
   ]
 }
