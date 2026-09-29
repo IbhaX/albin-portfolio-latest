@@ -196,8 +196,8 @@
 <audio id="bgm" src="./bgm.mp3" loop autoplay muted></audio>
 
 <!-- Mute / Unmute Button -->
-<button id="toggleBgm" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg border border-gray-700">
-  🔇 Sound Off
+<button id="toggleBgm" aria-label="Background sound" aria-pressed="false" class="fixed bottom-4 right-4 z-50 flex items-center justify-center gap-2 w-11 h-11 sm:w-auto sm:h-auto sm:px-4 sm:py-2 bg-gray-800 text-white rounded-full sm:rounded-lg shadow-lg border border-gray-700">
+  <span id="bgmIcon">🔇</span><span id="bgmLabel" class="hidden sm:inline">Sound Off</span>
 </button>
 
 <script>
@@ -214,7 +214,9 @@
   // Toggle sound
   btn.addEventListener('click', () => {
     bgm.muted = !bgm.muted;
-    btn.textContent = bgm.muted ? '🔇 Sound Off' : '🔊 Sound On';
+    document.getElementById('bgmIcon').textContent = bgm.muted ? '🔇' : '🔊';
+    document.getElementById('bgmLabel').textContent = bgm.muted ? 'Sound Off' : 'Sound On';
+    btn.setAttribute('aria-pressed', String(!bgm.muted));
   });
 </script>
     <!-- DATA DEFINITIONS (Hidden Script) -->
@@ -876,7 +878,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-gray-950/80 text-white p-8 md:p-10 text-center border-t border-cyan-900">
+    <footer class="bg-gray-950/80 text-white p-8 md:p-10 pb-24 sm:pb-8 text-center border-t border-cyan-900">
         <p class="text-sm text-gray-400 text-center">Developed with Tailwind CSS and JavaScript. ALBIN ANTHONY © 2026</p>
         <div class="flex justify-center space-x-6 mt-4">
             <a href="mailto:albi@ibhax.com" class="text-cyan-400 hover:text-cyan-300 transition">Contact</a>
