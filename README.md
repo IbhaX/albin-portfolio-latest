@@ -14,8 +14,8 @@ section, or edit the raw JSON in the same page. Actions:
 - **Publish** — posts to the `save-profile` Netlify function, which commits `profile.json` to GitHub
   and triggers a Netlify deploy.
 
-The edit key is the current date and time as `MMyyHHmm` (29 Sep 2026 22:30 -> `09262230`),
-in Asia/Kolkata, accepted within one minute either side.
+The edit key is derived from the current date and time in `EDIT_KEY_TZ`; see
+`netlify/functions/save-profile.mjs` for the exact form.
 
 Publishing needs these Netlify environment variables:
 
