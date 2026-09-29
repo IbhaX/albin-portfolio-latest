@@ -3,7 +3,7 @@
   "title": "Staff Engineer | Python & AI | DevSecOps & Automation",
   "summary": "Staff Engineer with extensive experience in architecting and developing scalable enterprise applications, specializing in DevSecOps, AI Agent Development, and cloud infrastructure. Currently leading automation and governance initiatives, focusing on data extraction, monitoring, and rule enforcement for large-scale systems. Proven expertise in building high-performance systems and intelligent solutions that enhance security and operational efficiency.",
   "contact": {
-    "email": "albin.anthony.dev@gmail.com",
+    "email": "albi@ibhax.com",
     "phone": "+91 6379056811",
     "location": "Wayanad, Kerala 670721, India",
     "linkedin": "linkedin.com/in/albin-antony-435b1b236",
@@ -218,7 +218,7 @@
   "projects": [
     {
       "name": "Azure DevOps Project Admin Audit Tool",
-      "description": "Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 5000+ projects at enterprise scale. Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests. Result: 10–15x performance improvement, reducing execution to ~20 minutes.",
+      "description": "Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 5000+ projects at enterprise scale. Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests. Result: 10\u201315x performance improvement, reducing execution to ~20 minutes.",
       "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2",
       "link": ""
     },
