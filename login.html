@@ -235,9 +235,7 @@
 
         // Configuration
         const config = {
-            // These are the default credentials - change them to your preferred values
             username: 'admin',
-            password: 'admin',
             // Token expiration in milliseconds (24 hours)
             tokenExpiration: 24 * 60 * 60 * 1000,
             // Lockout configuration (in milliseconds)
@@ -467,9 +465,18 @@
             submitBtn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 mr-2 animate-spin"></i> Authenticating...';
             lucide.createIcons();
             
-            // Simulate API call
-            setTimeout(() => {
-                if (username === config.username && password === config.password) {
+            const resetButton = () => {
+                submitBtn.innerHTML = '<i data-lucide="log-in" class="w-4 h-4 mr-2"></i> Sign In';
+                lucide.createIcons();
+                submitBtn.disabled = false;
+            };
+
+            fetch('/.netlify/functions/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            }).then(response => {
+                if (response.ok) {
                     // Successful login
                     failedAttempts = 0; // Reset failed attempts on success
                     const token = generateToken(rememberMe);
@@ -490,7 +497,7 @@
                     setTimeout(() => {
                         window.location.href = 'update-profile.html';
                     }, 800);
-                } else {
+                } else if (response.status === 401) {
                     // Failed login
                     failedAttempts++;
                     updateAttemptCounter(failedAttempts);
@@ -511,8 +518,16 @@
                         submitBtn.disabled = false;
                         document.getElementById('password').focus();
                     }
+                } else {
+                    throw new Error(`Login failed (${response.status})`);
                 }
-            }, 1000); // Simulate network delay
+            }).catch(error => {
+                console.error(error);
+                const errorDiv = document.getElementById('error-message');
+                errorDiv.classList.remove('hidden', 'opacity-0');
+                errorDiv.textContent = 'Login service unavailable. Try again shortly.';
+                resetButton();
+            });
         });
         
         // Generate a simple token
