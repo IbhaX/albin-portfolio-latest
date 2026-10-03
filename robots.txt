@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /login.html
+Disallow: /update-profile.html
+Disallow: /.netlify/
+
+Sitemap: https://ibhax.com/sitemap.xml
