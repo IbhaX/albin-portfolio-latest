@@ -38,11 +38,21 @@
         "Vector Databases"
       ],
       "cloud_devops": [
-        "AWS (EC2, S3, Lambda, SES, RDS, DynamoDB, SQS, SNS, EventBridge, API Gateway)",
+        "AWS (EC2",
+        "S3",
+        "Lambda",
+        "SES",
+        "RDS",
+        "DynamoDB",
+        "SQS",
+        "SNS",
+        "EventBridge",
+        "API Gateway)",
         "GCP",
         "Docker",
         "Kubernetes",
-        "CI/CD"
+        "CI/CD",
+        "Azure Devops"
       ],
       "ai_ml": [
         "LangChain",
