@@ -111,18 +111,22 @@
     <!-- Microsoft Tiles -->
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="msapplication-TileColor" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons for the modern look -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Configure Tailwind to use Inter font and smooth scrolling */
         :root {
-            --font-inter: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --font-mono: 'DM Mono', ui-monospace, monospace;
         }
         html {
             scroll-behavior: smooth;
-            font-family: var(--font-inter);
+            font-family: var(--font-body);
             scroll-padding-top: 100px; /* Add padding to account for fixed header */
         }
         
@@ -132,6 +136,19 @@
             }
         }
         
+        body { font-family: var(--font-body); font-weight: 300; }
+        h1, h2 { font-family: var(--font-display); letter-spacing: -0.02em; }
+        h2 em { font-style: italic; color: #22d3ee; }
+        .font-mono { font-family: var(--font-mono) !important; }
+        .font-display { font-family: var(--font-display); }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #22d3ee;
+        }
+
         /* Apply the dark theme background */
         body {
             background-color: #111827; /* vanta backdrop */
@@ -495,9 +512,13 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-8">
+                    <div class="ml-6 lg:ml-10 flex items-center space-x-1 lg:space-x-8">
                         <a href="#summary" class="nav-link relative group text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
                             <span>About</span>
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#approach" class="nav-link relative group text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
+                            <span>Approach</span>
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                         </a>
                         <a href="#skills" class="nav-link relative group text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
@@ -512,7 +533,7 @@
                             <span>Projects</span>
                             <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
                         </a>
-                        <a href="#contact" class="ml-4 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-medium rounded-md hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/20">
+                        <a href="#contact" class="ml-4 px-4 py-2 whitespace-nowrap bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-medium rounded-md hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-500/20">
                             Contact Me
                         </a>
                         
@@ -568,6 +589,10 @@
                         <i data-lucide="user" class="w-5 h-5 mr-3 text-cyan-400 flex-shrink-0"></i>
                         <span>About</span>
                     </a>
+                    <a href="#approach" class="mobile-nav-link flex items-center px-5 py-3 text-lg font-medium text-white hover:bg-gray-800/50 hover:text-cyan-400 rounded-lg transition-all duration-300 transform hover:translate-x-2 border-l-4 border-transparent hover:border-cyan-500">
+                        <i data-lucide="sparkles" class="w-5 h-5 mr-3 text-cyan-400 flex-shrink-0"></i>
+                        <span>Approach</span>
+                    </a>
                     <a href="#skills" class="mobile-nav-link flex items-center px-5 py-3 text-lg font-medium text-white hover:bg-gray-800/50 hover:text-cyan-400 rounded-lg transition-all duration-300 transform hover:translate-x-2 border-l-4 border-transparent hover:border-cyan-500">
                         <i data-lucide="code" class="w-5 h-5 mr-3 text-cyan-400 flex-shrink-0"></i>
                         <span>Skills</span>
@@ -611,7 +636,7 @@
                 </div>
             </div>
             <div class="scroll-animate" data-delay="0s">
-                <h1 class="text-6xl md:text-7xl font-black tracking-tighter mb-4 leading-tight">
+                <h1 class="text-6xl md:text-7xl font-black tracking-normal mb-4 leading-tight">
                     ALBIN ANTH<a href="login.html" class="text-white hover:text-white" style="text-decoration: none; cursor: default;">O</a>NY
                 </h1>
             </div>
@@ -662,11 +687,145 @@
         <section id="summary" class="container mx-auto p-4 sm:p-6 md:p-12 text-left scroll-mt-20">
             <div class="scroll-animate">
                 <div class="bg-gray-900 text-gray-100 p-5 sm:p-8 rounded-xl shadow-2xl border border-gray-700 hover:border-cyan-500 transition duration-300 backdrop-blur-sm shadow-inner shadow-cyan-900/50">
-                    <h2 class="text-3xl font-bold mb-3 text-cyan-400 flex items-center justify-start">
-                        <i data-lucide="book-open" class="w-6 h-6 mr-2 text-cyan-400"></i> Professional Summary
-                    </h2>
-                    <!-- Summary content is hardcoded here, as it contains formatting (bolding) -->
+                    <p class="section-label mb-3">01 / About</p>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-50 leading-tight">Building <em>intelligent</em> systems,<br class="hidden sm:block"> one automation at a time.</h2>
                     <p id="summary-text" class="leading-relaxed text-lg">Staff Engineer with extensive experience in architecting and developing scalable enterprise applications, specializing in DevSecOps, AI Agent Development, and cloud infrastructure. Currently leading automation and governance initiatives, focusing on data extraction, monitoring, and rule enforcement for large-scale systems. Proven expertise in building high-performance systems and intelligent solutions that enhance security and operational efficiency.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 pt-6 border-t border-gray-700">
+                        <div>
+                            <p class="font-display text-4xl font-bold text-cyan-400">9+</p>
+                            <p class="section-label !text-gray-400 mt-1">Years building software</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-4xl font-bold text-cyan-400">40%</p>
+                            <p class="section-label !text-gray-400 mt-1">Faster decisions with multi-agent AI</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-4xl font-bold text-cyan-400">50%</p>
+                            <p class="section-label !text-gray-400 mt-1">Less downtime after a platform migration</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-4xl font-bold text-cyan-400">5+</p>
+                            <p class="section-label !text-gray-400 mt-1">Engineers mentored</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT I BRING -->
+        <section id="approach" class="py-16 px-4 sm:px-8 md:px-12 bg-gray-950/70 text-left scroll-mt-20">
+            <div class="container mx-auto">
+                <div class="scroll-animate">
+                    <p class="section-label mb-3">02 / Core Competencies</p>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-10 text-gray-50 pb-4 border-b border-cyan-800">What I <em>Bring</em></h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="scroll-animate" data-delay="0.0s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">01</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">AI Agent Development</h3>
+                            <p class="text-gray-400 leading-relaxed">LangChain, LangGraph, Pydantic-AI, multi-agent systems, RAG pipelines, LLM function-calling and evaluation.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" data-delay="0.1s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">02</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">Automation &amp; Orchestration</h3>
+                            <p class="text-gray-400 leading-relaxed">Celery, task queues, custom orchestration engines, async Python and large-scale web scraping with Scrapy, Playwright and Selenium.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" data-delay="0.2s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">03</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">DevSecOps &amp; Governance</h3>
+                            <p class="text-gray-400 leading-relaxed">Compliance audits, branch-policy enforcement, permission remediation and governance monitoring across Azure DevOps.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" data-delay="0.0s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">04</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">Backend &amp; APIs</h3>
+                            <p class="text-gray-400 leading-relaxed">Django, FastAPI and Flask services, REST and GraphQL APIs, OAuth 2.0 / JWT and third-party integrations with rate-limit handling.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" data-delay="0.1s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">05</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">Cloud &amp; Data Pipelines</h3>
+                            <p class="text-gray-400 leading-relaxed">AWS (Lambda, S3, SES, SQS, RDS), GCP, Docker, Kubernetes, CI/CD and reliable ETL workflows.</p>
+                        </div>
+                    </div>
+                    <div class="scroll-animate" data-delay="0.2s">
+                        <div class="h-full bg-gray-900 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition duration-300">
+                            <p class="font-mono text-sm text-cyan-400 mb-4">06</p>
+                            <h3 class="font-display text-2xl font-bold text-white mb-3">Mentoring &amp; Knowledge Sharing</h3>
+                            <p class="text-gray-400 leading-relaxed">Python and Django training, Git workflow and API design guidelines, and workshops on AI and full-stack development.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CORE PRINCIPLES -->
+        <section id="principles" class="container mx-auto py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left scroll-mt-20">
+            <div class="scroll-animate">
+                <p class="section-label mb-3">03 / How I Work</p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-10 text-gray-50 pb-4 border-b border-cyan-800">Core <em>Principles</em></h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                <div class="scroll-animate" data-delay="0.0s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">01</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Automate the repetitive</h3>
+                            <p class="text-gray-400 leading-relaxed">If a task has to be done twice, it is worth a script. Good automation gives people their time back.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.1s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">02</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Secure by default</h3>
+                            <p class="text-gray-400 leading-relaxed">Security and compliance belong inside the pipeline from day one, not bolted on at the end.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.0s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">03</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Design for scale</h3>
+                            <p class="text-gray-400 leading-relaxed">Async I/O, batching, retries and connection pooling are planned up front, so systems hold up under real load.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.1s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">04</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Measure before claiming</h3>
+                            <p class="text-gray-400 leading-relaxed">Evaluation pipelines, monitoring and clear metrics decide what works, for code and for AI agents alike.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.0s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">05</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Simple over clever</h3>
+                            <p class="text-gray-400 leading-relaxed">Readable, well-structured Python that the next engineer can understand, own and extend.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-animate" data-delay="0.1s">
+                    <div class="flex gap-5 border-t border-gray-800 pt-6">
+                        <p class="font-mono text-sm text-cyan-400 pt-2">06</p>
+                        <div>
+                            <h3 class="font-display text-2xl italic text-white mb-2">Share what I learn</h3>
+                            <p class="text-gray-400 leading-relaxed">Mentoring, workshops and documentation make the whole team faster, not just one person.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -675,6 +834,7 @@
         <section id="skills" class="py-16 px-4 sm:px-8 md:px-12 bg-gray-950/70 text-left scroll-mt-20">
             <div class="container mx-auto">
                 <div class="scroll-animate">
+                    <p class="section-label mb-3">04 / Skills</p>
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                         <i data-lucide="code" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Technical Schematic
                     </h2>
@@ -692,6 +852,7 @@
         <!-- EXPERIENCE -->
         <section id="experience" class="container mx-auto py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left">
             <div class="scroll-animate">
+                <p class="section-label mb-3">05 / Experience</p>
                 <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                     <i data-lucide="briefcase" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Agent Deployment Log
                 </h2>
@@ -712,6 +873,7 @@
         <section id="projects" class="bg-gray-950/70 py-16 px-4 sm:px-8 md:px-12 text-white text-left">
             <div class="container mx-auto">
                 <div class="scroll-animate">
+                    <p class="section-label mb-3">06 / Projects</p>
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                         <i data-lucide="server" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Completed Project Files
                     </h2>
@@ -729,6 +891,7 @@
         <!-- WORKSHOPS & TRAINING -->
         <section id="workshops" class="container mx-auto py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left">
             <div class="scroll-animate">
+                <p class="section-label mb-3">07 / Workshops</p>
                 <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                     <i data-lucide="cpu" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Workshops & Specialized Training
                 </h2>
@@ -746,6 +909,7 @@
         <section id="education" class="bg-gray-950/70 py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left scroll-mt-20">
             <div class="container mx-auto">
                 <div class="scroll-animate">
+                    <p class="section-label mb-3">08 / Education</p>
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                         <i data-lucide="graduation-cap" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Training and Education Log
                     </h2>
@@ -763,6 +927,7 @@
         <!-- LANGUAGES -->
         <section id="languages" class="container mx-auto py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left">
             <div class="scroll-animate">
+                <p class="section-label mb-3">09 / Languages</p>
                 <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                     <i data-lucide="globe" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> Multilingual Proficiency
                 </h2>
@@ -780,6 +945,7 @@
         <section id="references" class="bg-gray-950/70 py-16 px-4 sm:px-8 md:px-12 text-gray-100 text-left scroll-mt-20">
             <div class="container mx-auto">
                 <div class="scroll-animate">
+                    <p class="section-label mb-3">10 / References</p>
                     <h2 class="text-4xl font-extrabold mb-8 flex items-center justify-start text-gray-50 pb-2 border-b border-cyan-800">
                         <i data-lucide="quote" class="w-8 h-8 mr-4 ml-0 text-cyan-400"></i> References
                     </h2>
@@ -798,6 +964,7 @@
     <!-- Contact Form Section -->
     <section id="contact" class="py-16 px-4 md:px-8 bg-gray-900/70 scroll-mt-20">
         <div class="max-w-4xl mx-auto">
+            <p class="section-label mb-3 text-center">11 / Contact</p>
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
                 <span class="border-b-4 border-cyan-500 pb-2">Get In Touch</span>
             </h2>
