@@ -6,15 +6,27 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Update Profile - Albin's Portfolio</title>
     <!-- Load Tailwind CSS from CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,400..700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons for the modern look -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             background-color: #111827; /* gray-900 */
-            font-family: 'Inter', sans-serif;
+            font-family: 'Figtree', system-ui, sans-serif;
             color: #f3f4f6; /* gray-100 */
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
+
+        h1, h2, h3 {
+            font-family: 'Bricolage Grotesque', 'Figtree', system-ui, sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        code, pre, textarea.font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
         .card {
             background: rgba(31, 41, 55, 0.8); /* gray-800 with opacity */
