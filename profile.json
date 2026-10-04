@@ -5,8 +5,8 @@
   "contact": {
     "email": "albi@ibhax.com",
     "phone": "+91 6379056811",
-    "location": "Panamaram, Wayanad, Kerala, India - 670721",
-    "linkedin": "linkedin.com/in/albin-antony-435b1b236",
+    "location": "Wayanad, Kerala, India - 670721",
+    "linkedin": "https://www.linkedin.com/in/albin-anthony-435b1b236",
     "github": "github.com/ibhax"
   },
   "skills": {
@@ -38,21 +38,11 @@
         "Vector Databases"
       ],
       "cloud_devops": [
-        "AWS (EC2",
-        "S3",
-        "Lambda",
-        "SES",
-        "RDS",
-        "DynamoDB",
-        "SQS",
-        "SNS",
-        "EventBridge",
-        "API Gateway)",
+        "AWS (EC2, S3, Lambda, SES, RDS, DynamoDB, SQS, SNS, EventBridge, API Gateway)",
         "GCP",
         "Docker",
         "Kubernetes",
-        "CI/CD",
-        "Azure Devops"
+        "CI/CD"
       ],
       "ai_ml": [
         "LangChain",
@@ -227,12 +217,6 @@
   ],
   "projects": [
     {
-      "name": "Agentix — Multi-Agent Framework (PyPI: ibhax-agentix)",
-      "description": "Built and published Agentix, a lightweight multi-agent framework for Python on top of pydantic-ai (pip install ibhax-agentix). Features a fluent, type-safe AgentBuilder with tools and sub-agents, a thread-safe AgentRegistry, sequential Pipelines with custom adapters, sync/async runners with timing, and a persistent tiered memory layer (short-term, long-term vector, state and session) backed by ChromaDB. Ships typed (py.typed) with examples for orchestrators, parallel agents, web-search agents and research → draft → edit teams.",
-      "tech": "Python, pydantic-ai, Pydantic, ChromaDB, AsyncIO, OpenAI/OpenRouter, PyPI",
-      "link": "https://pypi.org/project/ibhax-agentix/"
-    },
-    {
       "name": "Azure DevOps Project Admin Audit Tool",
       "description": "Built a high-performance Python audit system for PepsiCo to detect non-compliant administrators across Azure DevOps organizations. Designed an async/await architecture with connection pooling, batch processing, and automatic retry logic to audit 5000+ projects at enterprise scale. Implemented automated compliance checks with configurable rules, encrypted credential management (TripleDES), and an automated email notification pipeline using Jinja2 templates. Integrated Oracle database via SQLAlchemy ORM for audit trail persistence and Azure Blob Storage for centralized logging. Achieved 92% test coverage with 250+ tests. Result: 10–15x performance improvement, reducing execution to ~20 minutes.",
       "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2",
@@ -330,7 +314,7 @@
     },
     {
       "quote": "Albin combines backend engineering with a genuine understanding of data and AI. He is particularly good at turning emerging technologies such as AI agents into practical workflows that can integrate with existing systems and deliver real value.",
-      "name": "Ananya Rajan",
+      "name": "Ananya Rao",
       "role": "AI & Data Engineering Lead",
       "company": "",
       "link": ""
