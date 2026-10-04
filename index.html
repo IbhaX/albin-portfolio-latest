@@ -113,16 +113,17 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,400..700;1,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- Load Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Lucide Icons for the modern look -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --font-display: 'Playfair Display', Georgia, serif;
-            --font-body: 'DM Sans', system-ui, sans-serif;
-            --font-mono: 'DM Mono', ui-monospace, monospace;
+            --font-display: 'Bricolage Grotesque', 'Figtree', system-ui, sans-serif;
+            --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            --font-accent: 'Instrument Serif', Georgia, serif;
+            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
         }
         html {
             scroll-behavior: smooth;
@@ -136,15 +137,36 @@
             }
         }
         
-        body { font-family: var(--font-body); font-weight: 300; }
-        h1, h2 { font-family: var(--font-display); letter-spacing: -0.02em; }
-        h2 em { font-style: italic; color: #22d3ee; }
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            line-height: 1.65;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        p, li { line-height: 1.7; }
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-optical-sizing: auto;
+            letter-spacing: -0.025em;
+            line-height: 1.12;
+        }
+        h1 { letter-spacing: -0.04em; }
+        h1, h2 { text-wrap: balance; }
+        h2 em, .font-accent {
+            font-family: var(--font-accent);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        h2 em { font-style: italic; font-size: 1.1em; color: #22d3ee; }
         .font-mono { font-family: var(--font-mono) !important; }
         .font-display { font-family: var(--font-display); }
         .section-label {
             font-family: var(--font-mono);
             font-size: 0.75rem;
-            letter-spacing: 0.18em;
+            font-weight: 500;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
             color: #22d3ee;
         }
@@ -783,7 +805,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">01</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Automate the repetitive</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Automate the repetitive</h3>
                             <p class="text-gray-400 leading-relaxed">If a task has to be done twice, it is worth a script. Good automation gives people their time back.</p>
                         </div>
                     </div>
@@ -792,7 +814,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">02</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Secure by default</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Secure by default</h3>
                             <p class="text-gray-400 leading-relaxed">Security and compliance belong inside the pipeline from day one, not bolted on at the end.</p>
                         </div>
                     </div>
@@ -801,7 +823,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">03</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Design for scale</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Design for scale</h3>
                             <p class="text-gray-400 leading-relaxed">Async I/O, batching, retries and connection pooling are planned up front, so systems hold up under real load.</p>
                         </div>
                     </div>
@@ -810,7 +832,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">04</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Measure before claiming</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Measure before claiming</h3>
                             <p class="text-gray-400 leading-relaxed">Evaluation pipelines, monitoring and clear metrics decide what works, for code and for AI agents alike.</p>
                         </div>
                     </div>
@@ -819,7 +841,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">05</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Simple over clever</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Simple over clever</h3>
                             <p class="text-gray-400 leading-relaxed">Readable, well-structured Python that the next engineer can understand, own and extend.</p>
                         </div>
                     </div>
@@ -828,7 +850,7 @@
                     <div class="flex gap-5 border-t border-gray-800 pt-6">
                         <p class="font-mono text-sm text-cyan-400 pt-2">06</p>
                         <div>
-                            <h3 class="font-display text-2xl italic text-white mb-2">Share what I learn</h3>
+                            <h3 class="font-accent text-3xl italic text-white mb-2">Share what I learn</h3>
                             <p class="text-gray-400 leading-relaxed">Mentoring, workshops and documentation make the whole team faster, not just one person.</p>
                         </div>
                     </div>
