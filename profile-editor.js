@@ -44,9 +44,12 @@ const SECTIONS = {
     workshops: {
         singular: 'Workshop / Talk',
         itemType: 'string',
-        title: item => item || 'New entry',
-        blank: '',
-        fields: [{ key: '', label: 'Description', type: 'textarea', rows: 2, full: true }]
+        title: item => (item.split(':')[0] || '').trim() || 'New entry',
+        blank: 'New workshop: ',
+        fields: [
+            { key: 'title', label: 'Title' },
+            { key: 'description', label: 'Description', type: 'textarea', rows: 2, full: true }
+        ]
     },
     education: {
         singular: 'Education',
@@ -239,12 +242,29 @@ function renderSection(sectionKey) {
         grid.className = 'grid md:grid-cols-2 gap-4';
 
         config.fields.forEach(field => {
-            const value = config.itemType === 'string' ? item : item[field.key];
-            const control = makeControl(field, value, newValue => {
-                if (config.itemType === 'string') profileData[sectionKey][index] = newValue;
-                else profileData[sectionKey][index][field.key] = newValue;
-                touch();
-            });
+            let value;
+            let onChange;
+            if (config.itemType === 'string') {
+                // String items are stored as "Title: description" — edit the parts separately.
+                const sep = item.indexOf(':');
+                const partTitle = (sep === -1 ? item : item.slice(0, sep)).trim();
+                const partDesc = (sep === -1 ? '' : item.slice(sep + 1)).trim();
+                value = field.key === 'description' ? partDesc : partTitle;
+                onChange = newValue => {
+                    const next = field.key === 'description'
+                        ? `${partTitle}: ${newValue}`
+                        : `${newValue}: ${partDesc}`;
+                    profileData[sectionKey][index] = next;
+                    touch();
+                };
+            } else {
+                value = item[field.key];
+                onChange = newValue => {
+                    profileData[sectionKey][index][field.key] = newValue;
+                    touch();
+                };
+            }
+            const control = makeControl(field, value, onChange);
             grid.append(labelled(field.label, control, field.full));
         });
 
