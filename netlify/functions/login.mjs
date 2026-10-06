@@ -1,9 +1,9 @@
-// Checks the admin login. The password is the edit key followed by "albin",
-// i.e. MMyyHHmm + "albin" in EDIT_KEY_TZ.
+// Checks the admin login. The password is the edit key followed by "ibhax",
+// i.e. MMyyHHmm + "ibhax" in EDIT_KEY_TZ.
 import { timeKeys } from '../lib/time-key.mjs';
 
 const USERNAME = 'admin';
-const SUFFIX = 'albin';
+const SUFFIX = 'ibhax';
 
 const json = (statusCode, body) => ({
     statusCode,
