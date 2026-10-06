@@ -116,7 +116,7 @@
         "Designed and maintained advanced orchestration systems for evaluating function-calling and reasoning capabilities of LLMs including OpenAI (GPT-4.1), Anthropic (Claude Sonnet 3.5, 3.7, Opus), and Google (Gemma 2.5).",
         "Developed Python-based agentic frameworks that simulate real-world automation scenarios (email processing, file handling, Slack integration) to measure LLM planning and execution accuracy.",
         "Architected evaluation pipelines comparing AI-generated action sequences against human references, assessing step-level correctness and outcome validity with success classification.",
-        "Built scalable orchestration systems using **FastAPI, AsyncIO, and Pydantic** for parallel evaluation across multiple AI models.",
+        "Built scalable orchestration systems using FastAPI, AsyncIO, and Pydantic for parallel evaluation across multiple AI models.",
         "Designed data schemas and dashboards to track and visualize key metrics including step counts, alignment ratios, execution times, and success classifications.",
         "Established automated benchmarking frameworks that guide model selection, reliability scoring, and function-calling optimization across LLM providers."
       ],
