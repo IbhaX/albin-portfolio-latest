@@ -7,6 +7,6 @@
 # /.netlify/functions/<name>.
 [[redirects]]
   from = "/netlify/*"
-  to = "/"
+  to = "/404.html"
   status = 404
   force = true
