@@ -130,27 +130,6 @@
       ]
     },
     {
-      "icon": "lock",
-      "title": "AI Automation Consultant",
-      "company": "AaveTech",
-      "duration": "Consultant",
-      "description": [
-        "Developed backend services and automation tools using Python and related technologies.",
-        "Worked on API integrations with various security tools and platforms.",
-        "Implemented data processing pipelines and automation scripts.",
-        "Contributed to system architecture and database design decisions.",
-        "Optimized existing codebase for better performance and maintainability.",
-        "Developed AI automation tools to automate manual processes and analyze data."
-      ],
-      "tech": [
-        "Python",
-        "Backend Services",
-        "API Integration",
-        "Data Processing",
-        "AI Automation"
-      ]
-    },
-    {
       "icon": "zap",
       "title": "Senior Data Analyst (Autonomous AI Architecture Phase)",
       "company": "Aimleap",
