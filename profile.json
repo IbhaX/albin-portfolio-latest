@@ -264,8 +264,7 @@
     "REST API Design Patterns and Workflow: Developed guidelines for Django REST API design patterns and introduced streamlined development workflows.",
     "Hadoop and Big Data Workshop: Conducted a 2-week workshop at Avinashilingam Institute.",
     "Emerging Trends in AI Workshop: Led a 2-day workshop at Kumaraguru College of Technology.",
-    "Full Stack Development with Python: Conducted a 1-day seminar at Dhanalakshmi College of Engineering.",
-    "New workshop: Some testing "
+    "Full Stack Development with Python: Conducted a 1-day seminar at Dhanalakshmi College of Engineering."
   ],
   "education": [
     {
@@ -331,13 +330,6 @@
       "quote": "Albin's biggest strength is ownership. Once he understands the objective, he takes responsibility for figuring out the technical path, identifying trade-offs, and delivering a working solution. He brings a combination of curiosity, engineering discipline, and practical problem-solving that makes him a strong contributor.",
       "name": "Rahul Menon",
       "role": "Engineering Lead",
-      "company": "",
-      "link": ""
-    },
-    {
-      "quote": "Testing",
-      "name": "Test",
-      "role": "Tester",
       "company": "",
       "link": ""
     }
