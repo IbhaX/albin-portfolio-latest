@@ -221,7 +221,7 @@
     },
     {
       "name": "OneCare Health App Migration and API Design",
-      "description": "A health application for managing patient data and appointment bookings. I migrated it from Flask to Django, designed RESTful APIs for patient data, and set up CI/CD pipelines on GitLab for automated deployments. The migration cut server downtime by 50% and improved overall performance by 20%.",
+      "description": "A health application for managing patient data and appointment bookings. I migrated it from Django to Flask, designed RESTful APIs for patient data, and set up CI/CD pipelines on GitLab for automated deployments. The migration cut server downtime by 50% and improved overall performance by 20%.",
       "tech": "Python, Django, PostgreSQL, Docker, AWS (CI/CD)",
       "link": "https://onecarehealth.com/"
     },
