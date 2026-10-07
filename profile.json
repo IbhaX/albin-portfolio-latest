@@ -155,10 +155,10 @@
       "duration": "04/2023 - 05/2024",
       "description": [
         "Led and managed Nishub Project, RPM v2, and TopStopStore initiatives.",
-        "Implemented **ETL processes** for employee data, **Lambda Integration, SES & S3**, and transferred cleaned datasets to FTP server.",
-        "Fixed bugs, managed deployments, updated features, and **integrated payment systems**.",
+        "Implemented ETL processes for employee data, Lambda Integration, SES & S3, and transferred cleaned datasets to FTP server.",
+        "Fixed bugs, managed deployments, updated features, and integrated payment systems.",
         "Automated YouTrack, streamlined email notifications, and generated reports.",
-        "Built a **Git API wrapper** for AP-360 project.",
+        "Built a Git API wrapper for AP-360 project.",
         "Mentored junior developers and conducted Django/Python training sessions."
       ],
       "tech": [
@@ -176,11 +176,11 @@
       "company": "Self-Employed",
       "duration": "03/2017 - 04/2023",
       "description": [
-        "Developed web applications using **Django, Flask, FastAPI**, and modern frontend technologies.",
-        "Deployed applications to production using **AWS and Azure** cloud services.",
+        "Developed web applications using Django, Flask, FastAPI, and modern frontend technologies.",
+        "Deployed applications to production using AWS and Azure cloud services.",
         "Optimized codebase for better performance and scalability.",
         "Integrated third-party APIs and implemented automated deployment scripts.",
-        "Conducted **web scraping** using Scrapy, BeautifulSoup, and Selenium.",
+        "Conducted web scraping using Scrapy, BeautifulSoup, and Selenium.",
         "Designed efficient database schemas and implemented caching strategies."
       ],
       "tech": [
@@ -215,25 +215,25 @@
     },
     {
       "name": "LLM Orchestration Framework for Multi-Provider Function Calling",
-      "description": "Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers (OpenAI GPT-4.1, Anthropic Claude, Google Gemma 2.5). Designed and implemented an **automated testing pipeline** that compares AI-generated execution plans against human-created references, evaluating logical step correctness, output accuracy, and redundancy. Built a scalable system using **FastAPI and AsyncIO** for parallel evaluation. **Result:** Improved workflow automation accuracy by 40%.",
+      "description": "Developed a sophisticated evaluation framework to benchmark function calling capabilities across multiple LLM providers (OpenAI GPT-4.1, Anthropic Claude, Google Gemma 2.5). Designed and implemented an automated testing pipeline that compares AI-generated execution plans against human-created references, evaluating logical step correctness, output accuracy, and redundancy. Built a scalable system using FastAPI and AsyncIO for parallel evaluation. Result: Improved workflow automation accuracy by 40%.",
       "tech": "Python, FastAPI, OpenAI API, Anthropic Claude, Google Gemma, LangChain, Vector Databases",
       "link": "https://github.com/IbhaX/eval_orchestrator"
     },
     {
       "name": "OneCare Health App Migration and API Design",
-      "description": "Health Application for managing patient data and booking appointments. Migrated the application from **Flask to Django**, reducing downtime by 50%. Designed **RESTful APIs** for patient data management and implemented **CI/CD pipelines** using GitLab for automated deployments. **Result:** Reduced server downtime by 50% and improved overall performance by 20%.",
+      "description": "Health Application for managing patient data and booking appointments. Migrated the application from Flask to Django, reducing downtime by 50%. Designed RESTful APIs for patient data management and implemented CI/CD pipelines using GitLab for automated deployments. Result: Reduced server downtime by 50% and improved overall performance by 20%.",
       "tech": "Python, Django, PostgreSQL, Docker, AWS (CI/CD)",
       "link": "https://onecarehealth.com/"
     },
     {
       "name": "TopStopStores ETL Pipeline",
-      "description": "Architected and implemented a robust Python-based ETL workflow to handle large employee datasets. Managed data storage solutions on **AWS S3** and automated post-ETL storage to an **FTP server**. Optimized ETL processes for efficiency and reliability. **Result:** Enhanced data processing efficiency by 30% and ensured reliable data storage solutions.",
+      "description": "Architected and implemented a robust Python-based ETL workflow to handle large employee datasets. Managed data storage solutions on AWS S3 and automated post-ETL storage to an FTP server. Optimized ETL processes for efficiency and reliability. Result: Enhanced data processing efficiency by 30% and ensured reliable data storage solutions.",
       "tech": "Python, ETL, AWS S3, FTP",
       "link": ""
     },
     {
       "name": "AP-360 YouTrack & Git API Automation",
-      "description": "Automated **YouTrack workflows**, optimized email notification systems, generated comprehensive reports, and developed a custom **Git API wrapper** for AP-360 project. Streamlined YouTrack processes and developed project analysis reports.",
+      "description": "Automated YouTrack workflows, optimized email notification systems, generated comprehensive reports, and developed a custom Git API wrapper for AP-360 project. Streamlined YouTrack processes and developed project analysis reports.",
       "tech": "Python, YouTrack, Git API",
       "link": ""
     }
