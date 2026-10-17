@@ -5,3 +5,4 @@ Disallow: /update-profile.html
 Disallow: /.netlify/
 
 Sitemap: https://ibhax.com/sitemap.xml
+Sitemap: https://ahbios.ibhax.com/sitemap.xml
