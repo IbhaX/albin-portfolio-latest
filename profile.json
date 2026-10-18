@@ -196,6 +196,12 @@
   ],
   "projects": [
     {
+      "name": "Glance — Realtime Open-Data Dashboard",
+      "description": "I'm building Glance, a public realtime dashboard at glance.ibhax.com that streams 200+ live data cards from keyless open APIs — crypto prices, world weather, earthquakes, ISS tracking, NOAA space weather, wildlife sightings, tech news and more — organized by niche with search and filtering. It features a Leaflet world map with six toggleable live layers (ISS ground track, quakes, city temps, NASA EONET natural events, aurora forecast, rain radar), each niche rendered in its own visual style (scrolling ticker, ranked rows, tiles, chips, quotes). Pure client-side feeds refresh on their own intervals.",
+      "tech": "FastAPI, Leaflet.js, Vanilla JS, HTML/CSS, Open APIs (CoinGecko, Open-Meteo, USGS, NASA EONET, NOAA SWPC, iNaturalist, RainViewer), Vercel",
+      "link": "https://glance.ibhax.com"
+    },
+    {
       "name": "Azure DevOps Project Admin Audit Tool",
       "description": "I built a Python audit tool for a Fortune 50 consumer goods company that finds non-compliant administrators across Azure DevOps organizations. It uses an async/await design with connection pooling, batching and retries to scan 5000+ projects, runs configurable compliance rules, and sends templated email reports via Jinja2. Credentials are encrypted with AES-256, audit records are stored in Oracle through SQLAlchemy, and logs go to Azure Blob Storage. With 92% test coverage across 250+ tests, a full audit now takes about 20 minutes — 10–15x faster.",
       "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2",
