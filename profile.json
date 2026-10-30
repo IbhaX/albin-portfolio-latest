@@ -197,33 +197,33 @@
   "projects": [
     {
       "name": "Glance: Realtime Open-Data Dashboard",
-      "description": "I'm building Glance, a public realtime dashboard at glance.ibhax.com that streams 200+ live data cards from keyless open APIs crypto prices, world weather, earthquakes, ISS tracking, NOAA space weather, wildlife sightings, tech news and more organized by niche with search and filtering. It features a Leaflet world map with six toggleable live layers (ISS ground track, quakes, city temps, NASA EONET natural events, aurora forecast, rain radar), each niche rendered in its own visual style (scrolling ticker, ranked rows, tiles, chips, quotes). Pure client-side feeds refresh on their own intervals.",
+      "description": "I'm building Glance, a public realtime dashboard that streams 200+ live data cards from keyless open APIs crypto prices, world weather, earthquakes, ISS tracking, NOAA space weather, wildlife sightings, tech news and more organized by niche with search and filtering. It features a Leaflet world map with six toggleable live layers (ISS ground track, quakes, city temps, NASA EONET natural events, aurora forecast, rain radar), each niche rendered in its own visual style (scrolling ticker, ranked rows, tiles, chips, quotes). Pure client-side feeds refresh on their own intervals.",
       "tech": "FastAPI, Leaflet.js, Vanilla JS, HTML/CSS, Open APIs (CoinGecko, Open-Meteo, USGS, NASA EONET, NOAA SWPC, iNaturalist, RainViewer), Vercel",
-      "link": "https://glance.ibhax.com"
+      "link": ""
     },
     {
       "name": "DBAI: Smart DB Assistant",
-      "description": "I built DBAI, an AI assistant at dbai.ibhax.com that lets you chat with your own data connect PostgreSQL, Oracle or MySQL, or drop in a CSV/Excel/SQLite file, and ask questions in plain English. It runs read-only SQL and replies with generative UI charts, KPI tiles, sortable tables, steps and exportable CSVs instead of walls of text. Bring-your-own-key: your OpenRouter key and database credentials live only in the browser and wipe on session expiry, uploads survive serverless instances via IndexedDB re-sync, and a persistent vector memory (ChromaDB) keeps long conversations coherent.",
+      "description": "I built DBAI, an AI assistant that lets you chat with your own data connect PostgreSQL, Oracle or MySQL, or drop in a CSV/Excel/SQLite file, and ask questions in plain English. It runs read-only SQL and replies with generative UI charts, KPI tiles, sortable tables, steps and exportable CSVs instead of walls of text. Bring-your-own-key: your OpenRouter key and database credentials live only in the browser and wipe on session expiry, uploads survive serverless instances via IndexedDB re-sync, and a persistent vector memory (ChromaDB) keeps long conversations coherent.",
       "tech": "FastAPI, pydantic-ai, SQLAlchemy, Chart.js, Tailwind CSS, WebSockets, IndexedDB, ChromaDB, OpenRouter, Vercel",
-      "link": "https://dbai.ibhax.com"
+      "link": ""
     },
     {
       "name": "IRead: AI Story Platform",
-      "description": "I built IRead, an AI storytelling app at iread.ibhax.com that turns a premise into a branching novel Chapter 1 lands first and the rest of the book grows in the background while you read. You can steer the story at each branch, chat with the characters (what they tell you feeds back into the story's memory), and read in a 3D page-flip reader with paper, ink and sepia themes. It's bring-your-own-key: your OpenRouter credential is stored Fernet-encrypted, and accounts, drafts and reading progress persist in Postgres.",
+      "description": "I built IRead, an AI storytelling app that turns a premise into a branching novel Chapter 1 lands first and the rest of the book grows in the background while you read. You can steer the story at each branch, chat with the characters (what they tell you feeds back into the story's memory), and read in a 3D page-flip reader with paper, ink and sepia themes. It's bring-your-own-key: your OpenRouter credential is stored Fernet-encrypted, and accounts, drafts and reading progress persist in Postgres.",
       "tech": "FastAPI, pydantic-ai, SQLAlchemy, Alembic, Supabase Postgres, Jinja2, Tailwind CSS, StPageFlip, SSE, OpenRouter, Vercel",
-      "link": "https://iread.ibhax.com"
+      "link": ""
     },
     {
       "name": "ibhax: Personal AI Platform",
-      "description": "I built ibhax.com, a multi-user web app that bundles an AI chat run by a team of specialist agents, an AI blog writer that generates and publishes posts with images, a music player with thousands of radio stations, and reminders all backed by real CRUD on Postgres with no placeholder content. Signup is invite-only through per-user referral codes, each user can plug in their own OpenRouter key (stored encrypted), and a free/paid plan system gates the AI features.",
+      "description": "I built ibhax, a multi-user web app that bundles an AI chat run by a team of specialist agents, an AI blog writer that generates and publishes posts with images, a music player with thousands of radio stations, and reminders all backed by real CRUD on Postgres with no placeholder content. Signup is invite-only through per-user referral codes, each user can plug in their own OpenRouter key (stored encrypted), and a free/paid plan system gates the AI features.",
       "tech": "FastAPI, pydantic-ai, Supabase Postgres, SQLAlchemy, Jinja2, SSE, AWS S3, OpenRouter, Vercel",
-      "link": "https://ibhax.com"
+      "link": ""
     },
     {
       "name": "Decision AI: Decision Intelligence Agent",
-      "description": "I built Decision AI at descisionai.ibhax.com give it a decision and it grows an interactive tree of options, risks and outcomes on a live Cytoscape graph, expanding node by node while you watch over a WebSocket feed. Nodes can be grounded in live web research with cited sources, and a forecast ensemble scores the branches. The browser drives the analysis in small steps so it fits inside serverless time limits, with optimistic-concurrency saves to Postgres.",
+      "description": "I built Decision AI give it a decision and it grows an interactive tree of options, risks and outcomes on a live Cytoscape graph, expanding node by node while you watch over a WebSocket feed. Nodes can be grounded in live web research with cited sources, and a forecast ensemble scores the branches. The browser drives the analysis in small steps so it fits inside serverless time limits, with optimistic-concurrency saves to Postgres.",
       "tech": "FastAPI, Pydantic, OpenRouter, Cytoscape.js, WebSockets, Supabase Postgres, Vercel",
-      "link": "https://descisionai.ibhax.com"
+      "link": ""
     },
     {
       "name": "Azure DevOps Project Admin Audit Tool",
@@ -247,13 +247,13 @@
       "name": "LLM Orchestration Framework for Multi-Provider Function Calling",
       "description": "I built an evaluation framework that benchmarks function-calling quality across LLM providers (OpenAI GPT-4.1, Anthropic Claude, Google Gemma 2.5). An automated pipeline scores AI-generated execution plans against human references for step correctness, output accuracy and redundancy, using FastAPI and AsyncIO to run evaluations in parallel. It improved workflow automation accuracy by 40%.",
       "tech": "Python, FastAPI, OpenAI API, Anthropic Claude, Google Gemma, LangChain, Vector Databases",
-      "link": "https://github.com/IbhaX/eval_orchestrator"
+      "link": ""
     },
     {
       "name": "OneCare Health App Migration and API Design",
       "description": "A health application for managing patient data and appointment bookings. I migrated it from Django to Flask, designed RESTful APIs for patient data, and set up CI/CD pipelines on GitLab for automated deployments. The migration cut server downtime by 50% and improved overall performance by 20%.",
       "tech": "Python, Django, PostgreSQL, Docker, AWS (CI/CD)",
-      "link": "https://onecarehealth.com/"
+      "link": ""
     },
     {
       "name": "TopStopStores ETL Pipeline",
