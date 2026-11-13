@@ -227,7 +227,7 @@
     },
     {
       "name": "Azure DevOps Project Admin Audit Tool",
-      "description": "I built a Python audit tool for a Fortune 50 consumer goods company that finds non-compliant administrators across Azure DevOps organizations. It uses an async/await design with connection pooling, batching and retries to scan 5000+ projects, runs configurable compliance rules, and sends templated email reports via Jinja2. Credentials are encrypted with AES-256, audit records are stored in Oracle through SQLAlchemy, and logs go to Azure Blob Storage. With 92% test coverage across 250+ tests, a full audit now takes about 20 minutes 10-15x faster.",
+      "description": "I built a Python audit tool for a Fortune 50 consumer goods company that finds non-compliant administrators across Azure DevOps organizations. It uses an async/await design with connection pooling, batching and retries to scan 5000+ projects, runs configurable compliance rules, and sends templated email reports via Jinja2. Credentials are encrypted with AES-256, audit records are stored in Oracle through SQLAlchemy, and logs go to Azure Blob Storage. With 92% test coverage across 250+ tests, a full audit now takes about 2 minutes 10-15x faster.",
       "tech": "Python, AsyncIO/aiohttp, SQLAlchemy, Oracle DB, Azure DevOps REST API, Azure Blob Storage, Pydantic, Jinja2",
       "link": ""
     },
